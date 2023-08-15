@@ -16,22 +16,21 @@ namespace BinaryTree
 		public static TreeNode? BuildTree(IReadOnlyList<int?> values) {
 			if (values.Count == 0) return null;
             var root = new TreeNode((int)values[0]!);
-			var nodes = new Queue<TreeNode>();
+			var nodes = new Queue<TreeNode?>();
 			nodes.Enqueue(root);
 			var i = 1;
-			while (i < values.Count) {
+			while (i<values.Count) {
                 var node = nodes.Dequeue();
-				if (values[i] is not null) {
-					node.left = new TreeNode((int)values[i]!);
-					nodes.Enqueue(node.left);
-                }
+				if (node is null) {
+					i += 2;
+					continue; 
+				}
+                node.left = values[i] is null ? null : new TreeNode((int)values[i]!);
+                nodes.Enqueue(node.left);
 				i++;
-                if (i < values.Count && values[i] is not null)
-                {
-                    node.right = new TreeNode((int)values[i]!);
-                    nodes.Enqueue(node.right);
-                }
-				i++;
+                node.right = (i < values.Count && values[i] is not null) ? new TreeNode((int)values[i]!) : null;
+                nodes.Enqueue(node.right);
+                i++;
             }
 			return root;
 		}
@@ -41,16 +40,26 @@ namespace BinaryTree
             if (root is null) return result;
 			var nodes = new Queue<TreeNode?>();
 			nodes.Enqueue(root);
-			while (nodes.Count > 0) {
-				var node = nodes.Dequeue();
-				if (node is null)
+			var nonNullExist = true;
+			while (nonNullExist) {
+				var nodeCount = nodes.Count;
+				nonNullExist = false;
+                for (int i=0; i<nodeCount; i++)
 				{
-					result.Add(null);
-				}
-				else {
-                    result.Add(node.val);
-					nodes.Enqueue(node.left);
-                    nodes.Enqueue(node.right);
+                    var node = nodes.Dequeue();
+                    if (node is null)
+                    {
+                        result.Add(null);
+                        nodes.Enqueue(null);
+                        nodes.Enqueue(null);
+                    }
+                    else
+                    {
+						nonNullExist = true;
+                        result.Add(node.val);
+                        nodes.Enqueue(node.left);
+                        nodes.Enqueue(node.right);
+                    }
                 }
 			}
 
