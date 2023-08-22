@@ -19,18 +19,18 @@ public class TreeNode
 		nodes.Enqueue(root);
 		var i = 1;
 		while (i<values.Count) {
-                var node = nodes.Dequeue();
+			var node = nodes.Dequeue();
 			if (node is null) {
 				i += 2;
 				continue; 
 			}
-                node.left = values[i] is null ? null : new TreeNode((int)values[i]!);
-                nodes.Enqueue(node.left);
+            node.left = values[i] is null ? null : new TreeNode((int)values[i]!);
+            nodes.Enqueue(node.left);
 			i++;
-                node.right = (i < values.Count && values[i] is not null) ? new TreeNode((int)values[i]!) : null;
-                nodes.Enqueue(node.right);
-                i++;
-            }
+            node.right = (i < values.Count && values[i] is not null) ? new TreeNode((int)values[i]!) : null;
+            nodes.Enqueue(node.right);
+            i++;
+		}
 		return root;
 	}
 
