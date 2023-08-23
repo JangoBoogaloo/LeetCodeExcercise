@@ -34,16 +34,16 @@ public class TreeNode
 		return root;
 	}
 
-	public static IReadOnlyList<int?> ToList(TreeNode? root) {
-            var result = new List<int?>();
-            if (root is null) return result;
+	public static IEnumerable<int?> ToList(TreeNode? root) {
+        var result = new List<int?>();
+        if (root is null) return result;
 		var nodes = new Queue<TreeNode?>();
 		nodes.Enqueue(root);
 		var nonNullExist = true;
 		while (nonNullExist) {
 			var nodeCount = nodes.Count;
 			nonNullExist = false;
-                for (int i=0; i<nodeCount; i++)
+			for (var i=0; i<nodeCount; i++)
 			{
                     var node = nodes.Dequeue();
                     if (node is null)
@@ -59,14 +59,14 @@ public class TreeNode
                         nodes.Enqueue(node.left);
                         nodes.Enqueue(node.right);
                     }
-                }
+			}
 		}
 
-		for (int i = result.Count - 1; i >= 0; i--) {
+		for (var i = result.Count - 1; i >= 0; i--) {
 			if (result[i] is not null) break;
 			result.RemoveAt(i);
 		}
 
-            return result;
-        }
+		return result;
+	}
 }

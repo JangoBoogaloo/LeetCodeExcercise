@@ -2,7 +2,8 @@
 
 using BinaryTree;
 
-public class TreeNodeTests
+[TestFixture]
+class TreeNodeTests
 {
     public static IReadOnlyList<int?[]> BinaryTreeTestCases = new[]
     {
