@@ -28,8 +28,7 @@ class ConstructBinaryTree_105
     {
         public TreeNode BuildTree(int[] preorder, int[] inorder)
         {
-            if(preorder is null || !preorder.Any() ||
-               inorder is null || !inorder.Any()) return null;
+            if(!preorder.Any() || !inorder.Any()) return null;
 
             var root = new TreeNode(preorder[0]);
             var rootIndex = Array.IndexOf(inorder, preorder[0]);
