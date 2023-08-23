@@ -15,10 +15,20 @@ class BinaryTreeQuestion_116
     };
 
     [TestCaseSource(nameof(_perfectTreeNodeTestCases))]
-    public void TestPerfectTreeNodeExtensions(PerfectTreeNodeTestCase testCase)
+    public void Test116Solution1(PerfectTreeNodeTestCase testCase)
     {
         var tree = TreeNode.BuildTree(testCase.Input);
         var solution = new Solution1();
+        tree = solution.Connect(tree);
+        var actual = tree.PerfectToList().ToArray();
+        CollectionAssert.AreEqual(testCase.Expected, actual);
+    }
+
+    [TestCaseSource(nameof(_perfectTreeNodeTestCases))]
+    public void Test116Solution2(PerfectTreeNodeTestCase testCase)
+    {
+        var tree = TreeNode.BuildTree(testCase.Input);
+        var solution = new Solution2();
         tree = solution.Connect(tree);
         var actual = tree.PerfectToList().ToArray();
         CollectionAssert.AreEqual(testCase.Expected, actual);
@@ -39,6 +49,33 @@ class BinaryTreeQuestion_116
                 Traverse(node1.right, node2.left);
                 Traverse(node2.left, node2.right);
             }
+        }
+    }
+
+    class Solution2
+    {
+        public TreeNode? Connect(TreeNode? root)
+        {
+            if (root is null) return null;
+
+            var leftMost = root;
+            while (leftMost.left is not null)
+            {
+                var head = leftMost;
+                while (head is not null)
+                {
+                    head.left.next = head.right;
+                    if (head.next is not null)
+                    {
+                        head.right.next = head.next.left;
+                    }
+
+                    head = head.next;
+                }
+
+                leftMost = leftMost.left;
+            }
+            return root;
         }
     }
 }
