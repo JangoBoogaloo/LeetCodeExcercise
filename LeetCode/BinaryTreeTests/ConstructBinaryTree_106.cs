@@ -5,7 +5,7 @@ namespace BinaryTreeTests;
 [TestFixture]
 class ConstructBinaryTree_106
 {
-    private static IReadOnlyList<ConstructBinaryTreeTestCase> ConstructBinaryTree_106TestCase = new[]
+    private static IReadOnlyList<ConstructBinaryTreeTestCase> _constructBinaryTree106TestCase = new[]
     {
         new ConstructBinaryTreeTestCase()
         {
@@ -15,8 +15,8 @@ class ConstructBinaryTree_106
         }
     };
     
-    [TestCaseSource(nameof(ConstructBinaryTree_106TestCase))]
-    public void TestConstructBinaryTree_105(ConstructBinaryTreeTestCase testcase)
+    [TestCaseSource(nameof(_constructBinaryTree106TestCase))]
+    public void TestConstructBinaryTree_106(ConstructBinaryTreeTestCase testcase)
     {
         var solution = new Solution();
         var tree = solution.BuildTree(testcase.InOrder!, testcase.PostOrder!);
