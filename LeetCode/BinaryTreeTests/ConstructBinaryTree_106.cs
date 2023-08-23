@@ -3,7 +3,7 @@
 namespace BinaryTreeTests;
 
 [TestFixture]
-public class ConstructBinaryTree_106
+class ConstructBinaryTree_106
 {
     private static IReadOnlyList<ConstructBinaryTreeTestCase> ConstructBinaryTree_106TestCase = new[]
     {
