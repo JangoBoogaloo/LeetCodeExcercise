@@ -32,30 +32,67 @@ class BinaryTreeQuestion_114
         CollectionAssert.AreEqual(testCase114.Expected, actual);
     }
 
+    [TestCaseSource(nameof(_testCase114))]
+    public void TestQuestion_114_Solution2(TestCase_114 testCase114)
+    {
+        var solution = new Solution2();
+        var tree = TreeNode.BuildTree(testCase114.Input);
+        solution.Flatten(tree);
+        var actual = TreeNode.ToList(tree).ToArray();
+        CollectionAssert.AreEqual(testCase114.Expected, actual);
+    }
+
     public class TestCase_114
     {
-        public int?[] Input;
-        public int?[] Expected;
+        public int?[]? Input;
+        public int?[]? Expected;
     }
 
     class Solution1
     {
-        public void Flatten(TreeNode root)
+        public void Flatten(TreeNode? root)
         {
             FlattenHelp(root);
+            return;
 
-            TreeNode FlattenHelp(TreeNode node) {
+            TreeNode? FlattenHelp(TreeNode? node) {
                 if(node is null) return null;
                 if(node.left is null && node.right is null) return node;
                 var leftEnd = FlattenHelp(node.left);
                 var rightEnd = FlattenHelp(node.right);
-                if(leftEnd is not null) {
+                if (leftEnd is not null) {
                     leftEnd.right = node.right;
                     node.right = node.left;
                     node.left = null;
                 }
 
-                return rightEnd is null ? leftEnd : rightEnd;
+                return rightEnd ?? leftEnd;
+            }
+        }
+    }
+
+    class Solution2
+    {
+        public void Flatten(TreeNode? root)
+        {
+            if (root is null) return;
+
+            while (root is not null)
+            {
+                if (root.left is not null)
+                {
+                    var rightMost = root.left;
+                    while (rightMost.right is not null)
+                    {
+                        rightMost = rightMost.right;
+                    }
+
+                    rightMost.right = root.right;
+                    root.right = root.left;
+                    root.left = null;
+                }
+
+                root = root.right;
             }
         }
     }
