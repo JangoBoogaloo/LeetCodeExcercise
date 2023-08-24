@@ -23,6 +23,8 @@ public class TreeNode
 		while (i<values.Count) {
 			var node = nodes.Dequeue();
 			if (node is null) {
+				nodes.Enqueue(null);
+				nodes.Enqueue(null);
 				i += 2;
 				continue; 
 			}
