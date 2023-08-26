@@ -1,6 +1,4 @@
-﻿using BinaryTree;
-
-namespace BinaryTreeTests;
+﻿namespace BinaryTreeTests;
 
 [TestFixture]
 class ConstructBinaryTree_105
