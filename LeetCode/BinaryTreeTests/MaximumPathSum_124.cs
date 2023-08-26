@@ -9,6 +9,7 @@ public class MaximumPathSum_124
             var maxSum = int.MinValue;
             MaxPathSumHelp(root);
             return maxSum;
+
             int MaxPathSumHelp(TreeNode? node)
             {
                 if (node is null)
@@ -18,9 +19,11 @@ public class MaximumPathSum_124
 
                 var leftDepthSum = MaxPathSumHelp(node.left);
                 var rightDepthSum = MaxPathSumHelp(node.right);
-                var maxDepthSum = Math.Max(leftDepthSum, rightDepthSum) + node.val;
+                var maxDepthSum = Math.Max(0, Math.Max(leftDepthSum, rightDepthSum)) + node.val;
                 var treePathSum = leftDepthSum + node.val + rightDepthSum;
                 maxSum = Math.Max(treePathSum, maxSum);
+                maxSum = Math.Max(node.val, maxSum);
+                maxSum = Math.Max(maxDepthSum, maxSum);
                 return maxDepthSum;
             }
         }
@@ -37,6 +40,17 @@ public class MaximumPathSum_124
         {
             Input = new int?[] { 1,-2,-3,1,3,-2,null,-1 },
             Expected = 3
+        },
+        
+        new MaximumPathSum_124TestCase()
+        {
+            Input = new int?[] {
+                     9,
+                    6,-3,
+                null, null,-6,2, 
+            null, null, null, null, null, null, 2, null, 
+            null, null, null, null,null, null, null, null,null, null,null, null, -6,-6,-6},
+            Expected = 16
         }
     };
     
