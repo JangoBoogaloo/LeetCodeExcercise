@@ -1,6 +1,7 @@
 ﻿namespace BinaryTreeTests;
 
-public class MaximumPathSum_124
+[TestFixture]
+class MaximumPathSum_124
 {
     class Solution
     {
