@@ -1,5 +1,3 @@
-using LinkedList;
-
 namespace LinkedListTests;
 
 [TestFixture]
