@@ -25,7 +25,7 @@ class LinkedList_160
         }
     }
 
-    private class SolutionTwoPointers
+    private class SolutionTwoPointersUseCircle
     {
         public ListNode GetIntersectionNode(ListNode headA, ListNode headB)
         {
@@ -69,6 +69,24 @@ class LinkedList_160
         }
     }
 
+    private class SolutionTwoPointersGoToOther
+    {
+        public ListNode GetIntersectionNode(ListNode headA, ListNode headB)
+        {
+            var tempA = headA;
+            var tempB = headB;
+            while (tempA != tempB)
+            {
+                if (tempA is null) tempA = headB;
+                else tempA = tempA.next;
+                if (tempB is null) tempB = headA;
+                else tempB = tempB.next;
+            }
+
+            return tempA;
+        }
+    }
+
     public static IReadOnlyList<LinkedList_160TestCase> LinkedListTestCases = new[]
     {
         new LinkedList_160TestCase(
@@ -96,7 +114,15 @@ class LinkedList_160
     [TestCaseSource(nameof(LinkedListTestCases))]
     public void TestLinkedList_160_TwoPointers(LinkedList_160TestCase testCase)
     {
-        var solution = new SolutionTwoPointers();
+        var solution = new SolutionTwoPointersUseCircle();
+        var actual = solution.GetIntersectionNode(testCase.HeadA, testCase.headB);
+        Assert.That(actual, Is.EqualTo(testCase.Intersect));
+    }
+
+    [TestCaseSource(nameof(LinkedListTestCases))]
+    public void TestLinkedList_160_TwoPointersGoToOther(LinkedList_160TestCase testCase)
+    {
+        var solution = new SolutionTwoPointersGoToOther();
         var actual = solution.GetIntersectionNode(testCase.HeadA, testCase.headB);
         Assert.That(actual, Is.EqualTo(testCase.Intersect));
     }
