@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedList", "LinkedList\Li
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedListTests", "LinkedListTests\LinkedListTests.csproj", "{60FF73A0-E89D-4E1F-BC2B-D895206681EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackTrack", "BackTrack\BackTrack.csproj", "{1F6E242E-3E8B-4140-9518-EA80B8585B08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{60FF73A0-E89D-4E1F-BC2B-D895206681EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60FF73A0-E89D-4E1F-BC2B-D895206681EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60FF73A0-E89D-4E1F-BC2B-D895206681EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F6E242E-3E8B-4140-9518-EA80B8585B08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F6E242E-3E8B-4140-9518-EA80B8585B08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F6E242E-3E8B-4140-9518-EA80B8585B08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F6E242E-3E8B-4140-9518-EA80B8585B08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
