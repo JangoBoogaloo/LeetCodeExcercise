@@ -50,5 +50,16 @@ class String_76
             return len == int.MaxValue ? "" : s.Substring(start, len);
         }
     }
+
+    [TestCase("ADOBECODEBANC", "ABC", "BANC")]
+    [TestCase("a", "a", "a")]
+    [TestCase("a", "aa", "")]
+
+    public void TestMinWindow(string s, string t, string expected)
+    {
+        var solution = new Solution();
+        var actual = solution.MinWindow(s, t);
+        Assert.That(string.Equals(expected, actual), Is.True);
+    }
 }
 
