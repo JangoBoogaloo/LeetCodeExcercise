@@ -42,4 +42,13 @@ class String_567
             return false;
         }
     }
+
+    [TestCase("ab", "eidbaooo", true)]
+    [TestCase("ab", "eidboaoo", false)]
+    public void TestCheckInclusion(string s1, string s2, bool expectedIsInclude)
+    {
+        var solution = new Solution();
+        var actualIsInclude = solution.CheckInclusion(s1, s2);
+        Assert.That(actualIsInclude, Is.EqualTo(expectedIsInclude));
+    }
 }
