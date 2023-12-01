@@ -24,7 +24,7 @@ class String_424
                     charFrequency[outGoingChar]--;
                     start++;
                 }
-                maxLength = subStringLength;
+                maxLength = end + 1 - start;
             }
 
             return maxLength;
