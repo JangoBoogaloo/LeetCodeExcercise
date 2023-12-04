@@ -3,6 +3,20 @@ namespace GraphTests;
 [TestFixture]
 class Graph_277
 {
+    class Relation
+    {
+        private bool[,] _knowRelation;
+        public Relation(bool[,] knowRelation)
+        {
+            _knowRelation = knowRelation;
+        }
+
+        protected bool Knows(int a, int b)
+        {
+            return _knowRelation[a, b];
+        }
+    }
+
     class Solution : Relation {
         public int FindCelebrity(int n) {
             var cand = 0;
@@ -19,6 +33,10 @@ class Graph_277
             }
 
             return cand;
+        }
+
+        public Solution(bool[,] knowRelation) : base(knowRelation)
+        {
         }
     }
 }
