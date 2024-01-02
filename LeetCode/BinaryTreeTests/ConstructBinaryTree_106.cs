@@ -28,15 +28,23 @@ class ConstructBinaryTree_106
     {
         public TreeNode BuildTree(int[] inorder, int[] postorder)
         {
-            if (!inorder.Any() || !postorder.Any()) return null;
+            var inorderIndexMap = new Dictionary<int,int>();
+            for(int i=0; i<inorder.Length; i++) {
+                inorderIndexMap[inorder[i]] = i;
+            }
+            return BuildTreeHelper(postorder.Length-1, 0, inorder.Length-1);
 
-            var rootVal = postorder.Last();
-            var root = new TreeNode(rootVal);
-            var rootIndex = Array.IndexOf(inorder, rootVal);
-
-            root.left = BuildTree(inorder[..rootIndex], postorder[..rootIndex]);
-            root.right = BuildTree(inorder[(rootIndex + 1)..], postorder[rootIndex..^1]);
-            return root;
+            TreeNode BuildTreeHelper(int postEnd, int inStart, int inEnd)
+            {
+                if(postEnd <0 || inStart > inEnd) return null;
+                var rootVal = postorder[postEnd];
+                var rootIndex = inorderIndexMap[rootVal];
+                var rightTreeLength = inEnd-rootIndex;
+                var root = new TreeNode(rootVal);
+                root.left = BuildTreeHelper(postEnd-1-rightTreeLength, inStart, rootIndex-1);
+                root.right = BuildTreeHelper(postEnd-1, rootIndex+1, inEnd);
+                return root;
+            }
         }
     }
 }
