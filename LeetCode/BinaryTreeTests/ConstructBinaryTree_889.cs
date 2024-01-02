@@ -26,14 +26,28 @@ public class ConstructBinaryTree_889
 
     class Solution
     {
-        public TreeNode ConstructFromPrePost(int[] preorder, int[] postorder) {
-            if(!preorder.Any() || !postorder.Any()) return null;
-            var root = new TreeNode(preorder[0]);
-            if (preorder.Length == 1) return root;
-            var leftRootIndex = Array.IndexOf(postorder, preorder[1]);
-            root.left = ConstructFromPrePost(preorder[1..(leftRootIndex+2)], postorder[..(leftRootIndex+1)]);
-            root.right = ConstructFromPrePost(preorder[(leftRootIndex+2)..], postorder[(leftRootIndex+1)..^1]);
-            return root;
+        public TreeNode ConstructFromPrePost(int[] preorder, int[] postorder)
+        {
+            var postorderIndexMap = new Dictionary<int, int>();
+            for (var i = 0; i < postorder.Length; i++)
+            {
+                postorderIndexMap[postorder[i]] = i;
+            }
+
+            return Build(0, preorder.Length - 1, 0, postorder.Length - 1);
+
+            TreeNode Build(int preStart, int preEnd, int postStart, int postEnd)
+            {
+                if (preStart > preEnd || postStart > postEnd) return null;
+                var root = new TreeNode(preorder[preStart]);
+                if (preStart == preEnd) return root;
+                var leftRootVal = preorder[preStart + 1];
+                var postLeftRootIndex = postorderIndexMap[leftRootVal];
+                var leftTreeSize = postLeftRootIndex - postStart + 1;
+                root.left = Build(preStart + 1, preStart + leftTreeSize, postStart, postLeftRootIndex);
+                root.right = Build(preStart + leftTreeSize + 1, preEnd, postLeftRootIndex + 1, postEnd - 1);
+                return root;
+            }
         }
     }
 }
