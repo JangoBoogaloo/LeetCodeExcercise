@@ -24,6 +24,15 @@ public class ConstructBinaryTree_889
         CollectionAssert.AreEqual(actual, testCase.Expected);
     }
 
+    [TestCaseSource(nameof(_constructBinaryTree889TestCase))]
+    public void TestConstructBinaryTreeIterative_889(ConstructBinaryTreeTestCase testCase)
+    {
+        var solution = new SolutionIterative();
+        var tree = solution.ConstructFromPrePost(testCase.Preorder!, testCase.PostOrder!);
+        var actual = TreeNode.ToList(tree).ToArray();
+        CollectionAssert.AreEqual(actual, testCase.Expected);
+    }
+    
     class Solution
     {
         public TreeNode ConstructFromPrePost(int[] preorder, int[] postorder)
@@ -48,6 +57,36 @@ public class ConstructBinaryTree_889
                 root.right = Build(preStart + leftTreeSize + 1, preEnd, postLeftRootIndex + 1, postEnd - 1);
                 return root;
             }
+        }
+    }
+
+    class SolutionIterative
+    {
+        public TreeNode ConstructFromPrePost(int[] preorder, int[] postorder)
+        {
+            var nodeStack = new Stack<TreeNode>();
+            nodeStack.Push(new TreeNode(preorder[0]));
+            for (int i = 1, j = 0; i < preorder.Length; ++i)
+            {
+                var node = new TreeNode(preorder[i]);
+                while (nodeStack.Peek().val == postorder[j])
+                {
+                    nodeStack.Pop();
+                    j++;
+                }
+
+                if (nodeStack.Peek().left is null)
+                {
+                    nodeStack.Peek().left = node;
+                }
+                else
+                {
+                    nodeStack.Peek().right = node;
+                }
+                nodeStack.Push(node);
+            }
+
+            return nodeStack.Last();
         }
     }
 }
