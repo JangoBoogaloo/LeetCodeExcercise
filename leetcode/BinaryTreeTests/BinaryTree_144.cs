@@ -1,34 +1,34 @@
 ﻿namespace BinaryTreeTests;
 
 [TestFixture]
-class BinaryTree_144
+internal class BinaryTree_144
 {
-    class SolutionRecursive {
-        public IList<int> PreorderTraversal(TreeNode root) {
+    private class SolutionRecursive {
+        public IList<int> PreorderTraversal(TreeNode? root) {
             var result = new List<int>();
             PreorderTraversalRecursive(root);
             return result;
 
-            void PreorderTraversalRecursive(TreeNode root) {
-                if(root is null) return;
-                result.Add(root.val);
-                PreorderTraversalRecursive(root.left);
-                PreorderTraversalRecursive(root.right);
+            void PreorderTraversalRecursive(TreeNode? node) {
+                if(node is null) return;
+                result.Add(node.val);
+                PreorderTraversalRecursive(node.left);
+                PreorderTraversalRecursive(node.right);
             }
         }
     }
-    
-    class SolutionStackIterative {
-        public IList<int> PreorderTraversal(TreeNode root) {
+
+    private class SolutionStackIterative {
+        public IList<int> PreorderTraversal(TreeNode? root) {
             var result = new List<int>();
-            var stack = new Stack<TreeNode>();
+            var stack = new Stack<TreeNode?>();
             if (root is null) return result;
 
             stack.Push(root);
             while (stack.Count > 0)
             {
                 var node = stack.Pop();
-                result.Add(node.val);
+                result.Add(node!.val);
                 if (node.right is not null)
                 {
                     stack.Push(node.right);
