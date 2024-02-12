@@ -99,4 +99,44 @@ internal class BinaryTree_2385
             }
         }
     }
+
+    private class SolutionDFS
+    {
+        public int AmountOfTime(TreeNode root, int start)
+        {
+            var maxDistance = 0;
+            TraverseRecursive(root);
+            return maxDistance;
+
+            int TraverseRecursive(TreeNode node)
+            {
+                var depth = 0;
+                if (node is null) return depth;
+
+                // walk through sub tree first before checking
+                var leftDepth = TraverseRecursive(node.left);
+                var rightDepth = TraverseRecursive(node.right);
+
+                var startInSubTrees = leftDepth < 0 || rightDepth < 0;
+
+                if (node.val == start)
+                {
+                    maxDistance = Math.Max(leftDepth, rightDepth);
+                    depth = -(depth+1);
+                } else if (startInSubTrees)
+                {
+                    var distance = Math.Abs(leftDepth) + Math.Abs(rightDepth);
+                    maxDistance = Math.Max(distance, maxDistance);
+                    //we only take the start path, so here we are looking for a negative depth in subtree
+                    depth = Math.Min(leftDepth, rightDepth) - 1;
+                }
+                else
+                {
+                    depth = Math.Max(leftDepth, rightDepth) + 1;
+                }
+
+                return depth;
+            }
+        }
+    }
 }
