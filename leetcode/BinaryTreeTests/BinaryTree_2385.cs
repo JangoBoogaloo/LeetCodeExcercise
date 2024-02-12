@@ -3,7 +3,7 @@
 [TestFixture]
 internal class BinaryTree_2385
 {
-    private class Solution
+    private class SolutionBFS
     {
         public int AmountOfTime(TreeNode root, int start)
         {
