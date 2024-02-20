@@ -5,7 +5,7 @@ internal class BinaryTree_968
 {
     private class Solution
     {
-        private const int Leaf = 0;
+        private const int NotCover = 0;
         private const int Camera = 1;
         private const int Covered = 2;
 
@@ -13,7 +13,7 @@ internal class BinaryTree_968
         {
             var answer = 0;
             var state = Dfs(root);
-            if (state == Leaf) answer++;
+            if (state == NotCover) answer++;
             return answer;
         
             int Dfs(TreeNode node)
@@ -25,8 +25,8 @@ internal class BinaryTree_968
 
                 //  
                 //      node <-----camera
-                //  leaf    leaf
-                if (leftState == Leaf || rightState == Leaf)
+                //  not    not
+                if (leftState == NotCover || rightState == NotCover)
                 {
                     answer++;
                     return Camera;
@@ -42,9 +42,10 @@ internal class BinaryTree_968
                 //       node <-----leaf
                 //  cover    cover  
                 else {
-                    return Leaf;
+                    return NotCover;
                 }
             }
         }
     }
 }
+
