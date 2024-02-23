@@ -65,13 +65,8 @@ internal class BinaryTree_545
                 case NodeType.RightBound:
                     rightBound.Push(node.val);
                     break;
-                case NodeType.Other:
-                default:
-                    if (node.left is null && node.right is null)
-                    {
-                        leaves.Add(node.val);
-                        return;
-                    }
+                case NodeType.Other when node.left is null && node.right is null:
+                    leaves.Add(node.val);
                     break;
             }
             Preorder(node.left, leftBound, rightBound, leaves, GetLeftChildType(node, nodeType));
