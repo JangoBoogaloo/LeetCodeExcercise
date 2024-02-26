@@ -7,22 +7,29 @@ public class BinaryTree_2096
     class Solution {
         public string GetDirections(TreeNode root, int startValue, int destValue)
         {
-            var startToRoot = new StringBuilder();
-            var destToRoot = new StringBuilder();
-            CheckValueExistDfs(root, startValue, startToRoot);
-            CheckValueExistDfs(root, destValue, destToRoot);
-            RemoveCommonPath(startToRoot, destToRoot);
-            ReverseStringBuilder(startToRoot);
-            ReverseStringBuilder(destToRoot);
-            startToRoot.Replace('R', 'U');
-            startToRoot.Replace('L', 'U');
-            return startToRoot.Append(destToRoot).ToString();
+            var startToAncestor = new StringBuilder();
+            var destToAncestor = new StringBuilder();
+            
+            //After the 2 methods call below, the string builder represent
+            // start ->....-> root
+            // dest ->....-> root
+            CheckValueExistDfs(root, startValue, startToAncestor);
+            CheckValueExistDfs(root, destValue, destToAncestor);
+            
+            //After the 2 methods call below, the string builder represent
+            // start ->....-> lca
+            // dest ->....-> lca
+            RemoveCommonPath(startToAncestor, destToAncestor);
+            ReverseStringBuilder(startToAncestor);
+            ReverseStringBuilder(destToAncestor);
+            startToAncestor.Replace('R', 'U');
+            startToAncestor.Replace('L', 'U');
+            return startToAncestor.Append(destToAncestor).ToString();
         }
 
         /// <summary>
+        /// Remove the path from root to lowest common ancestor
         /// </summary>
-        /// <param name="startToRoot"></param>
-        /// <param name="destToRoot"></param>
         private void RemoveCommonPath(StringBuilder startToRoot, StringBuilder destToRoot)
         {
             while(startToRoot.Length > 0 && destToRoot.Length > 0 && startToRoot[^1] == destToRoot[^1])
