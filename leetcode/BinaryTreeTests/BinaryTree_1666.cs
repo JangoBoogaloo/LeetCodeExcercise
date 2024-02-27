@@ -6,7 +6,7 @@ internal class BinaryTree_1666
     class Solution {
         public Node FlipBinaryTree(Node root, Node leaf) {         
             var curr = leaf;
-            Node new_parent = null;
+            Node prev = null;
             while( curr != null )
             {
                 // curr's left make as curr right child .
@@ -19,16 +19,16 @@ internal class BinaryTree_1666
                         curr.parent.left = null; 
                     else if( curr.parent.right == curr) // if curr is right child - make that null 
                         curr.parent.right = null;   
-                    curr.parent = new_parent;  
+                    curr.parent = prev;  
                 }else {
-                    curr.parent = new_parent;
+                    curr.parent = prev;
                 }
                        
-                new_parent = curr; //  keep him as  new parent 
+                prev = curr; //  keep him as  new parent 
                 curr = curr.left;  // move to it's left  [ actually original parent ]
                 if( curr == root) // if we reach root , just  break .
                 {
-                    curr.parent = new_parent;
+                    curr.parent = prev;
                     break;
                 }
             }        
