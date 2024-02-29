@@ -11,35 +11,43 @@ internal class BinaryTree_993
             while(queue.Any()) {
                 var levelNodes = queue.Count;
                 var couldBeSibling = false;
-                var couldbeCousins = false;
+                var nodeFound = false;
 
-                for(var i=0; i<levelNodes; i++) {
+                for (var i = 0; i < levelNodes; i++)
+                {
                     var node = queue.Dequeue();
 
-                    if(node is null) {
+                    if (node is null)
+                    {
                         couldBeSibling = false;
                         continue;
                     }
 
-                    if(node.val == x || node.val == y) {
-                        if(!couldbeCousins) {
+                    if (node.val == x || node.val == y)
+                    {
+                        if (!nodeFound)
+                        {
                             couldBeSibling = true;
-                            couldbeCousins = true;
-                        } 
-                        else if(couldBeSibling) {
-                            //They are siblings, not cousins
+                            nodeFound = true;
+                        }
+                        else if (couldBeSibling)
+                        {
+                            //Node found twice, and still could be sibling, so they are siblings, not cousins
                             return false;
-                        } else {
+                        }
+                        else
+                        {
                             return true;
                         }
                     }
-                    if(node.left is not null) queue.Enqueue(node.left);
-                    if(node.right is not null) queue.Enqueue(node.right);
+
+                    if (node.left is not null) queue.Enqueue(node.left);
+                    if (node.right is not null) queue.Enqueue(node.right);
                     //Put in null node to distinguish sibling and cousin
                     queue.Enqueue(null);
                 }
-            
-                if(couldbeCousins) {
+                //After level traversal, we find the node only once. So it does not have the expect cousins
+                if(nodeFound) {
                     return false;
                 }
             }
