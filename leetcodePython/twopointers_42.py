@@ -4,6 +4,13 @@ class SolutionBruteForce:
     def trap(self, height: List[int]) -> int:
         rain = 0
         size = len(height)
+
+        '''
+                        *
+        *       #       *
+        *       *       *
+        l       i       r
+        '''
         for i in range(0,size):
             left_max = right_max = 0
             for l in reversed(range(0, i+1)):
