@@ -37,8 +37,34 @@ class SolutionDP:
         return rain
 
 
+class SolutionTwoPointers:
+    def trap(self, height: List[int]) -> int:
+        left_pointer = 0
+        right_pointer = len(height)-1
+        left_max = right_max = 0
+        rain = 0
+        while left_pointer < right_pointer:
+            # the lowest `wall` is on the left
+            if height[left_pointer] < height[right_pointer]:
+                # height is lower than left `wall`, so we trap some water
+                if height[left_pointer] < left_max:
+                    rain += (left_max - height[left_pointer])
+                else:
+                    # we are getting a new left max wall to trap water
+                    left_max = height[left_pointer]
+                left_pointer += 1
+            else: # the lowest wall is on the right
+                if height[right_pointer] < right_max:
+                    rain += (right_max - height[right_pointer])
+                else:
+                    # we are getting a new left max wall to trap water
+                    right_max = height[right_pointer]
+                right_pointer -= 1
+
+        return rain
+
 
 if __name__ == '__main__':
-    solution = SolutionDP()
+    solution = SolutionTwoPointers()
     trapRain = solution.trap([0,1,0,2,1,0,1,3,2,1,2,1])
     print(trapRain)
