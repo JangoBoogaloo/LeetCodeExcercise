@@ -3,15 +3,19 @@ from typing import List
 
 class Solution:
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
-        curr_sum = 0
-        min_len = float("inf")
-        left = 0
-        for right in range(len(nums)):
-            curr_sum += nums[right]
-            while curr_sum >= target and left <= right:
-                min_len = min(min_len, right-left+1)
-                curr_sum -= nums[left]
+        left, right, window_sum = 0, 0, 0
+        min_len = float('inf')
+        while right < len(nums):
+            window_sum += nums[right]
+            right += 1
+            while left < right and window_sum >= target:
+                min_len = min(min_len, right-left)
+                window_sum -= nums[left]
                 left += 1
-        if min_len == float("inf"):
+        if min_len == float('inf'):
             return 0
         return min_len
+
+if __name__ == "__main__":
+    solution = Solution()
+    print(solution.minSubArrayLen(7, [2,3,1,2,4,3]))
