@@ -1,30 +1,31 @@
 from collections import Counter
 
-
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
         if len(s1) > len(s2):
             return False
-        s1_freq = Counter(s1)
-        window_freq = Counter()
-        left = 0
-        matched = 0
-        for right in range(len(s2)):
-            right_ch = s2[right]
-            if right_ch in s1_freq:
-                window_freq[right_ch] += 1
-                if window_freq[right_ch] == s1_freq[right_ch]:
-                    matched += 1
-            while right - left + 1 >= len(s1):
-                if matched == len(s1_freq):
+        left, right, valid = 0, 0, 0
+        need = Counter(s1)
+        window = Counter()
+        while right < len(s2):
+            new_ch = s2[right]
+            right += 1
+            if new_ch in need:
+                window[new_ch] += 1
+                if window[new_ch] == need[new_ch]:
+                    valid += 1
+            # Shrink this fucking window until window size is same as s1
+            while right - left >= len(s1):
+                if valid == len(need):
                     return True
-                left_ch = s2[left]
+                old_ch = s2[left]
                 left += 1
-                if left_ch in s1_freq:
-                    if window_freq[left_ch] == s1_freq[left_ch]:
-                        matched -= 1
-                    window_freq[left_ch] -= 1
+                if old_ch in need:
+                    if window[old_ch] == need[old_ch]:
+                        valid -= 1
+                    window[old_ch] -= 1
         return False
+
 
 
 if __name__ == "__main__":
