@@ -1,5 +1,7 @@
 from typing import List
+from collections import deque
 import heapq
+
 
 class SolutionPriorityQueue:
     def constrainedSubsetSum(self, nums: List[int], k: int) -> int:
@@ -18,3 +20,25 @@ class SolutionPriorityQueue:
             heapq.heappush(heap, (-curr, i))
 
         return ans
+
+
+class SolutionMonotonicDeque:
+    def constrainedSubsetSum(self, nums: List[int], k: int) -> int:
+        queue = deque()
+        dp = [0] * len(nums)
+
+        for i in range(len(nums)):
+            if queue and i - queue[0] > k:
+                queue.popleft()
+
+            dp[i] = (dp[queue[0]] if queue else 0) + nums[i]
+            '''
+            The reason we want to remove elements that are less than dp[i] is because dp[i] comes after those elements. 
+            Thus, those elements will be out of range before dp[i], and because dp[i] is greater than them, 
+            there is no chance those elements will ever be the maximum value in the last k indices anymore.
+            '''
+            while queue and dp[queue[-1]] < dp[i]:
+                queue.pop()
+            if dp[i] > 0:
+                queue.append(i)
+        return max(dp)
