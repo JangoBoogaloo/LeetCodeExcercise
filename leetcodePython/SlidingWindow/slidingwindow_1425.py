@@ -24,21 +24,21 @@ class SolutionPriorityQueue:
 
 class SolutionMonotonicDeque:
     def constrainedSubsetSum(self, nums: List[int], k: int) -> int:
-        queue = deque()
+        index_queue = deque()
         dp = [0] * len(nums)
 
         for i in range(len(nums)):
-            if queue and i - queue[0] > k:
-                queue.popleft()
+            if index_queue and i - index_queue[0] > k:
+                index_queue.popleft()
 
-            dp[i] = (dp[queue[0]] if queue else 0) + nums[i]
+            dp[i] = (dp[index_queue[0]] if index_queue else 0) + nums[i]
             '''
             The reason we want to remove elements that are less than dp[i] is because dp[i] comes after those elements. 
             Thus, those elements will be out of range before dp[i], and because dp[i] is greater than them, 
             there is no chance those elements will ever be the maximum value in the last k indices anymore.
             '''
-            while queue and dp[queue[-1]] < dp[i]:
-                queue.pop()
+            while index_queue and dp[index_queue[-1]] < dp[i]:
+                index_queue.pop()
             if dp[i] > 0:
-                queue.append(i)
+                index_queue.append(i)
         return max(dp)
