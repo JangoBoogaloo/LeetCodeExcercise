@@ -10,7 +10,6 @@ class Solution:
         monosum_index_q = deque()
         ans = len(nums) + 1
         for right, sum in enumerate(sums):
-            # maintain the index such
             while monosum_index_q and sums[monosum_index_q[-1]] >= sum:
                 monosum_index_q.pop()
             while monosum_index_q:
