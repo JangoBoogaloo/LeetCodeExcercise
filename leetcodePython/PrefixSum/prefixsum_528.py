@@ -1,6 +1,6 @@
 from random import uniform
 from typing import List
-from bisect import bisect_left
+from bisect import bisect_right
 
 
 class Solution:
@@ -15,5 +15,4 @@ class Solution:
 
     def pickIndex(self) -> int:
         p = uniform(0, 1)
-        i = bisect_left(self._prefix_probs, p)
-        return i
+        return bisect_right(self._prefix_probs, p)
