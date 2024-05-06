@@ -2,6 +2,7 @@ class Solution:
     def countPalindromicSubsequence(self, s: str) -> int:
         letters = set(s)
         ans = 0
+        # kind of O(n^2), but since we only have 26 char, so it is constant for this for loop
         for letter in letters:
             left = s.index(letter)
             right = s.rindex(letter)
