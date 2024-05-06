@@ -18,9 +18,9 @@ class Solution:
 
 class SolutionClean:
     def countPalindromicSubsequence(self, s: str) -> int:
-        res = 0
-        for c in string.ascii_lowercase:
-            i, j = s.find(c), s.rfind(c)
-            if i > -1:
-                res += len(set(s[i + 1: j]))
-        return res
+        count = 0
+        for i in set(s):
+            start, end = s.find(i), s.rfind(i)
+            between = set(s[start+1:end])
+            count += len(between)
+        return count
