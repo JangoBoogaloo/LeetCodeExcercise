@@ -1,3 +1,6 @@
+import string
+
+
 class Solution:
     def countPalindromicSubsequence(self, s: str) -> int:
         letters = set(s)
@@ -13,25 +16,11 @@ class Solution:
         return ans
 
 
-class SolutionPrecomputeIndex:
+class SolutionClean:
     def countPalindromicSubsequence(self, s: str) -> int:
-        first = [-1] * 26
-        last = [-1] * 26
-        letter_i = set()
-        for i in range(len(s)):
-            curr = ord(s[i]) - ord("a")
-            letter_i.add(curr)
-            if first[curr] == -1:
-                first[curr] = i
-
-            last[curr] = i
-
-        ans = 0
-        for i in letter_i:
-            between = set()
-            for j in range(first[i] + 1, last[i]):
-                between.add(s[j])
-
-            ans += len(between)
-
-        return ans
+        res = 0
+        for c in string.ascii_lowercase:
+            i, j = s.find(c), s.rfind(c)
+            if i > -1:
+                res += len(set(s[i + 1: j]))
+        return res
