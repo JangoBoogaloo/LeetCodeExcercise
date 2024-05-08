@@ -3,7 +3,7 @@ from typing import List
 
 class Solution:
     def maximumPopulation(self, logs: List[List[int]]) -> int:
-        year_population_change = [0]*2051
+        year_population_change = [0] * 2051
         for l in logs:
             year_population_change[l[0]] += 1
             year_population_change[l[1]] -= 1
