@@ -18,10 +18,10 @@ class Solution:
 class SolutionMonotonicStack:
     def nextGreaterElements(self, nums: List[int]) -> List[int]:
         res = [-1] * len(nums)
-        stack = []
+        index_stack = []
         for i in range(2*len(nums)):
             index = i%len(nums)
-            while stack and nums[index] > nums[stack[-1]]:
-                res[stack.pop()] = nums[index]
-            stack.append(index)
+            while index_stack and nums[index] > nums[index_stack[-1]]:
+                res[index_stack.pop()] = nums[index]
+            index_stack.append(index)
         return res
