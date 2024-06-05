@@ -5,10 +5,10 @@ class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
         nums2_greater = {}
         stack = []
-        for i in range(len(nums2)):
-            while stack and nums2[i] > nums2[stack[-1]]:
-                nums2_greater[nums2[stack.pop()]] = nums2[i]
-            stack.append(i)
+        for num in nums2:
+            while stack and num > stack[-1]:
+                nums2_greater[stack.pop()] = num
+            stack.append(num)
         ans = []
         for num in nums1:
             if num in nums2_greater:
