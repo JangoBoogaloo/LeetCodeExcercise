@@ -23,6 +23,7 @@ class Solution:
 
     def maximalRectangle(self, matrix: List[List[str]]) -> int:
         max_area = 0
+        # histogram of cumulative column 'height' until current row
         col_histogram = [0]*len(matrix[0])
         for row in range(len(matrix)):
             for col in range(len(matrix[0])):
