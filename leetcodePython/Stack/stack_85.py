@@ -23,12 +23,13 @@ class Solution:
 
     def maximalRectangle(self, matrix: List[List[str]]) -> int:
         max_area = 0
-        row_histogram = [0]*len(matrix[0])
+        col_histogram = [0]*len(matrix[0])
         for row in range(len(matrix)):
             for col in range(len(matrix[0])):
                 if matrix[row][col] == '1':
-                    row_histogram[col] = row_histogram[col] + 1
+                    # the column histogram is cumulated
+                    col_histogram[col] = col_histogram[col] + 1
                 else:
-                    row_histogram[col] = 0
-            max_area = max(max_area, self.largestRectangleArea(row_histogram))
+                    col_histogram[col] = 0
+            max_area = max(max_area, self.largestRectangleArea(col_histogram))
         return max_area
