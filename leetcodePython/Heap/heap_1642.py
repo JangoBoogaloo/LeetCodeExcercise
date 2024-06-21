@@ -2,7 +2,7 @@ from typing import List
 from heapq import *
 
 
-class Solution:
+class SolutionMinHeap:
     def furthestBuilding(self, heights: List[int], bricks: int, ladders: int) -> int:
         used_ladder_min_heap = []
         for i in range(len(heights) - 1):
@@ -21,6 +21,19 @@ class Solution:
         return len(heights) - 1
 
 
-if __name__ == "__main__":
-    sol = Solution()
-    sol.furthestBuilding([2, 7, 9, 3, 1, 2, 5, 9, 4, 6], 8, 2)
+class SolutionMaxHeap:
+    def furthestBuilding(self, heights: List[int], bricks: int, ladders: int) -> int:
+        used_brick_max_heap = []
+        for i in range(len(heights) - 1):
+            climb = heights[i + 1] - heights[i]
+            if climb <= 0:
+                continue
+            heappush(used_brick_max_heap, -climb)
+            bricks -= climb
+
+            if bricks < 0:
+                bricks += -heappop(used_brick_max_heap)
+                ladders -= 1
+                if ladders < 0:
+                    return i
+        return len(heights) - 1
