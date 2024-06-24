@@ -1,6 +1,8 @@
 from typing import List
 from collections import Counter
 from heapq import *
+
+
 class SolutionMaxHeap:
     def leastInterval(self, tasks: List[str], n: int) -> int:
         task_freq = Counter(tasks)
@@ -25,3 +27,25 @@ class SolutionMaxHeap:
                 time += task_count
 
         return time
+
+
+class SolutionSort:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        task_max_freq = Counter(tasks).most_common()
+        print(task_max_freq)
+        # it needs 1 less gap than the frequency: 3 characters, 2 gaps
+        max_gap = task_max_freq[0][1] - 1
+        idle_slots = max_gap * n
+        for i in range(1, len(task_max_freq)):
+            next_freq = task_max_freq[i][1]
+            idle_slots -= min(max_gap, next_freq)
+
+        if idle_slots > 0:
+            return idle_slots + len(tasks)
+        else:
+            return len(tasks)
+
+
+if __name__ == "__main__":
+    sol = SolutionSort()
+    sol.leastInterval(["A","A","A","B","B","B"], 2)
