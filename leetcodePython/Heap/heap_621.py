@@ -1,7 +1,7 @@
 from typing import List
 from collections import Counter
 from heapq import *
-class Solution:
+class SolutionMaxHeap:
     def leastInterval(self, tasks: List[str], n: int) -> int:
         task_freq = Counter(tasks)
         max_heap = [-f[1] for f in task_freq.items()]
