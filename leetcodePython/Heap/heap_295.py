@@ -1,5 +1,4 @@
-from heapq import heappush
-from heapq import heappop
+from heapq import heappush, heappop
 
 class MedianFinder:
     def __init__(self):
