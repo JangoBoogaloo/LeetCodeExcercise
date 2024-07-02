@@ -3,7 +3,6 @@ from typing import List
 
 class Solution:
     def _heapify(self, nums: List[int], root_index: int, end_index: int):
-        print(nums)
         left_child_index = 2 * root_index + 1
         right_child_index = 2 * root_index + 2
 
