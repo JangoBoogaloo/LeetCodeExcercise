@@ -1,4 +1,5 @@
 import heapq
+from bisect import bisect_left
 from typing import List
 from collections import defaultdict
 
@@ -50,9 +51,38 @@ class AutocompleteSystemTrie:
         return [a[1] for a in ans]
 
 
-# Your AutocompleteSystem object will be instantiated and called as such:
-# obj = AutocompleteSystem(sentences, times)
-# param_1 = obj.input(c)
+class AutocompleteSystem:
+
+    def __init__(self, sentences: List[str], times: List[int]):
+        self.count = {s: t for t, s in zip(times, sentences)}
+        self.rankings = sorted((-t, s) for t, s in zip(times, sentences))
+        self._reset_curr()
+
+    def _reset_curr(self):
+        self.curr_input = []
+        self.curr_ranks = [s for _, s in self.rankings]
+
+    def input(self, c: str) -> List[str]:
+        if c == "#":
+            new_s = ''.join(self.curr_input)
+            if new_s in self.count:
+                rm_idx = bisect_left(self.rankings, (-self.count[new_s], new_s))
+                self.rankings.pop(rm_idx)
+            else:
+                self.count[new_s] = 0
+            self.count[new_s] += 1
+
+            new_ranking = (-self.count[new_s], new_s)
+            self.rankings.insert(bisect_left(self.rankings, new_ranking), new_ranking)
+
+            self._reset_curr()
+            return []
+        else:
+            self.curr_input.append(c)
+            c_idx = len(self.curr_input) - 1
+            self.curr_ranks = [s for s in self.curr_ranks if len(s) > c_idx and s[c_idx] == c]
+            return self.curr_ranks[: 3]
+
 
 if __name__ == "__main__":
     system = AutocompleteSystemTrie(["i love you", "island", "iroman", "i love leetcode"], [5, 3, 2, 2])
