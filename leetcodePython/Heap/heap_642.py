@@ -9,7 +9,7 @@ class TrieNode:
         self.sentence_count = defaultdict(int)
 
 
-class AutocompleteSystem:
+class AutocompleteSystemTrie:
 
     def __init__(self, sentences: List[str], times: List[int]):
         self.root = TrieNode()
@@ -55,7 +55,7 @@ class AutocompleteSystem:
 # param_1 = obj.input(c)
 
 if __name__ == "__main__":
-    system = AutocompleteSystem(["i love you", "island", "iroman", "i love leetcode"], [5, 3, 2, 2])
+    system = AutocompleteSystemTrie(["i love you", "island", "iroman", "i love leetcode"], [5, 3, 2, 2])
     print(system.input("i"))
     print(system.input(" "))
     print(system.input("a"))
