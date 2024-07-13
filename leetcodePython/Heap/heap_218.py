@@ -12,7 +12,7 @@ class SolutionBruteForce:
             building_edges.add(right)
         positions = sorted(list(building_edges))
 
-        edge_index_map = {x : i for i, x in enumerate(positions)}
+        edge_index_map = {x: i for i, x in enumerate(positions)}
         position_heights = [0] * len(positions)
 
         for building in buildings:
@@ -30,4 +30,53 @@ class SolutionBruteForce:
             # curr height is different from last height, a new key point
             if not ans or ans[-1][1] != curr_height:
                 ans.append([curr_x, curr_height])
+        return ans
+
+
+class SolutionBruteForceSweepLine:
+    def getSkyline(self, buildings: List[List[int]]) -> List[List[int]]:
+        # Collect and sort the unique positions of all the edges.
+        positions = sorted(list(set([x for building in buildings for x in building[:2]])))
+        ans = []
+        for pos in positions:
+            max_height = 0
+            for left_pos, right_pos, height in buildings:
+                if left_pos <= pos < right_pos:
+                    max_height = max(max_height, height)
+            if not ans or max_height != ans[-1][1]:
+                ans.append([pos, max_height])
+        return ans
+
+
+from heapq import *
+
+
+class SolutionSweepLinePriorityQueue:
+    def getSkyline(self, buildings: List[List[int]]) -> List[List[int]]:
+        edges = []
+        for i, building in enumerate(buildings):
+            edges.append([building[0], i])
+            edges.append([building[1], i])
+        edges.sort()
+
+        heap = []
+        ans = []
+        i = 0
+        while i < len(edges):
+            pos_x = edges[i][0]
+            while i < len(edges) and edges[i][0] == pos_x:
+                edge_building_i = edges[i][1]
+                if buildings[edge_building_i][0] == pos_x:
+                    right = buildings[edge_building_i][1]
+                    height = buildings[edge_building_i][2]
+                    heappush(heap, [-height, right])
+                while heap and heap[0][1] <= pos_x:
+                    heappop(heap)
+                i += 1
+            if heap:
+                max_height = -heap[0][0]
+            else:
+                max_height = 0
+            if not ans or max_height != ans[-1][1]:
+                ans.append([pos_x, max_height])
         return ans
