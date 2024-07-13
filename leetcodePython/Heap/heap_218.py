@@ -54,6 +54,7 @@ from heapq import *
 class SolutionSweepLinePriorityQueue:
     def getSkyline(self, buildings: List[List[int]]) -> List[List[int]]:
         edges = []
+        # again, sort edges
         for i, building in enumerate(buildings):
             edges.append([building[0], i])
             edges.append([building[1], i])
@@ -63,14 +64,15 @@ class SolutionSweepLinePriorityQueue:
         ans = []
         i = 0
         while i < len(edges):
-            pos_x = edges[i][0]
-            while i < len(edges) and edges[i][0] == pos_x:
-                edge_building_i = edges[i][1]
-                if buildings[edge_building_i][0] == pos_x:
-                    right = buildings[edge_building_i][1]
-                    height = buildings[edge_building_i][2]
+            edge_pos = edges[i][0]
+            while i < len(edges) and edges[i][0] == edge_pos:
+                building_index = edges[i][1]
+                left = buildings[building_index][0]
+                if edge_pos == left:
+                    right = buildings[building_index][1]
+                    height = buildings[building_index][2]
                     heappush(heap, [-height, right])
-                while heap and heap[0][1] <= pos_x:
+                while heap and heap[0][1] <= edge_pos:
                     heappop(heap)
                 i += 1
             if heap:
@@ -78,5 +80,5 @@ class SolutionSweepLinePriorityQueue:
             else:
                 max_height = 0
             if not ans or max_height != ans[-1][1]:
-                ans.append([pos_x, max_height])
+                ans.append([edge_pos, max_height])
         return ans
