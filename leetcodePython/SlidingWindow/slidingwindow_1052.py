@@ -11,7 +11,9 @@ class Solution:
         # total customer - (unhappy customers - reduced_unhappy
 
         total_customers = sum(customers)
-        bad_list = [c*g for c,g in zip(customers, grumpy)]
+        for i in range(len(customers)):
+            customers[i] = customers[i]*grumpy[i]
+        bad_list = customers
         total_unsatisfied = sum(bad_list)
         bad_in_window = 0
         max_bad = sum(bad_list[:minutes])
