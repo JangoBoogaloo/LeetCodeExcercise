@@ -24,5 +24,3 @@ class Solution:
                 left += 1
             max_points_in_fov = max(max_points_in_fov, right - left + 1)
         return max_points_in_fov + loc_points
-
-if __name__ == "__main__":
