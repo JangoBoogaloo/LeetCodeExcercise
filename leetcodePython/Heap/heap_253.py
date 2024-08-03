@@ -1,3 +1,4 @@
+import collections
 import heapq
 from typing import List
 
@@ -39,6 +40,21 @@ class SolutionPQ:
                 heapq.heappop(end_time_pq)
             heapq.heappush(end_time_pq, end_time)
         return len(end_time_pq)
+
+
+class SolutionSweepLine:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        meeting_change = collections.defaultdict(int)
+        for start, end in intervals:
+            meeting_change[start] += 1
+            meeting_change[end] -= 1
+
+        curr_meetings = 0
+        ans = 0
+        for t, change in sorted(meeting_change.items()):
+            curr_meetings += change
+            ans = max(curr_meetings, ans)
+        return ans
 
 
 if __name__ == '__main__':
