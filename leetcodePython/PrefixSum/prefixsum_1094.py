@@ -4,13 +4,13 @@ from typing import List
 
 class Solution:
     def carPooling(self, trips: List[List[int]], capacity: int) -> bool:
-        user_at_time = [0]*1001
-        for trip in trips:
-            user_at_time[trip[1]] += trip[0]
-            user_at_time[trip[2]] -= trip[0]
+        passenger_change = [0] * 1001
+        for passenger, start, end in trips:
+            passenger_change[start] += passenger
+            passenger_change[end] -= passenger
 
-        for user_diff in user_at_time:
-            capacity -= user_diff
-            if capacity <0:
+        for change in passenger_change:
+            capacity -= change
+            if capacity < 0:
                 return False
         return True
