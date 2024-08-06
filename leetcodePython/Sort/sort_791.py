@@ -1,4 +1,5 @@
 import collections
+from functools import cmp_to_key
 
 
 class SolutionCounter:
@@ -14,3 +15,14 @@ class SolutionCounter:
             if ch_count[key] > 0:
                 ans = ans + key*ch_count[key]
         return ans
+
+
+class SolutionSort:
+    def customSortString(self, order: str, s: str) -> str:
+        def compare(a, b):
+            a_i = order.index(a) if a in order else len(order)
+            b_i = order.index(b) if b in order else len(order)
+            return a_i - b_i
+        s_list = sorted(list(s), key=cmp_to_key(compare))
+
+        return ''.join(s_list)
