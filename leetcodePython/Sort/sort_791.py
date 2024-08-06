@@ -19,7 +19,7 @@ class SolutionCounter:
 
 class SolutionSort:
     def customSortString(self, order: str, s: str) -> str:
-        def compare(a, b):
+        def compare(a: str, b: str) -> int:
             a_i = order.index(a) if a in order else len(order)
             b_i = order.index(b) if b in order else len(order)
             return a_i - b_i
