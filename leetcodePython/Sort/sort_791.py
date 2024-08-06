@@ -13,16 +13,19 @@ class SolutionCounter:
 
         for key in ch_count:
             if ch_count[key] > 0:
-                ans = ans + key*ch_count[key]
+                ans = ans + key * ch_count[key]
         return ans
 
 
 class SolutionSort:
     def customSortString(self, order: str, s: str) -> str:
+        s_list = list(s)
+
         def compare(a: str, b: str) -> int:
             a_i = order.index(a) if a in order else len(order)
             b_i = order.index(b) if b in order else len(order)
             return a_i - b_i
-        s_list = sorted(list(s), key=cmp_to_key(compare))
+
+        s_list.sort(key=cmp_to_key(compare))
 
         return ''.join(s_list)
