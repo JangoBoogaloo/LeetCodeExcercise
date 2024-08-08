@@ -20,14 +20,17 @@ class Solution:
 class SolutionCounter:
     def findLeastNumOfUniqueInts(self, arr: List[int], k: int) -> int:
         freq = collections.Counter(arr)
-        unique = len(freq)
+        remain_unique = len(freq)
         freq_count = collections.Counter(freq.values())
         for count in range(1, k + 1):
-            if k < count * freq_count[count]:
-                return unique - k // count
-            k -= count*freq_count[count]
-            unique -= freq_count[count]
-        return unique
+            same_freq_removal = count * freq_count[count]
+            same_freq_unique = freq_count[count]
+            if k < same_freq_removal:
+                unique_removal = k // count
+                return remain_unique - unique_removal
+            k -= same_freq_removal
+            remain_unique -= same_freq_unique
+        return remain_unique
 
 
 if __name__ == '__main__':
