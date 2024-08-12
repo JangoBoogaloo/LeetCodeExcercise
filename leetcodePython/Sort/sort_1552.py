@@ -3,7 +3,17 @@ from typing import List
 
 class Solution:
 
-    def _canPlaceWithGap(self, gap: int, position: List[int], m: int) ->bool:
+    @staticmethod
+    def _canPlaceWithGap(gap: int, position: List[int], m: int) -> bool:
+        prev_pos = position[0]
+        remain = m - 1
+        for i in range(1, len(position)):
+            curr_pos = position[i]
+            if curr_pos - prev_pos >= gap:
+                remain -= 1
+                prev_pos = curr_pos
+            if remain == 0:
+                return True
         return False
 
     def maxDistance(self, position: List[int], m: int) -> int:
