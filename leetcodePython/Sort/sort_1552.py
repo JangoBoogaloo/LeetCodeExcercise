@@ -23,7 +23,7 @@ class Solution:
         max_pos = position[-1]
 
         low_gap = 1
-        high_gap = int(max_pos / (m - 1.0)) + 1
+        high_gap = int((max_pos - min_pos) / (m - 1.0)) + 1
         ans = 0
         while low_gap <= high_gap:
             mid = (low_gap + high_gap) // 2
