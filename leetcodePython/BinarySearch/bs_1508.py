@@ -39,7 +39,7 @@ class SolutionSlidingWindowBS:
 
         while left <= right:
             mid = (left + right) // 2
-            count, curr_sum = self._count_and_sum_target(nums, n, mid)
+            count, _ = self._count_and_sum_target(nums, n, mid)
             if count >= k:
                 right = mid - 1
             else:
