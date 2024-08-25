@@ -55,18 +55,20 @@ class SolutionPriorityQueue:
     def _findMaxProfit(self, jobs: List[tuple[int, int, int]]) -> int:
         job_chain_heap: List[tuple[int, int]]  # (end_time, profit)
         job_chain_heap = []
-        max_profit = 0
+        prev_max_profit = 0
         for i in range(len(jobs)):
-            start, end, profit_i = jobs[i]
+            new_start, end, profit_i = jobs[i]
             while job_chain_heap:
-                end_time, profit = job_chain_heap[0]
-                if start < end_time:
+                prev_end, prev_profit = job_chain_heap[0]
+                if new_start < prev_end:  # start is earlier than end, we can't merge in a chain
                     break
-                max_profit = max(max_profit, profit)
+                prev_max_profit = max(prev_max_profit, prev_profit)
                 heapq.heappop(job_chain_heap)
-            chained_jobs_i = (end, max_profit+profit_i)
+
+            chained_jobs_i = (end, prev_max_profit+profit_i)
             heapq.heappush(job_chain_heap, chained_jobs_i)
 
+        max_profit = 0
         while job_chain_heap:
             _, chained_profit = heapq.heappop(job_chain_heap)
             max_profit = max(max_profit, chained_profit)
