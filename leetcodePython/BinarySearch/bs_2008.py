@@ -2,7 +2,7 @@ import heapq
 from typing import List
 
 
-class Solution:
+class SolutionPQ:
     def maxTaxiEarnings(self, n: int, rides: List[List[int]]) -> int:
         rides.sort()
         ride_heap = []
@@ -26,3 +26,19 @@ class Solution:
             _, chained_profit = heapq.heappop(ride_heap)
             max_profit = max(max_profit, chained_profit)
         return max_profit
+
+
+class SolutionDP:
+    def maxTaxiEarnings(self, n: int, rides: List[List[int]]) -> int:
+        dp = [0] * (n + 1)
+        rides.sort()
+        for loc in range(n - 1, -1, -1):
+            dp[loc] = dp[loc+1]
+            while rides:
+                start, end, tip = rides[-1]
+                if start != loc:
+                    break
+                profit = (end - start + tip)
+                dp[loc] = max(dp[loc], dp[end] + profit)
+                rides.pop()
+        return dp[0]
