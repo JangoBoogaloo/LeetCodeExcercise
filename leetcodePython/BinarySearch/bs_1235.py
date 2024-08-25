@@ -1,7 +1,8 @@
+import heapq
 from typing import List
 
 
-class Solution:
+class SolutionDP:
     def __init__(self):
         self._job_memo = [0] * 50001
 
@@ -50,6 +51,46 @@ class Solution:
         return self._findMaxProfit(jobs, startTimes)
 
 
+class SolutionPriorityQueue:
+    def _findMaxProfit(self, jobs: List[tuple[int, int, int]]) -> int:
+        job_chain_heap: List[tuple[int, int]]  # (end_time, profit)
+        job_chain_heap = []
+        max_profit = 0
+        for i in range(len(jobs)):
+            start, end, profit_i = jobs[i]
+            while job_chain_heap:
+                end_time, profit = job_chain_heap[0]
+                if start < end_time:
+                    break
+                max_profit = max(max_profit, profit)
+                heapq.heappop(job_chain_heap)
+            chained_jobs_i = (end, max_profit+profit_i)
+            heapq.heappush(job_chain_heap, chained_jobs_i)
+
+        while job_chain_heap:
+            _, chained_profit = heapq.heappop(job_chain_heap)
+            max_profit = max(max_profit, chained_profit)
+        return max_profit
+
+    def jobScheduling(self, startTimes: List[int], endTime: List[int], profit: List[int]) -> int:
+        jobs = []
+
+        for i in range(len(profit)):
+            job = (startTimes[i], endTime[i], profit[i])
+            jobs.append(job)
+
+        jobs.sort()
+
+        for i in range(len(profit)):
+            startTimes[i], _, _ = jobs[i]
+
+        return self._findMaxProfit(jobs)
+
+
 if __name__ == "__main__":
-    sol = Solution()
-    sol.jobScheduling([1, 2, 3, 3], [3, 4, 5, 6], [50, 10, 40, 70])
+    sol = SolutionDP()
+    a = sol.jobScheduling([1, 2, 3, 3], [3, 4, 5, 6], [50, 10, 40, 70])
+    print(a)
+    sol2 = SolutionPriorityQueue()
+    b = sol2.jobScheduling([1, 2, 3, 3], [3, 4, 5, 6], [50, 10, 40, 70])
+    print(b)
