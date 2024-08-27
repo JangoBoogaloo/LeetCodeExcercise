@@ -40,3 +40,37 @@ class SolutionMergeSort:
         else:
             median, _, _ = self._mergeCompare(nums1, nums2, index1, index2)
             return median
+
+
+class SolutionBS:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        if len(nums1) > len(nums2):
+            return self.findMedianSortedArrays(nums2, nums1)
+
+        size_1, size_2 = len(nums1), len(nums2)
+        left, right = 0, size_1
+
+        while left <= right:
+            mid_smaller = (left + right) // 2
+            mid_total = (size_1 + size_2 + 1) // 2
+            mid_bigger = mid_total - mid_smaller
+
+            maxLeftA = float("-inf") if mid_smaller == 0 else nums1[mid_smaller - 1]
+            minRightA = float("inf") if mid_smaller == size_1 else nums1[mid_smaller]
+
+            maxLeftB = float("-inf") if mid_bigger == 0 else nums2[mid_bigger - 1]
+            minRightB = float("inf") if mid_bigger == size_2 else nums2[mid_bigger]
+
+            # [ maxLeftA ]    [ minRightA ]
+            # [ maxLeftB ]    [ minRightB ]
+            if maxLeftA <= minRightB and maxLeftB <= minRightA:
+                if (size_1 + size_2) % 2 == 0:
+                    maxLeft = max(maxLeftA, maxLeftB)
+                    minRight = min(minRightA, minRightB)
+                    return (maxLeft + minRight) / 2
+                else:
+                    return max(maxLeftA, maxLeftB)
+            elif maxLeftA > minRightB:
+                right = mid_smaller - 1
+            else:
+                left = mid_smaller + 1
