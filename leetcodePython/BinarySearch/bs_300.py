@@ -1,7 +1,7 @@
 from typing import List
 
 
-class Solution:
+class SolutionDP:
     def lengthOfLIS(self, nums: List[int]) -> int:
         dp_sequence_length = [1] * len(nums)
 
