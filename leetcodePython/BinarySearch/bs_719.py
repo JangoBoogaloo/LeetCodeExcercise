@@ -1,8 +1,9 @@
 from typing import List
 
 
-class Solution:
-    def _count_pair_with_max_distance(self, nums: List[int], distance: int) -> int:
+class SolutionBS:
+    @staticmethod
+    def _count_pair_with_max_distance(nums: List[int], distance: int) -> int:
         left = 0
         count = 0
         for right in range(len(nums)):
