@@ -16,7 +16,11 @@ Test cases are not written ATM as relying on leetcode test case is much more eff
 It's always an interesting topic to see how an algorithm/solution can be implemented in a different language. Sometimes an elegant/efficent algorithm in one language can be difficult or even impossible to implement in another language.
 For practice purpose using Python is very efficient, but I definitely support implementing them in other languages (Java, C++, or even Rust).
 
-A one point I will pause adding new questions and review existing questions. I will start supporting different languages by that time. ETA might be 2025.
+A one point I will pause adding new questions and review existing questions. I will start supporting different languages by that time. ETA in 2025.
+
+### Test Case
+
+While writing test cases will be a great practice and make the repo self-contained, it's not very efficient for 1st time leetcode practice. Again I will come back making test cases in my review time. ETA in 2025
 
 ## Resource & Inspiration
 * [Leetcode](https://leetcode.com/problemset/)
