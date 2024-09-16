@@ -60,3 +60,37 @@ class SolutionBFS:
                     self._addLand(grid, neigh_bors, r, c - 1)
                     self._addLand(grid, neigh_bors, r, c + 1)
         return islands
+
+
+class SolutionDFSNoModify:
+    def _dfs_sink_island(self, grid: List[List[str]], visited: List[List[bool]], row: int, col: int) -> None:
+        if row < 0 or col < 0:
+            return
+        if row >= len(grid) or col >= len(grid[0]):
+            return
+
+        if visited[row][col] or grid[row][col] != "1":
+            visited[row][col] = True
+            return
+        visited[row][col] = True
+        self._dfs_sink_island(grid, visited, row - 1, col)
+        self._dfs_sink_island(grid, visited, row + 1, col)
+        self._dfs_sink_island(grid, visited, row, col - 1)
+        self._dfs_sink_island(grid, visited, row, col + 1)
+
+    def numIslands(self, grid: List[List[str]]) -> int:
+        visited = [[False] * len(grid[i]) for i in range(len(grid))]
+
+        if not grid:
+            return 0
+
+        islands = 0
+        for row in range(len(grid)):
+            for col in range(len(grid[0])):
+                if visited[row][col]:
+                    continue
+                if grid[row][col] == "1":
+                    self._dfs_sink_island(grid, visited, row, col)
+                    islands += 1
+                visited[row][col] = True
+        return islands
