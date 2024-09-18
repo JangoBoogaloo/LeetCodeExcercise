@@ -1,7 +1,7 @@
 from typing import List
 
 
-class Solution:
+class SolutionFullDFS:
     def _dfs_check_surround(self, board: List[List[str]], visited: List[List[bool]], region: List[tuple[int, int]],
                             row: int, col: int) -> bool:
         if row < 0 or col < 0:
