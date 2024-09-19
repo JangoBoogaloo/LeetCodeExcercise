@@ -26,11 +26,10 @@ class Solution:
                 nr, nc = r + dr, c + dc
                 if self._out_of_bound(grid_size, nr, nc):
                     continue
-                distance_new = distance[nr][nc]
-                new_safe = min(safeness, distance_new)
-                if new_safe > max_safeness[nr][nc]:
-                    max_safeness[nr][nc] = new_safe
-                    heappush(safeness_max_heap, (-new_safe, nr, nc))
+                min_safeness_dir = min(safeness, distance[nr][nc])
+                if max_safeness[nr][nc] < min_safeness_dir:
+                    max_safeness[nr][nc] = min_safeness_dir
+                    heappush(safeness_max_heap, (-min_safeness_dir, nr, nc))
         return -1
 
     def _set_thief_distance(self, pos_queue: collections.deque, distance: List[List[float]],
@@ -66,3 +65,9 @@ class Solution:
         if row >= grid_size or col >= grid_size:
             return True
         return False
+
+
+if __name__ == "__main__":
+    sol = Solution()
+    ans = sol.maximumSafenessFactor([[0, 0, 0, 1], [0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 0]])
+    print(ans)
