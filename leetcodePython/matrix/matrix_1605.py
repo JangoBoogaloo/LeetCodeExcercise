@@ -18,3 +18,22 @@ class Solution:
                 curr_row_sum[row] += matrix[row][col]
                 curr_col_sum[col] += matrix[row][col]
         return matrix
+
+
+class SolutionOptimize:
+    def restoreMatrix(self, rowSum: List[int], colSum: List[int]) -> List[List[int]]:
+        rows = len(rowSum)
+        cols = len(colSum)
+        matrix = [[0] * cols for _ in range(rows)]
+        row, col = 0, 0
+        while row < rows and col < cols:
+            matrix[row][col] = min(rowSum[row], colSum[col])
+            rowSum[row] -= matrix[row][col]
+            colSum[col] -= matrix[row][col]
+
+            # one of them will be bigger than 0, for the smaller than 0 data, move forward
+            if rowSum[row] == 0:
+                row += 1
+            else:
+                col += 1
+        return matrix
