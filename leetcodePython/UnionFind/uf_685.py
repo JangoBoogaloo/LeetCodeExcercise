@@ -3,28 +3,43 @@ from typing import List
 
 class Solution:
     def findRedundantDirectedConnection(self, edges: List[List[int]]) -> List[int]:
-        return []
+        n = len(edges)
+        parent = [i for i in range(n + 1)]
+        edge1 = None
+        edge2 = None
 
+        def find(x) -> int:
+            if parent[x] != x:
+                parent[x] = find(parent[x])
+            return parent[x]
 
-class UnionFind:
-    def __init__(self, size: int):
-        self.rank = [0] * size
-        self.parent = [i for i in range(size)]
+        def union(x, y) -> bool:
+            rootX = find(x)
+            rootY = find(y)
+            if rootX == rootY:
+                return False
+            parent[rootY] = rootX
+            return True
 
-    def find(self, a: int) -> int:
-        if self.parent[a] != a:
-            self.parent[a] = self.find(self.parent[a])
-        return self.parent[a]
+        # check for nodes with two parents
+        for parentNode, childNode in edges:
+            if parent[childNode] != childNode:
+                edge1 = [parent[childNode], childNode]
+                edge2 = [parentNode, childNode]
+            else:
+                parent[childNode] = parentNode
 
-    def union(self, a: int, b: int) -> None:
-        root_a = self.find(a)
-        root_b = self.find(b)
-        if root_a == root_b:
-            return
-        if self.rank[root_a] < self.rank[root_b]:
-            self.parent[root_a] = root_b
-        elif self.rank[root_a] > self.rank[root_b]:
-            self.parent[root_b] = root_a
-        else:
-            self.parent[root_b] = root_a
-            self.rank[root_a] += 1
+        # union find to detect cycles
+        parent = [i for i in range(n + 1)]
+        for parentNode, childNode in edges:
+            # try to skip parent-child edge 2 and see if it still causes cycle
+            if [parentNode, childNode] == edge2:
+                continue
+            # still a cycle, then should be edge1
+            if not union(parentNode, childNode):
+                if edge1:
+                    return edge1
+                # no multi parent, simply remove current edge
+                return [parentNode, childNode]
+        return edge2
+
