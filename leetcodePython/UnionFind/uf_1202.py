@@ -44,14 +44,8 @@ class Solution:
         for i in range(len(s)):
             components[uf.find(i)].append(s[i])
         for comp_chars in components.values():
-            comp_chars.sort()
+            comp_chars.sort(reverse=True)
         ans = ""
         for i in range(len(s)):
-            ans += components[uf.find(i)].pop(0)
+            ans += components[uf.find(i)].pop()
         return ans
-
-
-if __name__ == "__main__":
-    sol = Solution()
-    ans = sol.smallestStringWithSwaps("dcba", [[0, 1], [2, 3]])
-    print(ans)
