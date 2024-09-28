@@ -45,7 +45,7 @@ class Solution:
             components[uf.find(i)].append(s[i])
         for comp_chars in components.values():
             comp_chars.sort(reverse=True)
-        ans = ""
+        ans = []
         for i in range(len(s)):
-            ans += components[uf.find(i)].pop()
-        return ans
+            ans.append(components[uf.find(i)].pop())
+        return "".join(ans)
