@@ -1,0 +1,78 @@
+from typing import List
+
+
+class Solution:
+
+    def regionsBySlashes(self, grid):
+        expanded_grid = self._expand_grid(grid)
+        grid_size = len(expanded_grid)
+        region_count = 0
+        # Count regions using flood fill
+        for i in range(grid_size):
+            for j in range(grid_size):
+                # If we find an unvisited cell (0), it's a new region
+                if expanded_grid[i][j] == 0:
+                    # Fill that region
+                    self._flood_fill(expanded_grid, i, j)
+                    region_count += 1
+
+        return region_count
+
+    @staticmethod
+    def _expand_grid(grid: List[List[int]]) -> List[List[int]]:
+        grid_size = len(grid)
+        # Create a 3x3 matrix for each cell in the original grid
+        expanded_grid = [[0] * (grid_size * 3) for _ in range(grid_size * 3)]
+
+        # Populate the expanded grid based on the original grid
+        # 1 represents a barrier in the expanded grid
+        for i in range(grid_size):
+            for j in range(grid_size):
+                base_row = i * 3
+                base_col = j * 3
+                # Check the character in the original grid
+                if grid[i][j] == "\\":
+                    # Mark diagonal for backslash
+                    expanded_grid[base_row][base_col] = 1
+                    expanded_grid[base_row + 1][base_col + 1] = 1
+                    expanded_grid[base_row + 2][base_col + 2] = 1
+                elif grid[i][j] == "/":
+                    # Mark diagonal for forward slash
+                    expanded_grid[base_row][base_col + 2] = 1
+                    expanded_grid[base_row + 1][base_col + 1] = 1
+                    expanded_grid[base_row + 2][base_col] = 1
+        return expanded_grid
+
+    # Flood fill algorithm to mark all cells in a region
+    def _flood_fill(self, expanded_grid, row, col):
+        # Directions for traversal: right, left, down, up
+        DIRECTIONS = [
+            (0, 1),
+            (0, -1),
+            (1, 0),
+            (-1, 0),
+        ]
+        queue = [(row, col)]
+        expanded_grid[row][col] = 1
+
+        while queue:
+            current_cell = queue.pop(0)
+            # Check all four directions from the current cell
+            for direction in DIRECTIONS:
+                new_row = direction[0] + current_cell[0]
+                new_col = direction[1] + current_cell[1]
+                # If the new cell is valid and unvisited, mark it and add to queue
+                if self._is_valid_cell(expanded_grid, new_row, new_col):
+                    expanded_grid[new_row][new_col] = 1
+                    queue.append((new_row, new_col))
+
+    @staticmethod
+    def _is_valid_cell(expanded_grid, row, col):
+        n = len(expanded_grid)
+        if row < 0 or col < 0:
+            return False
+        if row >= n or col >= n:
+            return False
+        if expanded_grid[row][col] == 1:
+            return False
+        return True
