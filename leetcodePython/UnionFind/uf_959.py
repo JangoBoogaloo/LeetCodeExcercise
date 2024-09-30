@@ -1,7 +1,7 @@
 from typing import List
 
 
-class Solution:
+class SolutionGridExpansion:
 
     def regionsBySlashes(self, grid):
         expanded_grid = self._expand_grid(grid)
@@ -75,4 +75,65 @@ class Solution:
             return False
         if expanded_grid[row][col] == 1:
             return False
+        return True
+
+
+class SolutionDotsUF:
+
+    def _is_point_boarder(self, side_points: int, point_r: int, point_c: int) -> bool:
+        if point_r == 0 or point_c == 0 or point_r == side_points - 1 or point_c == side_points - 1:
+            return True
+
+    def regionsBySlashes(self, grid):
+        grid_size = len(grid)
+        side_points = grid_size + 1
+        total_points = side_points * side_points
+        uf = UF(total_points)
+        for point_r in range(side_points):
+            for point_c in range(side_points):
+                if self._is_point_boarder(side_points, point_r, point_c):
+                    point_id = point_r * side_points + point_c
+                    uf.register_parent(point_id, 0)
+
+        uf.register_parent(0, -1)
+        # border together form a component
+        components = 1
+        for r in range(grid_size):
+            for c in range(grid_size):
+                if grid[r][c] == "/":
+                    # connect bottom left with top right
+                    top_right = r * side_points + c + 1
+                    bottom_left = (r+1) * side_points + c
+                    # a circle is formed
+                    if not uf.union(top_right, bottom_left):
+                        components += 1
+                elif grid[r][c] == "\\":
+                    # connect top left with bottom right
+                    top_left = r * side_points + c
+                    bottom_right = (r+1) * side_points + c + 1
+                    # a circle is formed
+                    if not uf.union(top_left, bottom_right):
+                        components += 1
+        return components
+
+
+class UF:
+    def __init__(self, size: int):
+        self.parents = [-1] * size
+
+    def register_parent(self, a: int, parent: int) -> None:
+        self.parents[a] = parent
+
+    def find(self, a: int) -> int:
+        if self.parents[a] == -1:
+            return a
+        self.parents[a] = self.find(self.parents[a])
+        return self.parents[a]
+
+    def union(self, a: int, b: int) -> bool:
+        root_a = self.find(a)
+        root_b = self.find(b)
+        if root_a == root_b:
+            return False
+        self.parents[root_b] = root_a
         return True
