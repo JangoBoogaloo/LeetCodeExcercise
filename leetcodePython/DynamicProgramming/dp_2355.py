@@ -39,4 +39,5 @@ class Solution:
 
 if __name__ == "__main__":
     sol = Solution()
-    ans = sol.maximumBooks([2, 7, 5, 4])
+    ans = sol.maximumBooks([2, 7, 5, 4, 15, 11, 14, 11])
+    print(ans)
