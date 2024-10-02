@@ -2,7 +2,6 @@ import collections
 
 
 class SolutionBruteForce:
-
     def _max_variance_between(self, major: str, minor: str, s: str, minor_remain: int) -> int:
         major_count = minor_count = 0
         max_variance = 0
@@ -13,12 +12,15 @@ class SolutionBruteForce:
                 minor_count += 1
                 minor_remain -= 1
 
-            if minor_count > 0:
-                curr_variance = major_count - minor_count
-                max_variance = max(max_variance, curr_variance)
             if major_count < minor_count and minor_remain > 0:
                 major_count = 0
                 minor_count = 0
+                continue
+
+            if minor_count > 0:
+                curr_variance = major_count - minor_count
+                max_variance = max(max_variance, curr_variance)
+
         return max_variance
 
     def largestVariance(self, s: str) -> int:
