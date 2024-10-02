@@ -2,7 +2,11 @@ from functools import cache
 from typing import List
 
 
-class Solution:
+class SolutionCacheDP:
+    """
+    Calculate if a word is concat of words in seen.
+    If it's calculated, simply return the cached result
+    """
     @cache
     def _can_concat(self, word: str, seen: frozenset[str]) -> bool:
         # [prefix] + [------suffix------]
