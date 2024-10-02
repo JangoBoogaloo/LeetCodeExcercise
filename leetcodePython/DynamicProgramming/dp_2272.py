@@ -27,11 +27,13 @@ class SolutionBruteForce:
     def largestVariance(self, s: str) -> int:
         char_freq = collections.Counter(s)
         ans = 0
+        # O(k^2)
         for major in char_freq.keys():
             for minor in char_freq.keys():
                 if major == minor:
                     continue
                 minor_remain = char_freq[minor]
+                # O(n)
                 curr_max = self._max_variance_between(major, minor, s, minor_remain)
                 ans = max(ans, curr_max)
         return ans
