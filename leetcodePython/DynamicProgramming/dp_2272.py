@@ -1,4 +1,5 @@
 import collections
+from math import inf
 
 
 class SolutionBruteForce:
@@ -34,3 +35,32 @@ class SolutionBruteForce:
                 curr_max = self._max_variance_between(major, minor, s, minor_remain)
                 ans = max(ans, curr_max)
         return ans
+
+
+class SolutionDP:
+    def largestVariance(self, s: str) -> int:
+        BASE_a = ord("a")
+        count = [0] * 26
+        chars = [ord(major) - BASE_a for major in set(s)]
+        min_diff = [[inf] * 26 for _ in range(26)]
+        prev_diff = [[0] * 26 for _ in range(26)]
+        res = 0
+
+        for major in s:
+            major = ord(major) - BASE_a
+            count[major] += 1
+            if count[major] == 1:
+                res = max(count) - 1
+            for minor in chars:
+                if major == minor:
+                    continue
+                if prev_diff[minor][major] < min_diff[minor][major]:
+                    min_diff[minor][major] = prev_diff[minor][major]
+
+                cur_diff = count[major] - count[minor]
+                if res < cur_diff - min_diff[major][minor]:
+                    res = cur_diff - min_diff[major][minor]
+
+                prev_diff[minor][major] = -cur_diff
+
+        return res
