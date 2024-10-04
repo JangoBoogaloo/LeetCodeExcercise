@@ -29,5 +29,5 @@ class SolutionDP:
 
 
 if __name__ == "__main__":
-    sol = Solution()
+    sol = SolutionDP()
     sol.getMaxLen([0,1,-2,-3,-4])
