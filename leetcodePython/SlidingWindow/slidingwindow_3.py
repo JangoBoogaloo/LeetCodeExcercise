@@ -24,7 +24,7 @@ class SolutionSlidingWindow:
                 chars.remove(old_char)
                 left += 1
             chars.add(new_char)
-            max_length = max(max_length, right-left+1)
+            max_length = max(max_length, right - left + 1)
             right += 1
         return max_length
 
@@ -34,11 +34,11 @@ class SolutionSlidingWindowRepeatIndexJump:
         left, right = 0, 0
         char_index = {}
         max_length = 0
-        while right < len(s):
+        for right in range(len(s)):
             new_char = s[right]
             if new_char in char_index:
-                left = max(char_index[new_char]+1, left)
-            max_length = max(max_length, right-left+1)
+                index_after_duplicate = char_index[new_char] + 1
+                left = max(index_after_duplicate, left)
+            max_length = max(max_length, right - left + 1)
             char_index[new_char] = right
-            right += 1
         return max_length
