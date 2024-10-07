@@ -28,3 +28,19 @@ class SolutionRecursive:
 
     def flatten(self, root: Optional[TreeNode]) -> None:
         self._flatten_return_right_tail(root)
+
+
+
+class SolutionIterative:
+    def flatten(self, root: Optional[TreeNode]) -> None:
+        curr = root
+
+        while curr:
+            if curr.left:
+                right_tail = curr.left
+                while right_tail.right:
+                    right_tail = right_tail.right
+                right_tail.right = curr.right
+                curr.right = curr.left
+                curr.left = None
+            curr = curr.right
