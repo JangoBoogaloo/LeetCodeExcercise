@@ -2,9 +2,10 @@
 
 using BinaryTree;
 
-public class TreeNodeTests
+[TestFixture]
+class TreeNodeTests
 {
-    public static IReadOnlyList<int?[]> BinaryTreeTestCases = new[]
+    private static IReadOnlyList<int?[]> _binaryTreeTestCases = new[]
     {
         Array.Empty<int?>(),
         new int?[] { 1, },
@@ -19,7 +20,7 @@ public class TreeNodeTests
         new int?[] { 1, 2, 3, null, 5, null, 7},
     };
 
-    [TestCaseSource(nameof(BinaryTreeTestCases))]
+    [TestCaseSource(nameof(_binaryTreeTestCases))]
     public void BinaryTreeTests(int?[] expected)
     {
         var root = TreeNode.BuildTree(expected);
