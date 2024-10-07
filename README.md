@@ -2,7 +2,7 @@
 
 ## How to use this repo
 
-* Each pull request and branch should represent a leetcode question. It provides description/label/hint/solution.
+* Each [pull request](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged) and branch should represent a leetcode question. It provides description/label/hint/solution.
 * Most of the solutions are implemented in C# and Python (Python 3). Suggest open it with `Rider` and `PyCharm`.
 * Issues represent some important topics for review. Go select its label you can find all the relevent questions for that issue.
 
