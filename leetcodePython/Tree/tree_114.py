@@ -8,7 +8,7 @@ class TreeNode:
         self.right = right
 
 
-class Solution:
+class SolutionRecursive:
 
     def _flatten_return_right_tail(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         if not root:
