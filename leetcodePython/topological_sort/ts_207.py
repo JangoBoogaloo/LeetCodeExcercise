@@ -7,7 +7,7 @@ class Solution:
         indegree = [0] * numCourses
         from_to: List[List[int]]
         from_to = [[] for _ in range(numCourses)]
-        for src, dst in prerequisites:
+        for dst, src, in prerequisites:
             from_to[src].append(dst)
             indegree[dst] += 1
 
