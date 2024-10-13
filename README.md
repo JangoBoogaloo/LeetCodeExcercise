@@ -2,12 +2,20 @@
 
 ## How to use this repo
 
-* Each [pull request](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged) and branch should represent a leetcode question. It provides description/label/hint/solution.
-* Most of the solutions are implemented in C# and Python (Python 3). Suggest open it with `Rider` and `PyCharm`.
-* Issues represent some important topics for review. Select its label you can find all the relevent questions for that issue.
+Most of the solutions are implemented in C# and Python (Python 3). Suggest open it with `Rider` and `PyCharm`.
+
+### [pull request](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged)
+
+* Each [pull request](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged) should represent a leetcode question. It provides description/label/hint/solution.
+
+## Issue
+
+* Each issue is a summary of a concept and provide hints and common tricks of this concept.
+* Select its label you can find all the relevent questions for that issue.
+
+## Label
 
 This repo is design to practice leetcode questions base on topics. For example if you are not familiar with `Sliding Window`. You can filter by `sliding window` label to learn and practice this topic.
-Test cases are not written ATM as relying on leetcode test case is much more efficient.
 
 ## TODO
 
