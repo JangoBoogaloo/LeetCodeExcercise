@@ -17,7 +17,7 @@ Most of the solutions are implemented in C# and Python (Python 3). Suggest open 
 
 This repo is design to practice leetcode questions base on topics. 
 
-For example if you are not familiar with `Sliding Window`. You can filter by `sliding window` label pull requests to find questions of this topic.
+For example if you are not familiar with `Sliding Window`. You can filter by [`sliding window`](https://github.com/JangoBoogaloo/LeetCodeExcercise/labels/sliding%20window) label pull requests to find questions of this topic.
 
 ## TODO
 
