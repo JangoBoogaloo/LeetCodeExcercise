@@ -15,7 +15,9 @@ Most of the solutions are implemented in C# and Python (Python 3). Suggest open 
 
 ## [Label](https://github.com/JangoBoogaloo/LeetCodeExcercise/labels)
 
-This repo is design to practice leetcode questions base on topics. For example if you are not familiar with `Sliding Window`. You can filter by `sliding window` label pull requests to find questions of this topic.
+This repo is design to practice leetcode questions base on topics. 
+
+For example if you are not familiar with `Sliding Window`. You can filter by `sliding window` label pull requests to find questions of this topic.
 
 ## TODO
 
