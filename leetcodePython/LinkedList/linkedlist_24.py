@@ -23,7 +23,7 @@ class Solution:
             current.next, prev, current = prev, current, current.next
         return prev, current
 
-    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+    def _reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
         count = self._count_nodes(head)
         dummy = prev_tail = ListNode()  # the new list to insert to
         current_head = head
@@ -38,4 +38,4 @@ class Solution:
         return dummy.next
 
     def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        return self.reverseKGroup(head, 2)
+        return self._reverseKGroup(head, 2)
