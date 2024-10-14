@@ -4,7 +4,7 @@
 
 Most of the solutions are implemented in C# and Python (Python 3). Suggest open it with `Rider` and `PyCharm`.
 
-### [pull request](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged)
+### [Pull Request](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged)
 
 * Each [pull request](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged) should represent a leetcode question. It provides description/label/hint/solution.
 
