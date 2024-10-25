@@ -42,4 +42,7 @@ class SolutionMorris:
                 else:
                     predecessor.right = None
                     current = current.right
+            else:
+                visited.append(current.val)
+                current = current.right
         return visited
