@@ -20,3 +20,26 @@ class SolutionRecursive:
         visited = []
         self._preorder(root, visited)
         return visited
+
+
+class SolutionMorris:
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        visited: List[int] = []
+        current = root
+
+        while current:
+            if current.left:
+                predecessor = current.left
+                while predecessor.right and predecessor.right != current:
+                    predecessor = predecessor.right
+
+                # 1st time visit, build the predecessor link and add the node value
+                if not predecessor.right:
+                    visited.append(current.val)
+                    predecessor.right = current
+                    current = current.left
+                # 2nd time visit, now we go to its right
+                else:
+                    predecessor.right = None
+                    current = current.right
+        return visited
