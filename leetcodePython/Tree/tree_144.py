@@ -29,6 +29,7 @@ class SolutionMorris:
 
         while current:
             if current.left:
+                # get to right most from left child, build link back to current
                 predecessor = current.left
                 while predecessor.right and predecessor.right != current:
                     predecessor = predecessor.right
