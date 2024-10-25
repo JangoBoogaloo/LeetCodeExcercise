@@ -1,14 +1,14 @@
 from typing import *
 
 
-class TreeNodeRecursion:
+class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right
 
 
-class Solution:
+class SolutionRecursive:
     def _preorder(self, root: Optional[TreeNode], visited: List[int]) -> None:
         if not root:
             return
