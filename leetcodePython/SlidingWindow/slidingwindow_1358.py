@@ -1,7 +1,7 @@
 class Solution:
     def numberOfSubstrings(self, s: str) -> int:
         count = {c: 0 for c in 'abc'}
-        zeros = 3
+        zeros = len(count)
         left = 0
         ans = 0
         for right, ch in enumerate(s):
