@@ -2,7 +2,7 @@
 
 ## How to use this repo
 
-Most of the solutions are implemented in C# and Python (Python 3). Suggest open it with `Rider` and `PyCharm`.
+Most of the solutions are implemented in Python (Python 3). Suggest open it with `PyCharm`.
 
 ### [Pull Request](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged)
 
