@@ -34,7 +34,6 @@ class Solution:
                 word_freq[left_word] -= 1
                 left += word_len
             if match_count == len(needed):
-                print(s[left:right+1])
                 ans.append(left)
 
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
@@ -49,5 +48,7 @@ class Solution:
 
 if __name__ == '__main__':
     solution = Solution()
-    answer = solution.findSubstring("bcabbcaabbccacacbabccacaababcbb", ["c","b","a","c","a","a","a","b","c", "cb"])
-    print(answer)
+    answer = solution.findSubstring("bcabbcaabbccacacbabccacaababcbb", ["c","b","a","c","a","a","a","b","c"])
+    print(answer) # [6, 16, 17, 18, 19, 20]
+    answer = solution.findSubstring("lingmindraboofooowingdingbarrwingmonkeypoundcake", ["fooo","barr","wing","ding","wing"])
+    print(answer) # [13]
