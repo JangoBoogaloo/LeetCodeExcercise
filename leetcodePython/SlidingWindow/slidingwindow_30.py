@@ -41,14 +41,6 @@ class Solution:
         word_len = len(words[0])
         window_len = len(words) * word_len
         ans = []
-        for i in range(word_len):
+        for i in range(word_len): # since left, right jump word_len, we need to shift i
             self._slide_window(s, needed, window_len, word_len, i, ans)
         return ans
-
-
-if __name__ == '__main__':
-    solution = Solution()
-    answer = solution.findSubstring("bcabbcaabbccacacbabccacaababcbb", ["c","b","a","c","a","a","a","b","c"])
-    print(answer) # [6, 16, 17, 18, 19, 20]
-    answer = solution.findSubstring("lingmindraboofooowingdingbarrwingmonkeypoundcake", ["fooo","barr","wing","ding","wing"])
-    print(answer) # [13]
