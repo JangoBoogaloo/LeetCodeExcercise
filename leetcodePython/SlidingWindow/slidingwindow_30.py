@@ -19,7 +19,7 @@ class Solution:
                 left = right + word_len
                 too_freq = False
                 match_count = 0
-                word_freq = Counter()
+                word_freq.clear()
                 continue
 
             word_freq[right_word] += 1
