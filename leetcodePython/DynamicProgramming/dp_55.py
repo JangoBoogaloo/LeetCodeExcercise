@@ -15,3 +15,12 @@ class SolutionReverseDP:
                     pos_finish_status[i] = SUCCEED
                     break
         return pos_finish_status[0] == SUCCEED
+
+
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        reverse_pos = len(nums) - 1
+        for reverse_i in range(len(nums)-1, -1, -1):
+            if reverse_i + nums[reverse_i] >= reverse_pos:
+                reverse_pos = reverse_i
+        return reverse_pos == 0
