@@ -36,3 +36,4 @@ ETA in 2025
 * [Leetcode](https://leetcode.com/problemset/)
 * [labuladong](https://labuladong.online/algo/home/)
 * [LeetCode The Hard Way](https://leetcodethehardway.com/)
+* [NeetCode](https://www.youtube.com/@NeetCode)
