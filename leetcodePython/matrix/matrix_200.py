@@ -80,15 +80,21 @@ class UnionFind:
 
 class Solution:
     _WATER = "0"
+    _DIRECTIONS = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
-    def _combine_lands(self, grid: List[List[str]], uf: UnionFind, pos: tuple[int, int], pos_new: tuple[int, int]) -> None:
+    def _isLand(self, grid: List[List[str]], pos: tuple[int, int]) -> bool:
+        row, col = pos
+        if row < 0 or col < 0:
+            return False
+        if row > len(grid) - 1 or col > len(grid[0]) - 1:
+            return False
+        if grid[row][col] == self._WATER:
+            return False
+        return True
+
+    @staticmethod
+    def _combineLands(grid: List[List[str]], uf: UnionFind, pos: tuple[int, int], pos_new: tuple[int, int]) -> None:
         r_new, c_new = pos_new
-        if r_new < 0 or c_new < 0:
-            return
-        if r_new > len(grid) - 1 or c_new > len(grid[0]) - 1:
-            return
-        if grid[r_new][c_new] == self._WATER:
-            return
         r, c = pos
         pos_index = r * len(grid[0]) + c
         pos_new_index = r_new * len(grid[0]) + c_new
@@ -105,8 +111,9 @@ class Solution:
             for col in range(cols):
                 if grid[row][col] == self._WATER:
                     continue
-                self._combine_lands(grid, uf, (row, col), (row - 1, col))
-                self._combine_lands(grid, uf, (row, col), (row + 1, col))
-                self._combine_lands(grid, uf, (row, col), (row, col - 1))
-                self._combine_lands(grid, uf, (row, col), (row, col + 1))
+                for row_move, col_move in self._DIRECTIONS:
+                    pose_new = (row + row_move, col + col_move)
+                    if not self._isLand(grid, pose_new):
+                        continue
+                    self._combineLands(grid, uf, (row, col), pose_new)
         return uf.count()
