@@ -25,3 +25,36 @@ class Solution:
 
         dfsSum(root, 0)
         return self._sum
+
+
+class SolutionMorris:
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        path_sum = 0
+        current = root
+        number = 0
+        while current:
+            if current.left:
+                predecessor = current.left
+                step = 1
+                while predecessor.right and predecessor.right != current:
+                    predecessor = predecessor.right
+                    step += 1
+                if not predecessor.right:
+                    number = number * 10 + current.val
+                    predecessor.right = current
+                    current = current.left
+                else:
+                    if not predecessor.left:
+                        path_sum += number
+                    for _ in range(step):
+                        number //= 10
+                    predecessor.right = None
+                    current = current.right
+
+            else:
+                number = number * 10 + current.val
+                if not current.right:
+                    path_sum += number
+                current = current.right
+
+        return path_sum
