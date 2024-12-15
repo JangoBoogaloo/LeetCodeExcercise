@@ -2,7 +2,8 @@ from typing import List
 
 
 class Solution:
-    def _isPalindrome(self, s: str) -> bool:
+    @staticmethod
+    def _isPalindrome(s: str) -> bool:
         left, right = 0, len(s)-1
         while left < right:
             if s[left] != s[right]:
