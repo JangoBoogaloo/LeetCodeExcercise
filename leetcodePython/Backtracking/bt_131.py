@@ -12,11 +12,11 @@ class Solution:
         return True
 
     def partition(self, s: str) -> List[List[str]]:
-        all_possible = []
+        allPossible = []
 
         def backtrack(start: int, palindromes: List[str]) -> None:
             if start == len(s):
-                all_possible.append(list(palindromes))
+                allPossible.append(list(palindromes))
                 return
             for end in range(start+1, len(s)+1):
                 sub_str = s[start:end]
@@ -27,4 +27,4 @@ class Solution:
                 palindromes.pop()
 
         backtrack(0, [])
-        return all_possible
+        return allPossible
