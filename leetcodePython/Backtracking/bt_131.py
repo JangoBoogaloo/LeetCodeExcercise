@@ -29,3 +29,24 @@ class Solution:
 
         backtrack(0, [])
         return allPossible
+
+
+class SolutionDP:
+
+    def partition(self, s: str) -> List[List[str]]:
+        allPossible = []
+        dp = [[False] * len(s) for _ in range(len(s))]
+
+        def backtrack(start: int, palindromes: List[str]) -> None:
+            if start == len(s):
+                allPossible.append(list(palindromes))
+                return
+            for end in range(start, len(s)):
+                if s[start] == s[end] and (end - start <= 2 or dp[start + 1][end-1]):
+                    dp[start][end] = True
+                    palindromes.append(s[start:end+1])
+                    backtrack(end+1, palindromes)
+                    palindromes.pop()
+
+        backtrack(0, [])
+        return allPossible
