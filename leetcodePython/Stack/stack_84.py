@@ -19,8 +19,3 @@ class Solution:
             increaseHeightIndex.append(i)
         heights.pop()
         return maxArea
-
-
-if __name__ == '__main__':
-    solution = Solution()
-    solution.largestRectangleArea([1])
