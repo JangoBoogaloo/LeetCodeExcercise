@@ -3,19 +3,16 @@ from typing import List
 
 class Solution:
     def maxWidthRamp(self, nums: List[int]) -> int:
-        max_ramp = 0
-        decrease_stack = []
+        rightMax = [0] * len(nums)
+        rightMax[len(nums) - 1] = nums[-1]
+        for i in range(len(nums) - 2, -1, -1):
+            rightMax[i] = max(rightMax[i + 1], nums[i])
 
-        # retrieve the decreasing pattern from nums
-        for i, num in enumerate(nums):
-            if not decrease_stack or nums[decrease_stack[-1]] > num:
-                decrease_stack.append(i)
+        left = 0
+        maxWidth = 0
+        for right in range(len(nums)):
+            while left < right and nums[left] > rightMax[right]:
+                left += 1
+            maxWidth = max(maxWidth, right - left)
 
-        # base on decreasing pattern, go from end of nums, try to find the max width, such that:
-        # the data from decreasing pattern is smaller than current number
-        for i in range(len(nums))[::-1]:
-            while decrease_stack and nums[decrease_stack[-1]] <= nums[i]:
-                last_index = decrease_stack.pop()
-                max_ramp = max(max_ramp, i - last_index)
-
-        return max_ramp
+        return maxWidth
