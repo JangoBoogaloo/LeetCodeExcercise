@@ -21,44 +21,16 @@ class SolutionSlidingWindow:
         return arr[min_left:min_right+1]
 
 
-class SolutionSlidingWindowBinarySearch:
-    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
-        # Base case
-        if len(arr) == k:
-            return arr
-
-        # Find the closest element and initialize two pointers
-        left = bisect_left(arr, x) - 1
-        right = left + 1
-        while right - left - 1 < k:
-            if left == -1:
-                right += 1
-            elif right == len(arr):
-                left -= 1
-            elif abs(arr[left]-x) < abs(arr[right]-x):
-                left -= 1
-            else:
-                right += 1
-        return arr[left+1:right]
-
 class SolutionLeftBoundBinarySearch:
     def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
-        # Initialize binary search bounds
         left = 0
+        # guess the left boundary for k_window
         right = len(arr) - k
-
-        # Binary search against the criteria described
         while left < right:
-            mid = (left + right) // 2
-            if x - arr[mid] > arr[mid + k] - x:
-                left = mid + 1
+            k_left = (left + right) // 2
+            k_right = k_left + k
+            if x - arr[k_left] > arr[k_right] - x:
+                left = k_left + 1
             else:
-                right = mid
-
+                right = k_left
         return arr[left:left + k]
-
-
-if __name__ == "__main__":
-    sol = SolutionSlidingWindow()
-    ans = sol.findClosestElements([0,1,1,1,2,3,6,7,8,9], 9, 4)
-    print(ans)
