@@ -17,3 +17,13 @@ class Solution:
                 subArrayEndAtIndexMinSum[i] = (i + 1) * arr[i]
             smallerDataIndexStack.append(i)
         return sum(subArrayEndAtIndexMinSum) % MOD
+
+
+class SolutionBruteForce:
+    def sumSubarrayMins(self, arr: List[int]) -> int:
+        subArrayMinSum = 0
+        for right in range(len(arr)):
+            for left in range(right + 1):
+                minNum = min(arr[left:right + 1])
+                subArrayMinSum += minNum
+        return subArrayMinSum
