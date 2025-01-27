@@ -3,12 +3,12 @@ from typing import List
 
 class Solution:
     @staticmethod
-    def _search(fromHeight: int, increaseStack: List[tuple[int, int]]) -> int:
-        left, right = 0, len(increaseStack) - 1
+    def _search(fromHeight: int, decreaseStack: List[tuple[int, int]]) -> int:
+        left, right = 0, len(decreaseStack) - 1
         ans = -1
         while left <= right:
             mid = (left + right) // 2
-            height, query_i = increaseStack[mid]
+            height, query_i = decreaseStack[mid]
             if height > fromHeight:
                 ans = max(ans, mid)
                 left = mid + 1
