@@ -4,14 +4,11 @@ from typing import List
 class SolutionMonotonicStack:
     def maxChunksToSorted(self, arr: List[int]) -> int:
         increaseStack = []
-        for i in range(len(arr)):
-            if not increaseStack or arr[i] > increaseStack[-1]:
-                increaseStack.append(arr[i])
-            else:
-                maxNum = increaseStack[-1]
-                while increaseStack and arr[i] < increaseStack[-1]:
-                    increaseStack.pop()
-                increaseStack.append(maxNum)
+        for num in arr:
+            largest = num
+            while increaseStack and num < increaseStack[-1]:
+                largest = max(largest, increaseStack.pop())
+            increaseStack.append(largest)
         return len(increaseStack)
 
 
