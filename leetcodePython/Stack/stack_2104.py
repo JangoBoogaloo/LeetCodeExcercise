@@ -36,7 +36,8 @@ class Solution:
 
 
 class SolutionBruteForce:
-    def _getRange(self, nums: List[int]) -> int:
+    @staticmethod
+    def _getRange(nums: List[int]) -> int:
         return max(nums) - min(nums)
 
     def subArrayRanges(self, nums: List[int]) -> int:
