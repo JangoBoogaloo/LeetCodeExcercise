@@ -19,8 +19,8 @@ class Solution:
         # maxBalance_day_transaction_hold[day][used_k][ishold] = balance
         # ishold: 0 nothold, 1 hold
 
-        maxBalanceHoldAt = [[-math.inf] * k for _ in range(n)]
-        maxBalanceSoldAt = [[-math.inf] * k for _ in range(n)]
+        maxBalanceHoldAt = [[-math.inf] * (k+1) for _ in range(n)]
+        maxBalanceSoldAt = [[-math.inf] * (k+1) for _ in range(n)]
 
         maxBalanceSoldAt[0][0] = 0
         maxBalanceHoldAt[0][1] = -prices[0]
