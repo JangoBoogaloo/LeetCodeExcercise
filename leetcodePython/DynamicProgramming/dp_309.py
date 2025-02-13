@@ -12,8 +12,9 @@ class Solution:
         maxBalanceSoldAt: List[float] = [float('-inf')] * len(prices)
         maxBalanceHoldAt: List[float] = [float('-inf')] * len(prices)
         maxBalanceResetAt: List[float] = [0] * len(prices)
+        maxBalanceHoldAt[0] = -prices[0]
 
-        for day in range(len(prices)):
+        for day in range(1, len(prices)):
             maxBalanceSoldAt[day] = maxBalanceHoldAt[day-1] + prices[day]
             maxBalanceHoldAt[day] = max(maxBalanceHoldAt[day-1], maxBalanceResetAt[day-1] - prices[day])
             maxBalanceResetAt[day] = max(maxBalanceResetAt[day-1], maxBalanceSoldAt[day-1])
