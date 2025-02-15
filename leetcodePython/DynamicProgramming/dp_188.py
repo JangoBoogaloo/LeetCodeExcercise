@@ -36,12 +36,12 @@ class SolutionMinCostMaxGain:
             return 0
         minCostAtTransaction: List[float]
         minCostAtTransaction = [float("inf")] * (transaction+1)
-        maxProfitAtTransaction: List[float]
-        maxProfitAtTransaction = [0] * (transaction + 1)
+        maxGainAtTransaction: List[float]
+        maxGainAtTransaction = [0] * (transaction + 1)
 
         for price in prices:
             for t in range(1, transaction + 1):
-                minCostAtTransaction[t] = min(minCostAtTransaction[t], price - maxProfitAtTransaction[t-1])
-                maxProfitAtTransaction[t] = max(maxProfitAtTransaction[t], price - minCostAtTransaction[t])
+                minCostAtTransaction[t] = min(minCostAtTransaction[t], price - maxGainAtTransaction[t-1])
+                maxGainAtTransaction[t] = max(maxGainAtTransaction[t], price - minCostAtTransaction[t])
 
-        return int(maxProfitAtTransaction[transaction])
+        return int(maxGainAtTransaction[transaction])
