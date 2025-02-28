@@ -9,16 +9,16 @@ class Solution:
         maxCountHeap = [-count for count in task_count.values()]
         heapify(maxCountHeap)
         time = 0
-        taskQueue = deque()
-        while maxCountHeap or taskQueue:
+        count_time_queue = deque()
+        while maxCountHeap or count_time_queue:
             time += 1
             if maxCountHeap:
                 currentTaskCount = -heappop(maxCountHeap)
                 nextTaskCount = currentTaskCount - 1
                 if nextTaskCount:
                     nextTaskTime = time + n
-                    taskQueue.append((nextTaskCount, nextTaskTime))
-            if taskQueue and taskQueue[0][1] == time:
-                remainCount, _ = taskQueue.popleft()
+                    count_time_queue.append((nextTaskCount, nextTaskTime))
+            if count_time_queue and count_time_queue[0][1] == time:
+                remainCount, _ = count_time_queue.popleft()
                 heappush(maxCountHeap, -remainCount)
         return time
