@@ -9,8 +9,8 @@ class Solution:
         prevMaxValue = 0
         maxValue = 0
         for start, end, value in events:
-            while end_value_heap and start >= end_value_heap[0][0]:
-                prevStart, prevEnd, prevValue = heappop(end_value_heap)
+            while end_value_heap and start > end_value_heap[0][0]:
+                _, prevValue = heappop(end_value_heap)
                 prevMaxValue = max(prevMaxValue, prevValue)
             maxValue = max(maxValue, prevMaxValue + value)
             heappush(end_value_heap, (end, value))
