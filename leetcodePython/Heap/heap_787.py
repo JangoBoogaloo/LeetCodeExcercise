@@ -10,17 +10,17 @@ class Solution:
             start_end_price[start].append((end, price))
 
         min_cost_city_stops = [(0, src, 0)]
-        visited = {}
+        stopsToVisit = {}
         while min_cost_city_stops:
             totalCost, current, stops = heappop(min_cost_city_stops)
             if stops > k + 1:
                 continue
             if current == dst:
                 return totalCost
-            if current in visited and visited[current] == stops:
+            if current in stopsToVisit and stopsToVisit[current] == stops:
                 continue
-            visited[current] = stops
+            stopsToVisit[current] = stops
             for end, price in start_end_price[current]:
-                if end not in visited or visited[end] > stops:
+                if end not in stopsToVisit or stopsToVisit[end] > stops:
                     heappush(min_cost_city_stops, (totalCost+price, end, stops+1))
         return -1
