@@ -12,15 +12,16 @@ class Solution:
         min_cost_city_stops = [(0, src, 0)]
         stopsToVisit = {}
         while min_cost_city_stops:
-            totalCost, current, stops = heappop(min_cost_city_stops)
+            totalCost, currentCity, stops = heappop(min_cost_city_stops)
             if stops > k + 1:
                 continue
-            if current == dst:
+            if currentCity == dst:
                 return totalCost
-            if current in stopsToVisit and stopsToVisit[current] == stops:
+            if currentCity in stopsToVisit and stopsToVisit[currentCity] == stops:
                 continue
-            stopsToVisit[current] = stops
-            for end, price in start_end_price[current]:
-                if end not in stopsToVisit or stopsToVisit[end] > stops:
-                    heappush(min_cost_city_stops, (totalCost+price, end, stops+1))
+            stopsToVisit[currentCity] = stops
+            for nextCity, price in start_end_price[currentCity]:
+                if nextCity in stopsToVisit and stopsToVisit[nextCity] <= stops:
+                    continue
+                heappush(min_cost_city_stops, (totalCost+price, nextCity, stops+1))
         return -1
