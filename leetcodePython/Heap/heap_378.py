@@ -13,6 +13,6 @@ class Solution:
             ith, r, c = heappop(minHeap)
             if c >= len(matrix[0]) - 1:
                 continue
-            nextBiggerData = (matrix[r][c+1], r, c+1)
-            heappush(minHeap, nextBiggerData)
+            biggerInCurrentRow = (matrix[r][c+1], r, c+1)
+            heappush(minHeap, biggerInCurrentRow)
         return ith
