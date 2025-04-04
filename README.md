@@ -2,7 +2,7 @@
 
 ## How to use this repo
 
-Most of the solutions are implemented in C# and Python (Python 3). Suggest open it with `Rider` and `PyCharm`.
+Most of the solutions are implemented in Python (Python 3). Suggest open it with [PyCharm](https://www.jetbrains.com/pycharm/?source=google&medium=cpc&campaign=AMER_en_CA_PyCharm_Branded&term=pycharm&content=698987581431&gad_source=1&gclid=Cj0KCQiA4rK8BhD7ARIsAFe5LXISzVE80TBr4oJV7w-nKm8gX2kGQZ5KqO5lWFwIpmoZQhVodAOd_eMaAlCMEALw_wcB).
 
 ### [Pull Request](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged)
 
@@ -15,20 +15,16 @@ Most of the solutions are implemented in C# and Python (Python 3). Suggest open 
 
 ## [Label](https://github.com/JangoBoogaloo/LeetCodeExcercise/labels)
 
-This repo is design to practice leetcode questions base on topics. 
+This repo is designed to practice leetcode questions base on topics. 
 
-For example if you are not familiar with `Sliding Window`. You can filter by [`sliding window`](https://github.com/JangoBoogaloo/LeetCodeExcercise/labels/sliding%20window) label pull requests to find questions of this topic.
+For example if you are not familiar with `backtrack`. You can filter by [`backtrack`](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged+label%3Abacktrack) label pull requests to find questions of this topic.
 
 ## TODO
 
-### Support more languages
+### Support more languages - ETA in 2025
 
 It's always an interesting topic to see how an algorithm/solution can be implemented in a different language. Sometimes an elegant/efficent algorithm in one language can be difficult or even impossible to implement in another language.
-For practice purpose using Python is very efficient, but I definitely support implementing them in other languages (Java, C++, or even Rust).
-
-At one point I will pause adding new questions and review existing questions. I will start supporting different languages by that time. 
-
-ETA in 2025.
+For practice purpose using Python is very efficient, but implementing them in other languages (Java, C++, or even Rust) is definitely a good next TODO.
 
 ### Test Case
 
@@ -40,3 +36,4 @@ ETA in 2025
 * [Leetcode](https://leetcode.com/problemset/)
 * [labuladong](https://labuladong.online/algo/home/)
 * [LeetCode The Hard Way](https://leetcodethehardway.com/)
+* [NeetCode](https://www.youtube.com/@NeetCode)
