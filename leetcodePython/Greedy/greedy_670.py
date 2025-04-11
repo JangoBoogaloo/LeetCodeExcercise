@@ -1,16 +1,17 @@
 class Solution:
     def maximumSwap(self, num: int) -> int:
-        num_str = list(str(num))
-        max_digit_index = -1
-        small_index, large_index = -1, -1
-        for i in range(len(num_str) - 1, -1, -1):
-            if max_digit_index == -1 or num_str[i] > num_str[max_digit_index]:
-                max_digit_index = i
-            elif num_str[i] < num_str[max_digit_index]:
-                small_index = i
-                large_index = max_digit_index
+        numStr = list(str(num))
+        if len(numStr) < 2:
+            return num
 
-        if small_index != -1 and large_index != -1:
-            num_str[small_index], num_str[large_index] = num_str[large_index], num_str[small_index]
-
-        return int("".join(num_str))
+        maxDigitIndex = len(numStr)-1
+        leftMostSmallNumIndex, rightMostBigIndex = -1, -1
+        for i in range(len(numStr)-2, -1, -1):
+            if numStr[i] > numStr[maxDigitIndex]:
+                maxDigitIndex = i
+            elif numStr[i] < numStr[maxDigitIndex]:
+                leftMostSmallNumIndex = i
+                rightMostBigIndex = maxDigitIndex
+        if leftMostSmallNumIndex != -1:
+            numStr[leftMostSmallNumIndex], numStr[rightMostBigIndex] = numStr[rightMostBigIndex], numStr[leftMostSmallNumIndex]
+        return int("".join(numStr))
