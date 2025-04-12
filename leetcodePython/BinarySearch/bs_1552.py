@@ -4,7 +4,7 @@ from typing import List
 class Solution:
     def maxDistance(self, position: List[int], m: int) -> int:
         position.sort()
-        minForce, maxForce = 1, position[-1] - position[0]
+        minForce, maxForce = 1,  int((position[-1] - position[0]) / (m - 1.0)) + 1
         answer = 0
         while minForce <= maxForce:
             guessForce = (minForce + maxForce) // 2
