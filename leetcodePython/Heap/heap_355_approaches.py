@@ -50,6 +50,8 @@ class Twitter:
         self.follow(userId, userId)
         for usrId in self._follower_followee[userId]:
             for tweet in self._user_tweet[usrId]:
+                if len(minOrderHeap) > self._MAX_FEED_COUNT and tweet[0] < minOrderHeap[0][0]:
+                    break
                 heappush(minOrderHeap, tweet)
                 if len(minOrderHeap) > self._MAX_FEED_COUNT:
                     heappop(minOrderHeap)
