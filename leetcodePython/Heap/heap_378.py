@@ -1,17 +1,18 @@
 from typing import List
-from heapq import *
+from heapq import heappush, heappop
 
 
-class SolutionMinHeap:
+class Solution:
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
-        n = len(matrix)
         minHeap = []
-        for row in range(min(k, n)):
+        for row in range(min(k, len(matrix))):
             heappush(minHeap, (matrix[row][0], row, 0))
-        data = 0
+
+        ith = 0
         for i in range(k):
-            data, r, c = heappop(minHeap)
-            if c >= n - 1:
+            ith, r, c = heappop(minHeap)
+            if c >= len(matrix[0]) - 1:
                 continue
-            heappush(minHeap, (matrix[r][c + 1], r, c + 1))
-        return data
+            biggerInCurrentRow = (matrix[r][c+1], r, c+1)
+            heappush(minHeap, biggerInCurrentRow)
+        return ith
