@@ -3,13 +3,16 @@ from typing import List
 
 class Solution:
     def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
-        pos_speed = zip(position, speed)
-        time = []
-        for p, s in sorted(pos_speed):
-            time.append(float(target-p)/s)
-        fleets = max_time = 0
-        for t in time[::-1]:
-            if t > max_time:
+        positionAndSpeed = sorted(zip(position, speed))
+        positionSortedTimeStack = []
+        for pos, speed in positionAndSpeed:
+            positionSortedTimeStack.append(float(target - pos) / speed)
+
+        fleets = 0
+        while len(positionSortedTimeStack) > 1:
+            leadTime = positionSortedTimeStack.pop()
+            if leadTime < positionSortedTimeStack[-1]:
                 fleets += 1
-                max_time = t
-        return fleets
+            else:
+                positionSortedTimeStack[-1] = leadTime
+        return fleets + bool(positionSortedTimeStack)
