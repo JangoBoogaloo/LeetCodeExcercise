@@ -24,6 +24,5 @@ jobs:
         run: pytest leetcodePython/**/*.py
       - uses: pavelzw/pytest-action@v2
         with:
-          emoji: true
           verbose: true
           job-summary: true
