@@ -6,7 +6,7 @@ Most of the solutions are implemented in Python (Python 3). Suggest open it with
 
 ### [Pull Request](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged)
 
-* Each [pull request](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged) should represent a leetcode question. It provides description/label/hint/solution.
+* Each [pull request](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged+-label%3Atestcase+) should represent a leetcode question. It provides description/label/hint/solution.
 
 ## [Issue](https://github.com/JangoBoogaloo/LeetCodeExcercise/issues)
 
@@ -17,7 +17,7 @@ Most of the solutions are implemented in Python (Python 3). Suggest open it with
 
 This repo is designed to practice leetcode questions base on topics. 
 
-For example if you are not familiar with `backtrack`. You can filter by [`backtrack`](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged+label%3Abacktrack) label pull requests to find questions of this topic.
+For example if you are not familiar with `backtrack`. You can filter by [`backtrack`](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged+-label%3Atestcase+label%3Abacktrack) label pull requests to find questions of this topic.
 
 ## TODO
 
