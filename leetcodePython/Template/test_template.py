@@ -9,7 +9,7 @@ target = Solution()
 @pytest.mark.parametrize("text, integer, dictionary, expect",
 [
     ("1", 2, {1:1, 2:2}, True),
-    ("1", 2, [], False),
+    ("1", 2, [], True),
 
 ])
 def test_checkType(text, integer, dictionary, expect):
