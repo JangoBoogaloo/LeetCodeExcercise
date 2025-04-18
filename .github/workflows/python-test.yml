@@ -1,6 +1,8 @@
 name: Python Test
 
-on: [push]
+on: 
+  pull_request:
+    types: [opened, edited]
 
 jobs:
   build:
@@ -10,15 +12,11 @@ jobs:
       matrix:
         python-version: ["3.13"]
     steps:
-      - uses: szenius/set-timezone@v1.2
-        with:
-          timezoneLinux: "Europe/Berlin"
-      - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: pip install -r leetcodePython/requirements.txt
-      - name: Test all leetcodePython
+      - name: leetcodePython Tests
         run: pytest leetcodePython/**/*.py
