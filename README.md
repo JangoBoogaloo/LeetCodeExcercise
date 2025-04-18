@@ -2,7 +2,7 @@
 
 ## How To
 
-Most of the solutions are implemented in Python (Python 3). Suggest open it with [PyCharm](https://www.jetbrains.com/pycharm/?source=google&medium=cpc&campaign=AMER_en_CA_PyCharm_Branded&term=pycharm&content=698987581431&gad_source=1&gclid=Cj0KCQiA4rK8BhD7ARIsAFe5LXISzVE80TBr4oJV7w-nKm8gX2kGQZ5KqO5lWFwIpmoZQhVodAOd_eMaAlCMEALw_wcB).
+Most of the solutions are implemented in Python v3.13.2. Suggest open it with [PyCharm](https://www.jetbrains.com/pycharm/?source=google&medium=cpc&campaign=AMER_en_CA_PyCharm_Branded&term=pycharm&content=698987581431&gad_source=1&gclid=Cj0KCQiA4rK8BhD7ARIsAFe5LXISzVE80TBr4oJV7w-nKm8gX2kGQZ5KqO5lWFwIpmoZQhVodAOd_eMaAlCMEALw_wcB).
 
 ### [Pull Request](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged)
 
