@@ -22,7 +22,3 @@ jobs:
         run: pip install -r leetcodePython/requirements.txt
       - name: Test all leetcodePython
         run: pytest leetcodePython/**/*.py
-      - uses: pavelzw/pytest-action@v2
-        with:
-          verbose: true
-          job-summary: true
