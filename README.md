@@ -8,16 +8,19 @@ Most of the solutions are implemented in Python (Python 3). Suggest open it with
 
 * Each [pull request](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged+-label%3Atestcase+) should represent a leetcode question. It provides description/label/hint/solution.
 
-## [Issue](https://github.com/JangoBoogaloo/LeetCodeExcercise/issues)
+### [Issue](https://github.com/JangoBoogaloo/LeetCodeExcercise/issues)
 
 * Each issue is a summary of a concept and provide hints and common tricks of this concept.
 * Select its label you can find all the relevent questions for that issue.
 
-## [Label](https://github.com/JangoBoogaloo/LeetCodeExcercise/labels)
+### [Label](https://github.com/JangoBoogaloo/LeetCodeExcercise/labels)
 
 This repo is designed to practice leetcode questions base on topics. 
 
 For example if you are not familiar with `backtrack`. You can filter by [`backtrack`](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged+-label%3Atestcase+label%3Abacktrack) label pull requests to find questions of this topic.
+
+### [Test Case](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Aopen+is%3Apr+label%3Atestcase)
+[Test Case](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Aopen+is%3Apr+label%3Atestcase) PR should only contains test cases and no solution implementation. It is for practicing test creation.
 
 ## TODO
 
