@@ -2,7 +2,7 @@ name: Python Test
 
 on: 
   pull_request:
-    types: [opened, edited]
+    types: [push]
 
 jobs:
   build:
