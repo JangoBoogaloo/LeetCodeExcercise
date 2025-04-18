@@ -16,3 +16,17 @@ class Solution:
 
         nums[smallerIndex], nums[greaterIndex] = nums[greaterIndex], nums[smallerIndex]
         nums[rightDecreasingIndex:] = nums[len(nums)-1:rightDecreasingIndex-1:-1]
+
+
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("nums, expect",
+[
+    ([1, 2, 3], [1, 3, 2]),
+    ([3, 2, 1], [1, 2, 3]),
+    ([2, 3, 1], [3, 1, 2]),
+])
+def test_checkType(nums, expect):
+    target.nextPermutation(nums)
+    assert nums == expect
