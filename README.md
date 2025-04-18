@@ -24,7 +24,7 @@ For example if you are not familiar with `backtrack`. You can filter by [`backtr
 
 ## TODO
 
-### Support more languages
+### Languages Support
 
 It's always an interesting topic to see how an algorithm/solution can be implemented in a different language. Sometimes an elegant/efficent algorithm in one language can be difficult or even impossible to implement in another language.
 For practice purpose using Python is very efficient, but implementing them in other languages (Java, C++, or even Rust) is definitely a good next TODO.
