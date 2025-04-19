@@ -3,6 +3,7 @@ from typing import List
 
 class Solution:
     _REQUIRE_BLOCKS = 4
+    _DIGITS_PER_BLOCK = 3
 
     @staticmethod
     def _leadingZero(numStr:str) -> bool:
@@ -19,29 +20,29 @@ class Solution:
     def restoreIpAddresses(self, s: str) -> List[str]:
         digits = list(s)
         addresses = []
-        currentAddress = []
+        addressBlocks = []
 
         def backtrack(startIndex):
             if startIndex > len(digits):
                 return
             if startIndex == len(digits):
-                if len(currentAddress) == 4:
-                    addresses.append(".".join(currentAddress))
+                if len(addressBlocks) == self._REQUIRE_BLOCKS:
+                    addresses.append(".".join(addressBlocks))
                 return
-            remainMaxDigits = (self._REQUIRE_BLOCKS - len(currentAddress)) * 3
+            remainMaxDigits = (self._REQUIRE_BLOCKS - len(addressBlocks)) * self._DIGITS_PER_BLOCK
             if len(digits) - startIndex > remainMaxDigits:
                 return
 
-            for digitCounts in range(1, 4):
+            for digitCounts in range(1, 1+self._DIGITS_PER_BLOCK):
                 numberStr = "".join(digits[startIndex:startIndex+digitCounts])
                 if self._leadingZero(numberStr):
                     break
                 if not self._valid(numberStr):
                     continue
-                currentAddress.append(numberStr)
+                addressBlocks.append(numberStr)
                 nextStart = startIndex + digitCounts
                 backtrack(nextStart)
-                currentAddress.pop()
+                addressBlocks.pop()
 
         backtrack(0)
         return addresses
