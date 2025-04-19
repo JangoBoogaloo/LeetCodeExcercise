@@ -16,13 +16,10 @@ target = Solution()
 
 @pytest.mark.parametrize("number, digit, expect",
 [
-    ("123", "1", "23"),
-    ("1231", "1", "231"),
-    ("6296", "6", "629"),
-    ("6926", "6", "926"),
-    ("6626", "6", "662"),
-    ("53565", "5", "5365"),
-    ("53535", "5", "5353")
+    ("557", "5", "57"),
+    ("56565", "5", "6565"),
+    ("54565", "5", "5465"),
+    ("54545", "5", "5454")
 ])
 def test_checkType(number, digit, expect):
     assert target.removeDigit(number, digit) == expect
