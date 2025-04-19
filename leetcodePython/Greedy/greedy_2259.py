@@ -21,5 +21,5 @@ target = Solution()
     ("54565", "5", "5465"),
     ("54545", "5", "5454")
 ])
-def test_checkType(number, digit, expect):
+def test_removeDigit(number, digit, expect):
     assert target.removeDigit(number, digit) == expect
