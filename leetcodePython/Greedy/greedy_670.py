@@ -15,3 +15,15 @@ class Solution:
         if leftMostSmallNumIndex != -1:
             numStr[leftMostSmallNumIndex], numStr[rightMostBigIndex] = numStr[rightMostBigIndex], numStr[leftMostSmallNumIndex]
         return int("".join(numStr))
+
+
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("num,expect",
+[
+    (123, 321),
+    (1991, 9911),
+])
+def test_checkType(num,expect):
+    assert target.maximumSwap(num) == expect
