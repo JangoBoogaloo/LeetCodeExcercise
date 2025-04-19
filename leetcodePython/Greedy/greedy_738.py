@@ -20,6 +20,7 @@ class Solution:
         numStr = "".join(digits).lstrip("0")
         return int(numStr)
 
+
 import pytest
 target = Solution()
 
