@@ -44,3 +44,20 @@ class Solution:
             curr.next = l1 if l1 else l2
             while curr.next: curr = curr.next  # Find tail
             # the returned tail should be the "dummy_start" node of next chunk
+            return curr
+
+        total_length = getSize(head)
+        dummy = ListNode(0)
+        dummy.next = head
+        start, dummy_start, size = None, None, 1
+
+        while size < total_length:
+            dummy_start = dummy
+            start = dummy.next
+            while start:
+                left = start
+                right = split(left, size)  # start from left, cut with size=size
+                start = split(right, size)  # start from right, cut with size=size
+                dummy_start = merge(left, right, dummy_start)  # returned tail = next dummy_start
+            size *= 2
+        return dummy.next
