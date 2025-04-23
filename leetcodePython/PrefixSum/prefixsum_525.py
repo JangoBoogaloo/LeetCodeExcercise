@@ -16,23 +16,18 @@ class SolutionBruteForce:
         return max_len
 
 
-class SolutionHashMapPrefix:
+class Solution:
     def findMaxLength(self, nums: List[int]) -> int:
-        # we calculate how many 1 we get, if we get 0, we get subtract our 1.
-        # The goal is to balance between 1 and 0
-        max_len = ones = 0
-
-        # using prefix concept, start from very beginning, we record the index and its '1's.
-        # when we hit two index with same '1's, that means between these index we build a subarray with zero '1's
-        # that means 1 and 0 are balanced
-        one_index_map = {0: -1}
+        one_zero_diff = 0
+        max_len = 0
+        one_zero_diff_index_map = {0: -1}
         for i, num in enumerate(nums):
             if num == 1:
-                ones += 1
+                one_zero_diff += 1
             else:
-                ones -= 1
-            if ones in one_index_map:
-                max_len = max(max_len, i-one_index_map[ones])
+                one_zero_diff -= 1
+            if one_zero_diff in one_zero_diff_index_map:
+                max_len = max(max_len, i - one_zero_diff_index_map[one_zero_diff])
             else:
-                one_index_map[ones] = i
+                one_zero_diff_index_map[one_zero_diff] = i
         return max_len

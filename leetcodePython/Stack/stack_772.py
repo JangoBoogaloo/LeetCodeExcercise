@@ -2,41 +2,42 @@ from typing import List
 
 
 class Solution:
+
+    _OPERATIONS = {"+", "-", "*", "/"}
+
     @staticmethod
-    def _evaluate(x, y, operator):
+    def _operateAppend(num: int, operator: str, stack: List[int]) -> None:
         if operator == "+":
-            return x
-        if operator == "-":
-            return -x
-        if operator == "*":
-            return x * y
-        if operator == "/":
-            return int(x / y)
-        raise ValueError(f'operation \'{operator}\' is invalid')
+            stack.append(num)
+        elif operator == "-":
+            stack.append(-num)
+        elif operator == "*":
+            stack.append(stack.pop()*num)
+        elif operator == "/":
+            stack.append(int(stack.pop()/num))
+        else:
+            raise ValueError(f'operation \'{operator}\' is invalid')
+
+    def _calculateAndJump(self, index: int, equation: str) -> tuple[int, int]:
+        curr_num = 0
+        stack = []
+        operation = "+"
+        while index < len(equation):
+            ch = equation[index]
+            if ch.isdigit():
+                curr_num = 10 * curr_num + int(ch)
+            elif ch in self._OPERATIONS:
+                self._operateAppend(curr_num, operation, stack)
+                curr_num = 0
+                operation = ch
+            elif ch == "(":
+                curr_num, index = self._calculateAndJump(index+1, equation)
+            elif ch == ")":
+                self._operateAppend(curr_num, operation, stack)
+                return sum(stack), index
+            index += 1
+        return sum(stack), 0
 
     def calculate(self, s: str) -> int:
-        curr_num = 0
-        prev_op = '+'
-        stack = []
-        s += '!'  # just a final sudo OP to make the previous stacked operations complete
-        for ch in s:
-            if ch.isdigit():
-                curr_num = curr_num * 10 + int(ch)
-            elif ch == '(':
-                stack.append(prev_op)
-                prev_op = '+'
-            else:  # it's '+-*/' or ')' or '!'
-                if prev_op in '*/':  # mult and div will all be calculated
-                    stack.append(self._evaluate(stack.pop(), curr_num, prev_op))
-                else:  # plus and sub will all be stacked with sign
-                    stack.append(self._evaluate(curr_num, 0, prev_op))
-                # reset, previous number is already stacked
-                curr_num = 0
-                if ch == ')':  # close, sum up all the number in bracket: in stack until we hit an op
-                    while type(stack[-1]) == int:
-                        curr_num += stack.pop()
-                    prev_op = stack.pop()
-                else:  # it's '+-*/' or '!'
-                    prev_op = ch
-
-        return sum(stack)
+        result, _ = self._calculateAndJump(0, s+"+")
+        return result

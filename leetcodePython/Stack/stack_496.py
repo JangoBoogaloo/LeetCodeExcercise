@@ -3,16 +3,18 @@ from typing import List
 
 class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        nums2_greater = {}
-        stack = []
-        for i in range(len(nums2)):
-            while stack and nums2[i] > nums2[stack[-1]]:
-                nums2_greater[nums2[stack.pop()]] = nums2[i]
-            stack.append(i)
-        ans = []
+        greaterMap = {}
+        decreaseStack = []
+        for num in nums2:
+            while decreaseStack and num > decreaseStack[-1]:
+                prevNum = decreaseStack.pop()
+                greaterMap[prevNum] = num
+            decreaseStack.append(num)
+        answer = []
+
         for num in nums1:
-            if num in nums2_greater:
-                ans.append(nums2_greater[num])
+            if num in greaterMap:
+                answer.append(greaterMap[num])
             else:
-                ans.append(-1)
-        return ans
+                answer.append(-1)
+        return answer

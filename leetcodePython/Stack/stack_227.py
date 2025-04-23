@@ -3,24 +3,26 @@ import math
 
 class Solution:
     def calculate(self, s: str) -> int:
+        ops = {"*", "/", "+", "-"}
         nums = []
-        curr_num = 0
-        pre_op = '+'
-        s += '+'
+        num = 0
+        s += "+"
+        prevOps = "+"
         for ch in s:
+            if ch.isspace():
+                continue
             if ch.isdigit():
-                curr_num = curr_num * 10 + ord(ch) - ord('0')
-            elif ch.isspace():
-                pass
-            else:
-                if pre_op == '+':
-                    nums.append(curr_num)
-                elif pre_op == '-':
-                    nums.append(-curr_num)
-                elif pre_op == '*':
-                    nums.append(nums.pop() * curr_num)
-                elif pre_op == '/':
-                    nums.append(math.trunc(nums.pop()/curr_num))
-                curr_num = 0
-                pre_op = ch
+                num = num * 10 + int(ch)
+                continue
+            if ch in ops:
+                if prevOps == "+":
+                    nums.append(num)
+                elif prevOps == "-":
+                    nums.append(-num)
+                elif prevOps == "*":
+                    nums.append(nums.pop() * num)
+                else:
+                    nums.append(math.trunc(nums.pop() / num))
+                num = 0
+                prevOps = ch
         return sum(nums)

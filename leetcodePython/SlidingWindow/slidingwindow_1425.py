@@ -1,44 +1,25 @@
 from typing import List
 from collections import deque
-import heapq
 
 
-class SolutionPriorityQueue:
+class Solution:
     def constrainedSubsetSum(self, nums: List[int], k: int) -> int:
-        heap = [(-nums[0], 0)]
-        ans = nums[0]
+        decrease_sum_index_within_k = deque()
+        dp_max_sum_for_index = [0] * len(nums)
 
-        for i in range(1, len(nums)):
-            # if the maximum sum's including index is out of k range, remove it
-            while i - heap[0][1] > k:
-                heapq.heappop(heap)
-            # the maximum sum including i is a positive sum plus i or the data in i itself
-            curr = max(0, -heap[0][0]) + nums[i]
-            # compare with current answer
-            ans = max(ans, curr)
-            # save your current index sum
-            heapq.heappush(heap, (-curr, i))
+        for right in range(len(nums)):
+            if decrease_sum_index_within_k and decrease_sum_index_within_k[0] < right - k:
+                decrease_sum_index_within_k.popleft()
 
-        return ans
+            if decrease_sum_index_within_k:
+                max_sum_index = decrease_sum_index_within_k[0]
+                dp_max_sum_for_index[right] = dp_max_sum_for_index[max_sum_index] + nums[right]
+            else:
+                dp_max_sum_for_index[right] = nums[right]
 
+            while decrease_sum_index_within_k and dp_max_sum_for_index[decrease_sum_index_within_k[-1]] < dp_max_sum_for_index[right]:
+                decrease_sum_index_within_k.pop()
 
-class SolutionMonotonicDeque:
-    def constrainedSubsetSum(self, nums: List[int], k: int) -> int:
-        index_queue = deque()
-        dp = [0] * len(nums)
-
-        for i in range(len(nums)):
-            if index_queue and i - index_queue[0] > k:
-                index_queue.popleft()
-
-            dp[i] = (dp[index_queue[0]] if index_queue else 0) + nums[i]
-            '''
-            The reason we want to remove elements that are less than dp[i] is because dp[i] comes after those elements. 
-            Thus, those elements will be out of range before dp[i], and because dp[i] is greater than them, 
-            there is no chance those elements will ever be the maximum value in the last k indices anymore.
-            '''
-            while index_queue and dp[index_queue[-1]] < dp[i]:
-                index_queue.pop()
-            if dp[i] > 0:
-                index_queue.append(i)
-        return max(dp)
+            if dp_max_sum_for_index[right] > 0:
+                decrease_sum_index_within_k.append(right)
+        return max(dp_max_sum_for_index)
