@@ -1,12 +1,13 @@
 class Solution:
     def bestClosingTime(self, customers: str) -> int:
-        earliest = penalty = min_penalty = 0
-        for close, c in enumerate(customers):
-            if c == "Y":
+        close = penalty = min_penalty = 0
+        CUSTOMER_ENTER = "Y"
+        for open_i, ch in enumerate(customers):
+            if ch == CUSTOMER_ENTER:
                 penalty -= 1
-            else:
+            else:  # ch == NO_CUSTOMER
                 penalty += 1
             if penalty < min_penalty:
-                earliest = close + 1
+                close = open_i + 1
                 min_penalty = penalty
-        return earliest
+        return close
