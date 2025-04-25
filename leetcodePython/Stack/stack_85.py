@@ -2,38 +2,35 @@ from typing import List
 
 
 class Solution:
-    def maximalRectangle(self, matrix: List[List[str]]) -> int:
-        maxArea = 0
-        histogram = [0]*len(matrix[0])
-        for row in range(len(matrix)):
-            self._updateHistogramForRow(row, matrix, histogram)
-            currMaxArea = self._largestHistogramRectangle(histogram)
-            maxArea = max(maxArea, currMaxArea)
-        return maxArea
-
-    @staticmethod
-    def _updateHistogramForRow(row: int, matrix: List[List[str]], histogram: List[int]) -> None:
-        for col in range(len(matrix[0])):
-            if matrix[row][col] == '1':
-                histogram[col] = histogram[col] + 1
-            else:
-                histogram[col] = 0
-
-    @staticmethod
-    def _largestHistogramRectangle(heights: List[int]) -> int:
-        increaseHeightIndex = [-1]
-        maxArea = 0
-        heights.append(0)
+    def largestRectangleArea(self, heights: List[int]) -> int:
+        increase_stack = [-1]
+        max_area = 0
         for i in range(len(heights)):
-            newHeight = heights[i]
-            while increaseHeightIndex[-1] != -1:
-                maxHeight = heights[increaseHeightIndex[-1]]
-                if newHeight > maxHeight:
-                    break
-                increaseHeightIndex.pop()
-                smallerHeightIndex = increaseHeightIndex[-1]
-                width = i - smallerHeightIndex - 1
-                maxArea = max(maxArea, maxHeight*width)
-            increaseHeightIndex.append(i)
-        heights.pop()
-        return maxArea
+            new_height = heights[i]
+            while increase_stack[-1] != -1 and heights[increase_stack[-1]] >= new_height:
+                current_height = heights[increase_stack.pop()]
+                prev_height_index = increase_stack[-1]
+                current_width = i - prev_height_index - 1
+                max_area = max(max_area, current_height * current_width)
+            increase_stack.append(i)
+
+        while increase_stack[-1] != -1:
+            current_height = heights[increase_stack.pop()]
+            prev_height_index = increase_stack[-1]
+            current_width = len(heights) - prev_height_index - 1
+            max_area = max(max_area, current_height * current_width)
+        return max_area
+
+    def maximalRectangle(self, matrix: List[List[str]]) -> int:
+        max_area = 0
+        # histogram of cumulative column 'height' until current row
+        col_histogram = [0]*len(matrix[0])
+        for row in range(len(matrix)):
+            for col in range(len(matrix[0])):
+                if matrix[row][col] == '1':
+                    # the column histogram is cumulated
+                    col_histogram[col] = col_histogram[col] + 1
+                else:
+                    col_histogram[col] = 0
+            max_area = max(max_area, self.largestRectangleArea(col_histogram))
+        return max_area

@@ -9,22 +9,44 @@ class Interval:
         self.end = end
 
 
-class Solution:
+class SolutionHeap:
+    def employeeFreeTime(self, schedule: List[List[Interval]]) -> List[Interval]:
+        start_time_heap = []
+        for employee_i, employee in enumerate(schedule):
+            heappush(start_time_heap, (employee[0].start, employee_i, 0))
+        ans = []
+
+        _, employee_i, event_j = start_time_heap[0]
+        prev_end = schedule[employee_i][event_j].end
+        while start_time_heap:
+            _, employee_i, event_j = heappop(start_time_heap)
+            if event_j + 1 < len(schedule[employee_i]):
+                heappush(start_time_heap, (schedule[employee_i][event_j+1].start, employee_i, event_j+1))
+
+            event = schedule[employee_i][event_j]
+            if event.start > prev_end:
+                ans.append(Interval(prev_end, event.start))
+            prev_end = max(prev_end, event.end)
+        return ans
+
+
+class SolutionSort:
     def employeeFreeTime(self, schedule: '[[Interval]]') -> '[Interval]':
-        schedule_time = []
+        # flatten schedule
+        events = []
         for employee in schedule:
-            for interval in employee:
-                schedule_time.append((interval.start, interval.end))
-        schedule_time.sort()
-        end_time_heap = []
-        heappush(end_time_heap, schedule_time[0][1])
-        answer = []
-        for start, end in schedule_time[1:]:
-            prev_end_time = end_time_heap[0]
-            while end_time_heap and end_time_heap[0] < start:
-                prev_end_time = end_time_heap[0]
-                heappop(end_time_heap)
-            if not end_time_heap:
-                answer.append(Interval(prev_end_time, start))
-            heappush(end_time_heap, end)
-        return answer
+            for event in employee:
+                events.append(event)
+
+        # sort events by start
+        events.sort(key=operator.attrgetter('start'))
+
+        # collect result
+        res = []
+        iterator = iter(events)
+        prev_end = next(iterator).end
+        for event in iterator:
+            if event.start > prev_end:
+                res.append(Interval(prev_end, event.start))
+            prev_end = max(prev_end, event.end)
+        return res

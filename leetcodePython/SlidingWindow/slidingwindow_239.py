@@ -4,23 +4,24 @@ from typing import List
 
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
-        max_arr = []
-        decrease_index = deque()
-        # init first k element
+        dq = deque()
+        res = []
         for i in range(k):
-            while decrease_index and nums[i] >= nums[decrease_index[-1]]:
-                decrease_index.pop()
-            decrease_index.append(i)
+            # any data before i and smaller than nums[i] is not important anymore, nums[i] is only useful
+            while dq and nums[i] >= nums[dq[-1]]:
+                dq.pop()
+            dq.append(i)
+        # maximum for the 1st k elements
+        res.append(nums[dq[0]])
 
-        max_arr.append(nums[decrease_index[0]])
-
-        for right in range(k, len(nums)):
-            left = right - k
-            if decrease_index and decrease_index[0] == left:
-                decrease_index.popleft()
-            while decrease_index and nums[right] >= nums[decrease_index[-1]]:
-                decrease_index.pop()
-            decrease_index.append(right)
-            max_arr.append(nums[decrease_index[0]])
-
-        return max_arr
+        for i in range(k, len(nums)):
+            # out of k range
+            if dq and dq[0] == i-k:
+                dq.popleft()
+            # any data before i and smaller than nums[i] is not important anymore, nums[i] is only useful
+            while dq and nums[i] >= nums[dq[-1]]:
+                dq.pop()
+            dq.append(i)
+            # dq already resolved, current maximum is in dq top
+            res.append(nums[dq[0]])
+        return res

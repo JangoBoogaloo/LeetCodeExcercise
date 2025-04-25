@@ -1,47 +1,4 @@
 from typing import List
-from heapq import *
-
-
-class Solution:
-    @staticmethod
-    def _pop_ended_pos_height(height_end_i_heap: List[tuple[int,int]], edge_pos: int):
-        while height_end_i_heap and height_end_i_heap[0][1] <= edge_pos:
-            heappop(height_end_i_heap)
-
-    def getSkyline(self, buildings: List[List[int]]) -> List[List[int]]:
-        building_edges = []
-        for i, (start_i, end_i, _) in enumerate(buildings):
-            building_edges.append((start_i, i))
-            building_edges.append((end_i, i))
-        building_edges.sort()
-
-        height_end_i_heap = []
-        ans = []
-        i = 0
-        while i < len(building_edges):
-            curr_pos = building_edges[i][0]
-
-            while i < len(building_edges) and building_edges[i][0] == curr_pos:
-                building_i = building_edges[i][1]
-                start_pos = buildings[building_i][0]
-                if start_pos == curr_pos:
-                    _, end_pos, height = buildings[building_i]
-                    heappush(height_end_i_heap, [-height, end_pos])
-                self._pop_ended_pos_height(height_end_i_heap, curr_pos)
-                i += 1
-
-            if height_end_i_heap:
-                max_height = -height_end_i_heap[0][0]
-            else:
-                max_height = 0
-
-            if not ans:
-                ans.append([curr_pos, max_height])
-                continue
-            last_height = ans[-1][1]
-            if max_height != last_height:
-                ans.append([curr_pos, max_height])
-        return ans
 
 
 class SolutionBruteForce:
@@ -88,4 +45,40 @@ class SolutionBruteForceSweepLine:
                     max_height = max(max_height, height)
             if not ans or max_height != ans[-1][1]:
                 ans.append([pos, max_height])
+        return ans
+
+
+from heapq import *
+
+
+class SolutionSweepLinePriorityQueue:
+    def getSkyline(self, buildings: List[List[int]]) -> List[List[int]]:
+        edges = []
+        # again, sort edges
+        for i, building in enumerate(buildings):
+            edges.append([building[0], i])
+            edges.append([building[1], i])
+        edges.sort()
+
+        heap = []
+        ans = []
+        i = 0
+        while i < len(edges):
+            edge_pos = edges[i][0]
+            while i < len(edges) and edges[i][0] == edge_pos:
+                building_index = edges[i][1]
+                left = buildings[building_index][0]
+                if edge_pos == left:
+                    right = buildings[building_index][1]
+                    height = buildings[building_index][2]
+                    heappush(heap, [-height, right])
+                while heap and heap[0][1] <= edge_pos:
+                    heappop(heap)
+                i += 1
+            if heap:
+                max_height = -heap[0][0]
+            else:
+                max_height = 0
+            if not ans or max_height != ans[-1][1]:
+                ans.append([edge_pos, max_height])
         return ans
