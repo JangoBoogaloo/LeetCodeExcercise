@@ -24,6 +24,7 @@ target = Solution()
 [
     (123, 321),
     (1991, 9911),
+    (95088, 98085)
 ])
 def test_checkType(num,expect):
     assert target.maximumSwap(num) == expect
