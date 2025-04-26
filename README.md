@@ -17,7 +17,7 @@ Most of the solutions are implemented in Python v3.13.2. Suggest open it with [P
 
 This repo is designed to practice leetcode questions base on topics. 
 
-For example if you are not familiar with `backtrack`. You can filter by [`backtrack`](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged+-label%3Atestcase+label%3Abacktrack) label pull requests to find questions of this topic.
+For example you can filter by [`backtrack`](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged+-label%3Atestcase+label%3Abacktrack) label pull requests to find backtrack questions.
 
 ### [Test Case](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Aopen+is%3Apr+label%3Atestcase)
 [Test Case](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Aopen+is%3Apr+label%3Atestcase) PR should only contains test cases and no solution implementation. It is for practicing test creation.
