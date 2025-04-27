@@ -10,7 +10,7 @@ Most of the solutions are implemented in Python v3.13.2. Suggest open it with [P
 
 ### [Issue](https://github.com/JangoBoogaloo/LeetCodeExcercise/issues)
 
-* Each issue is a summary of a concept and provide hints and common tricks of this concept.
+* Each issue is a summary of a concept/topic.
 * Select its label you can find all the relevent questions for that issue.
 
 ### [Label](https://github.com/JangoBoogaloo/LeetCodeExcercise/labels)
