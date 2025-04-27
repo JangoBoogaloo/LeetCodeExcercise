@@ -32,7 +32,7 @@ For practice purpose using Python is very efficient, but implementing them in ot
 
 While writing test cases will be a great practice and make the repo self-contained, it's not very efficient for 1st time leetcode practice. Again I will come back making test cases in my review time. 
 
-ETA in 2025
+ETA by end of 2025
 
 ## Resource & Inspiration
 * [Leetcode](https://leetcode.com/problemset/)
