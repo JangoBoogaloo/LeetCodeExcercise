@@ -17,7 +17,7 @@ Most of the solutions are implemented in Python v3.13.2. Suggest open it with [P
 
 This repo is designed to practice leetcode questions base on topics. 
 
-For example you can filter by [`backtrack`](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged+-label%3Atestcase+label%3Abacktrack) label pull requests to find backtrack questions.
+For example, filter by [`backtrack`](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged+-label%3Atestcase+label%3Abacktrack) label pull requests to find backtrack questions.
 
 ### [Test Case](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Aopen+is%3Apr+label%3Atestcase)
 [Test Case](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Aopen+is%3Apr+label%3Atestcase) PR should only contains test cases and no solution implementation. It is for practicing test creation.
@@ -26,7 +26,6 @@ For example you can filter by [`backtrack`](https://github.com/JangoBoogaloo/Lee
 
 ### Languages Support
 
-It's always an interesting topic to see how an algorithm/solution can be implemented in a different language. Sometimes an elegant/efficent algorithm in one language can be difficult or even impossible to implement in another language.
 For practice purpose using Python is very efficient, but implementing them in other languages (Java, C++, or even Rust) is definitely a good next TODO.
 
 ### Test Case (WIP)
