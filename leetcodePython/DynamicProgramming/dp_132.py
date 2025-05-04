@@ -21,3 +21,7 @@ class Solution:
             cutsEndAt[rightCenter] = min(cutsEndAt[rightCenter], newCut)
             leftCenter -= 1
             rightCenter += 1
+
+
+
+
