@@ -2,7 +2,7 @@ from typing import List
 
 
 class Solution:
-    def minCut(self, s):
+    def minCut(self, s: str) -> int:
         cutsEndAt = [0] * len(s)
         for i in range(1, len(s)):
             cutsEndAt[i] = i
