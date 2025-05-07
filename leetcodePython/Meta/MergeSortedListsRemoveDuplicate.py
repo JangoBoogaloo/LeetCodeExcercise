@@ -13,3 +13,16 @@ class Solution:
 
 
 
+
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("lists, expect",
+[
+    ([[1, 2, 3], [1, 2, 3], [1, 2, 3]], [1, 2, 3]),
+    ([[1, 2, 3], [4, 4, 4], [5, 6, 7]], [1, 2, 3, 4, 5, 6, 7]),
+    ([[1, 4, 4], [2, 3, 5], [4, 6, 7, 7, 7, 7, 7, 7]], [1, 2, 3, 4, 5, 6, 7]),
+
+])
+def test_mergeSortedListsRemoveDuplicate(lists: List[List[int]], expect:List[int]):
+    assert target.mergeSortedListsRemoveDuplicate(lists) == expect
