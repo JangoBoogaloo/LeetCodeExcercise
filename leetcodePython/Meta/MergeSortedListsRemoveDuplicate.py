@@ -10,7 +10,6 @@ class Solution:
         return sorted(distinct)
 
 
-if __name__ == "__main__":
-    sol = Solution()
-    result = sol.mergeSortedListsRemoveDuplicate([[1,1,1,1,1,2,3],[2,2,2,2,2,3,4]])
-    print(result)
+
+
+
