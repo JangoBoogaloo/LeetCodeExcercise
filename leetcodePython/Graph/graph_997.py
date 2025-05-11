@@ -14,3 +14,9 @@ class Solution:
             if trustCount[people] == 0 and trustedCount[people] == n - 1:
                 return people
         return -1
+
+
+
+
+
+
