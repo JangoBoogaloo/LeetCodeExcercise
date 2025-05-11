@@ -1,29 +1,26 @@
-from itertools import accumulate
 from typing import List
 from collections import deque
 
 
 class Solution:
     def shortestSubarray(self, nums: List[int], k: int) -> int:
-        prefix_sum = [0] + list(accumulate(nums))
-        shortest = len(nums) + 1
-        increase_sum_index = deque()
-
-        for right in range(len(prefix_sum)):
-            right_sum = prefix_sum[right]
-
-            while increase_sum_index and right_sum <= prefix_sum[increase_sum_index[-1]]:
-                increase_sum_index.pop()
-
-            while increase_sum_index:
-                left = increase_sum_index[0]
-                if right_sum - prefix_sum[left] < k:
+        sums = [0]
+        for x in nums:
+            sums.append(sums[-1] + x)
+        monosum_index_q = deque()
+        ans = len(nums) + 1
+        for right, sum in enumerate(sums):
+            # maintain the index such
+            while monosum_index_q and sums[monosum_index_q[-1]] >= sum:
+                monosum_index_q.pop()
+            while monosum_index_q:
+                left = monosum_index_q[0]
+                if sum - sums[left] < k:
                     break
-                shortest = min(shortest, right - left)
-                increase_sum_index.popleft()
+                ans = min(ans, right - left)
+                monosum_index_q.popleft()
+            monosum_index_q.append(right)
 
-            increase_sum_index.append(right)
-
-        if shortest < len(nums) + 1:
-            return shortest
+        if ans < len(nums) + 1:
+            return ans
         return -1

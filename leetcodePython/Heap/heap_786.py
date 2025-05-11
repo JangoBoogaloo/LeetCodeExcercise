@@ -1,5 +1,5 @@
 from typing import List
-from heapq import heappop, heappush
+from heapq import *
 
 
 class Solution:
@@ -11,6 +11,7 @@ class Solution:
             min_data = heappop(min_heap)
             numerator_i = min_data[1]
             denominator_i = min_data[2] - 1
+
             if denominator_i > numerator_i:
                 heappush(min_heap, (
                     arr[numerator_i] / arr[denominator_i],
@@ -18,4 +19,5 @@ class Solution:
                     denominator_i
                 ))
         k_th_min = heappop(min_heap)
+
         return [arr[k_th_min[1]], arr[k_th_min[2]]]

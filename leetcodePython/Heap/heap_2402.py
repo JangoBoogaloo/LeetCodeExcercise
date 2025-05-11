@@ -1,25 +1,24 @@
+from heapq import *
 from typing import List
-from heapq import heappop, heappush
-
 
 class Solution:
     def mostBooked(self, n: int, meetings: List[List[int]]) -> int:
-        unusedRooms = [i for i in range(n)]
-        endtime_usedrooms = []
-        roomMeetingsCount = [0] * n
-        meetings.sort()
-        for start, end in meetings:
-            while endtime_usedrooms and start >= endtime_usedrooms[0][0]:
-                _, roomId = heappop(endtime_usedrooms)
-                heappush(unusedRooms, roomId)
-            if unusedRooms:
-                roomId = heappop(unusedRooms)
-                heappush(endtime_usedrooms, (end, roomId))
+        unused_rooms, used_rooms = list(range(n)), []
+        heapify(unused_rooms)
+        meeting_count = [0] * n
+        for start, end in sorted(meetings):
+            while used_rooms and used_rooms[0][0] <= start:
+                _, room = heappop(used_rooms)
+                heappush(unused_rooms, room)
+            if unused_rooms:
+                room = heappop(unused_rooms)
+                heappush(used_rooms, [end, room])
             else:
-                availableTime, roomId = heappop(endtime_usedrooms)
-                duration = end - start
-                delayedEndTime = availableTime+duration
-                heappush(endtime_usedrooms, (delayedEndTime, roomId))
+                room_availability_time, room = heappop(used_rooms)
+                heappush(
+                    used_rooms,
+                    [room_availability_time + end - start, room]
+                )
+            meeting_count[room] += 1
+        return meeting_count.index(max(meeting_count))
 
-            roomMeetingsCount[roomId] += 1
-        return roomMeetingsCount.index(max(roomMeetingsCount))

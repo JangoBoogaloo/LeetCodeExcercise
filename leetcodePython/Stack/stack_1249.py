@@ -1,15 +1,18 @@
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
-        s = list(s)
-        openBrackets = []
-        for i in range(len(s)):
-            if s[i] == '(':
-                openBrackets.append(i)
-            elif s[i] == ')':
-                if len(openBrackets) > 0:
-                    openBrackets.pop()
+        stack = []
+        remove = []
+        for i, ch in enumerate(s):
+            if ch == '(':
+                stack.append(i)
+            elif ch == ')':
+                if len(stack) > 0:
+                    stack.pop()
                 else:
-                    s[i] = ""
-        for index in openBrackets:
-            s[index] = ""
-        return "".join(s)
+                    remove.append(i)
+        # since we save the index and want to remove char, we ended up reverse remove
+        for open_index in reversed(stack):
+            s = s[:open_index] + s[open_index+1:]
+        for index in reversed(remove):
+            s = s[:index] + s[index+1:]
+        return s

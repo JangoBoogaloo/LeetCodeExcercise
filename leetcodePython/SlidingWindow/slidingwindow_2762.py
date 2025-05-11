@@ -1,29 +1,27 @@
 from typing import List
 from collections import deque
 
-
 class Solution:
     def continuousSubarrays(self, nums: List[int]) -> int:
-        increase_index_q = deque()
-        decrease_index_q = deque()
+        min_q = deque()
+        max_q = deque()
         ans = left = 0
-
         for right in range(len(nums)):
-            while decrease_index_q and nums[decrease_index_q[-1]] < nums[right]:
-                decrease_index_q.pop()
-            decrease_index_q.append(right)
+            while max_q and nums[max_q[-1]] < nums[right]:
+                max_q.pop()
+            max_q.append(right)
 
-            while increase_index_q and nums[increase_index_q[-1]] > nums[right]:
-                increase_index_q.pop()
-            increase_index_q.append(right)
+            while min_q and nums[min_q[-1]] > nums[right]:
+                min_q.pop()
+            min_q.append(right)
 
-            while nums[decrease_index_q[0]] - nums[increase_index_q[0]] > 2:
-                if decrease_index_q[0] < increase_index_q[0]:
-                    left = decrease_index_q[0] + 1
-                    decrease_index_q.popleft()
+            while nums[max_q[0]] - nums[min_q[0]] > 2:
+                if max_q[0] < min_q[0]:
+                    left = max_q[0] + 1
+                    max_q.popleft()
                 else:
-                    left = increase_index_q[0] + 1
-                    increase_index_q.popleft()
+                    left = min_q[0] + 1
+                    min_q.popleft()
             ans += right - left + 1
 
         return ans

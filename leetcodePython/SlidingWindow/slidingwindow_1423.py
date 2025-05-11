@@ -1,17 +1,22 @@
-from itertools import accumulate
 from typing import List
 
 
 class Solution:
     def maxScore(self, cardPoints: List[int], k: int) -> int:
-        prefix_sum = list(accumulate(cardPoints))
         window_len = len(cardPoints) - k
-        total_points = prefix_sum[-1]
-        if window_len <= 0:
-            return total_points
+        left = remain_points = total_point = 0
 
-        min_remain = prefix_sum[window_len-1]
-        for right in range(window_len, len(prefix_sum)):
-            curr_remain = prefix_sum[right] - prefix_sum[right-window_len]
-            min_remain = min(min_remain, curr_remain)
-        return total_points - min_remain
+        for point in cardPoints:
+            total_point += point
+        min_remain_point = total_point
+        if window_len == 0:
+            return total_point
+        for right, point in enumerate(cardPoints):
+            remain_points += point
+            if right - left + 1 == window_len:
+                min_remain_point = min(min_remain_point, remain_points)
+                remain_points -= cardPoints[left]
+                left += 1
+
+        return total_point - min_remain_point
+

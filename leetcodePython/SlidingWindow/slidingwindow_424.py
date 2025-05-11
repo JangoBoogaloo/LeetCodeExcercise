@@ -1,9 +1,7 @@
 from collections import Counter
 
-
 class SolutionBruteForceSlidingWindow:
-    @staticmethod
-    def __makeValidLengthString(s: str, length: int, k: int) -> bool:
+    def __makeValidLengthString(self, s: str, length: int, k: int) -> bool:
         left, right, max_freq = 0, 0, 0
         freq_map = Counter()
         while right < len(s):
@@ -29,8 +27,7 @@ class SolutionBruteForceSlidingWindow:
 
 
 class SolutionSlidingWindowBinarySearch:
-    @staticmethod
-    def __makeValidLengthString(s: str, length: int, k: int) -> bool:
+    def __makeValidLengthString(self, s: str, length: int, k: int) -> bool:
         left, right, max_freq = 0, 0, 0
         freq_map = Counter()
         while right < len(s):
@@ -56,18 +53,20 @@ class SolutionSlidingWindowBinarySearch:
                 right = mid
         return left
 
-
 class SolutionSlidingWindow:
     def characterReplacement(self, s: str, k: int) -> int:
-        left, max_freq = 0, 0
+        left, right, max_freq = 0, 0, 0
         freq_map = Counter()
-        right: int = 0
-        for right in range(len(s)):
-            freq_map[s[right]] += 1
-            max_freq = max(max_freq, freq_map[s[right]])
-            window_size = right - left + 1
-            operations = window_size - max_freq
-            if operations > k:
+        max_window_size = 0
+        while right < len(s):
+            ch = s[right]
+            freq_map[ch] += 1
+            max_freq = max(max_freq, freq_map[ch])
+            right += 1
+            window_size = right - left
+            replace_move = window_size - max_freq
+            if replace_move > k:
                 freq_map[s[left]] -= 1
                 left += 1
-        return right - left + 1
+            max_window_size = right - left
+        return max_window_size
