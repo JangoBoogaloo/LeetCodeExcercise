@@ -16,3 +16,6 @@ class Solution:
             palindromeCount += self._countPalindromeFromCenter(s, i, i)
             palindromeCount += self._countPalindromeFromCenter(s, i, i+1)
         return palindromeCount
+
+
+
