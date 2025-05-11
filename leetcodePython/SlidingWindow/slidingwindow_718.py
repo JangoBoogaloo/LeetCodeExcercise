@@ -1,7 +1,7 @@
 from typing import List
 
 
-class SolutionSlidingWindow:
+class Solution:
     def _substringMaxMatch(self, nums1: List[int], nums2: List[int]) -> int:
         res = 0
         for i in range(len(nums1)):
@@ -19,21 +19,31 @@ class SolutionSlidingWindow:
         return max(self._substringMaxMatch(nums1, nums2), self._substringMaxMatch(nums2, nums1))
 
 
-class Solution:
-    @staticmethod
-    def _subarray_len_exist(nums1: List[int], nums2: List[int], length: int) -> bool:
-        num1_sub_arr_set = set(tuple(nums1[i: i+length]) for i in range(len(nums1)-length+1))
-        for i in range(len(nums2)-length+1):
-            if tuple(nums2[i: i+length]) in num1_sub_arr_set:
-                return True
-        return False
-
+class SolutionBinarySearch:
+    # Binary Search Approach
     def findLength(self, nums1: List[int], nums2: List[int]) -> int:
-        left, right = 0, min(len(nums1), len(nums2))
-        while left < right:
-            guess_length = (left + right + 1) // 2
-            if self._subarray_len_exist(nums1, nums2, guess_length):
-                left = guess_length
+        N, M = len(nums1), len(nums2)
+
+        def ok(k):
+            # the idea is to use binary search to find the length `k`
+            # then we check if there is any nums1[i : i + k] == nums2[i : i + k]
+            s = set(tuple(nums1[i: i + k]) for i in range(len(nums1) - k + 1))
+            return any(tuple(nums2[i: i + k]) in s for i in range(M - k + 1))
+
+        # init possible boundary
+        l, r = 0, min(N, M)
+        while l < r:
+            # get the middle one
+            # for even number of elements, take the upper one
+            m = (l + r + 1) // 2
+            if ok(m):
+                # include m
+                l = m
             else:
-                right = guess_length - 1
-        return left
+                # exclude m
+                r = m - 1
+        return l
+
+if __name__ == "__main__":
+    sol = SolutionBinarySearch()
+    ans = sol.findLength([1,2,3,2,1], [3,2,1,4,7])
