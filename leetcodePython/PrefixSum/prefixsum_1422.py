@@ -1,12 +1,32 @@
-class Solution:
+class SolutionTwoPass:
     def maxScore(self, s: str) -> int:
-        oneSum = s.count('1')
-        zeroSum = 0
-        score = 0
-        for split in range(len(s)-1):
-            if s[split] == '1':
-                oneSum -= 1
+        ones = s.count("1")
+        zeros = 0
+        ans = 0
+        for ch in s[:-1]:
+            if ch == '1':
+                ones -= 1
             else:
-                zeroSum += 1
-            score = max(score, zeroSum+oneSum)
-        return score
+                zeros += 1
+            ans = max(ans, zeros + ones)
+        return ans
+
+class SolutionOnePass:
+    def maxScore(self, s: str) -> int:
+        zeros = 0
+        left_ones = 0
+        best = float('-inf')
+        for ch in s[:-1]:
+            if ch == '1':
+                left_ones += 1
+            else:
+                zeros += 1
+            best = max(best, zeros - left_ones)
+
+        # total ones actually equal to left_ones after we iterate through
+        total_ones = left_ones
+        if s[-1] == '1':
+            total_ones += 1
+
+        # Max(left_zero - left_ones) + right_ones + left_ones = Max(left_zero + right_ones)
+        return best + total_ones

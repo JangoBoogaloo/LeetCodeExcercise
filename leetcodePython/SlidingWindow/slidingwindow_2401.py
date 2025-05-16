@@ -3,13 +3,21 @@ from typing import List
 
 class Solution:
     def longestNiceSubarray(self, nums: List[int]) -> int:
-        sum_AND = 0
-        max_window = 0
+        # 3:   11
+        # 8: 1000
+        # if we want something & 3 and & 8 also 0, we need to accumulate those diff bit as 1 bit
+        # for any new data, the diff bit should also zero those 1 bit
+        accumulate_and = 0
         left = 0
+        ans = 0
         for right in range(len(nums)):
-            while sum_AND & nums[right] != 0:
-                sum_AND = sum_AND ^ nums[left]
+            # if the accumulated result & nums shows non-zero
+            while accumulate_and & nums[right]:
+                # we have to remove the bit from left edge
+                accumulate_and = accumulate_and ^ nums[left]
                 left += 1
-            sum_AND = sum_AND | nums[right]
-            max_window = max(max_window, right-left+1)
-        return max_window
+            # count the new 1 bits in accumulated result, using OR
+            accumulate_and |= nums[right]
+            ans = max(ans, right - left + 1)
+
+        return ans

@@ -3,15 +3,22 @@ from typing import List
 
 class Solution:
     def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
-        if k < 1: return 0
-
+        if k < 1:
+            return 0
         product = 1
-        left = 0
-        total = 0
-        for right in range(len(nums)):
-            product *= nums[right]
-            while product >= k and left <= right:
+        count, left, right = 0, 0, 0
+        while right < len(nums):
+            data = nums[right]
+            right += 1
+            product *= data
+            while product >= k and right > left:
                 product //= nums[left]
                 left += 1
-            total += right - left + 1
-        return total
+            count += right - left
+        return count
+
+
+if __name__ == "__main__":
+    solution = Solution()
+    ans = solution.numSubarrayProductLessThanK([10,5,2,6], 100)
+    print(ans)
