@@ -1,30 +1,31 @@
 from collections import Counter
 from heapq import heapify, heappop, heappush
-from typing import List
 
 
 class Solution:
-    @staticmethod
-    def _pushBackRemain(negFreq: int, ch: str, pq: List[tuple[int, str]]):
-        if negFreq + 1 != 0:
-            heappush(pq, (negFreq+1, ch))
-
     def reorganizeString(self, s: str) -> str:
         ans = []
-        txtFreq = Counter(s)
-        pq = [(-count, char) for char, count in txtFreq.items()]
+        # Min heap ordered by character counts, so we will use
+        # negative values for count
+        pq = [(-count, char) for char, count in Counter(s).items()]
         heapify(pq)
         while pq:
-            currCount, currCh = heappop(pq)
-            if not ans or currCh != ans[-1]:
-                ans.append(currCh)
-                self._pushBackRemain(currCount, currCh, pq)
-            elif not pq:
-                return ""
+            count, ch = heappop(pq)
+            if not ans or ch != ans[-1]:
+                ans.append(ch)
+                if count + 1 != 0:
+                    heappush(pq, (count + 1, ch))
             else:
-                nextCount, nextCh = heappop(pq)
-                ans.append(nextCh)
-                self._pushBackRemain(nextCount, nextCh, pq)
-                heappush(pq, (currCount, currCh))
+                if not pq:
+                    return ""
+                count_2, ch_2 = heappop(pq)
+                ans.append(ch_2)
+                if count_2 + 1 != 0:
+                    heappush(pq, (count_2 + 1, ch_2))
+                heappush(pq, (count, ch))
         return "".join(ans)
 
+
+if __name__ == "__main__":
+    sol = Solution()
+    print(sol.reorganizeString("aaaabc"))

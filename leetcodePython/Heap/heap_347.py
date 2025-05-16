@@ -1,26 +1,19 @@
 import heapq
-from collections import Counter
 from typing import List
-
+from collections import Counter
 
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        if len(nums) <= k:
+        if k == len(nums):
             return nums
-        numFreq = Counter(nums)
-        return heapq.nlargest(k, numFreq.keys(), key=numFreq.get)
+        pq = [(-count, num) for num, count in Counter(nums).items()]
+        print(pq)
+        heapq.heapify(pq)
+        ans = []
+        while pq and len(ans) < k:
+            ans.append(heapq.heappop(pq)[1])
+        return ans
 
-
-class SolutionDetailed:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        if len(nums) <= k:
-            return nums
-        numFreq = Counter(nums)
-        minFreqQueue = []
-
-        for num in numFreq:
-            heapq.heappush(minFreqQueue, (numFreq[num], num))
-            while len(minFreqQueue) > k:
-                heapq.heappop(minFreqQueue)
-        answer = [num for _, num in minFreqQueue]
-        return answer
+if __name__ == "__main__":
+    sol = Solution()
+    sol.topKFrequent([3,1,1,1,2,2], 2)
