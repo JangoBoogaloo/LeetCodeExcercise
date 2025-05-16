@@ -18,3 +18,13 @@ class Solution:
 
 
 
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("nums, expect",
+[
+    ([-4, -2, 0, 1, 3], [0, 1, 4, 9, 16]),
+    ([-5, -3, -2, -1], [1, 4, 9, 25]),
+])
+def test_sortedSquares(nums, expect):
+    assert target.sortedSquares(nums) == expect
