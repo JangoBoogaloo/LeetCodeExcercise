@@ -16,3 +16,7 @@ class Solution:
         nums.reverse()
         self.reverseAt(0, k-1, nums)
         self.reverseAt(k, len(nums)-1, nums)
+
+
+
+
