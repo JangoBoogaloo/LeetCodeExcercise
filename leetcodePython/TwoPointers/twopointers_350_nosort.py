@@ -16,7 +16,5 @@ class Solution:
         return intersect
 
 
-if __name__ == '__main__':
-    sol = Solution()
-    ans = sol.intersect([4,9,5], [9,4,9,8,4])
-    print(ans)
+
+
