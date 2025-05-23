@@ -18,3 +18,15 @@ class Solution:
 
 
 
+import pytest
+
+target = Solution()
+
+@pytest.mark.parametrize("nums, expect",
+[
+    ([1, 3, 4, 3], 6),
+    ([-10, 3, -2], -12),
+    ([1, 5, 4, 1, 3], 8),
+])
+def test_maxNonAdjacentSum(nums, expect):
+    assert target.maxNonAdjacentSum(nums) == expect
