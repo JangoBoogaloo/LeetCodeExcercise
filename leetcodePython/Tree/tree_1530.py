@@ -11,26 +11,26 @@ class Solution:
         return self._totalPairs
 
     def _postOrder(self, curr: TreeNode, distance) -> List[int]:
-        leafCountWithDepth = [0] * (distance + 1)
+        leafCountToParentWithDistance = [0] * (distance + 1)
         if not curr:
-            return leafCountWithDepth
+            return leafCountToParentWithDistance
 
         if not curr.left and not curr.right:
-            leafCountWithDepth[1] = 1
-            return leafCountWithDepth
+            leafCountToParentWithDistance[1] = 1
+            return leafCountToParentWithDistance
 
-        leftLeafCountWithDepth = self._postOrder(curr.left, distance)
-        rightLeafCountWithDepth = self._postOrder(curr.right, distance)
+        leftLeafCountToCurrentWithDistance = self._postOrder(curr.left, distance)
+        rightLeafCountToCurrentWithDistance = self._postOrder(curr.right, distance)
         for leftLeafDepth in range(1, distance):
             for rightLeafDepth in range(1, distance):
                 distanceSum = leftLeafDepth + rightLeafDepth
                 if distanceSum <= distance:
-                    distanceSumCombinations = leftLeafCountWithDepth[leftLeafDepth] * rightLeafCountWithDepth[rightLeafDepth]
+                    distanceSumCombinations = leftLeafCountToCurrentWithDistance[leftLeafDepth] * rightLeafCountToCurrentWithDistance[rightLeafDepth]
                     self._totalPairs += distanceSumCombinations
 
         for depth in range(distance, 0, -1):
-            leafCountWithDepth[depth] = leftLeafCountWithDepth[depth - 1] + rightLeafCountWithDepth[depth - 1]
-        return leafCountWithDepth
+            leafCountToParentWithDistance[depth] = leftLeafCountToCurrentWithDistance[depth - 1] + rightLeafCountToCurrentWithDistance[depth - 1]
+        return leafCountToParentWithDistance
 
 
 
