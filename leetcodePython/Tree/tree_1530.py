@@ -31,3 +31,9 @@ class Solution:
         for depth in range(distance, 0, -1):
             leafCountWithDepth[depth] = leftLeafCountWithDepth[depth - 1] + rightLeafCountWithDepth[depth - 1]
         return leafCountWithDepth
+
+
+
+
+
+
