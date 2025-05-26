@@ -4,10 +4,15 @@ from typing import List
 class Solution:
     def pivotIndex(self, nums: List[int]) -> int:
         total = sum(nums)
-        curr_sum = 0
+        currSum = 0
         for i in range(len(nums)):
-            right_sum = total - curr_sum - nums[i]
-            if curr_sum == right_sum:
+            rightSum = total - currSum - nums[i]
+            if currSum == rightSum:
                 return i
-            curr_sum += nums[i]
+            currSum += nums[i]
         return -1
+
+
+
+
+
