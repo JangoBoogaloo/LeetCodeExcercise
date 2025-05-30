@@ -3,26 +3,26 @@ from typing import List
 
 class Solution:
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        insert_left, insert_right = newInterval[0], newInterval[1]
-        ans = []
+        result = []
         i = 0
+        newSmall, newBig = newInterval
         while i < len(intervals):
-            if intervals[i][1] >= insert_left:
-                insert_left = min(insert_left, intervals[i][0])
+            if intervals[i][1] >= newSmall:
+                newSmall = min(intervals[i][0], newSmall)
                 break
-            ans.append(intervals[i])
+            result.append(intervals[i])
             i += 1
 
         while i < len(intervals):
-            if intervals[i][0] > insert_right:
+            if intervals[i][0] > newBig:
                 break
-            insert_right = max(intervals[i][1], insert_right)
+            newBig = max(intervals[i][1], newBig)
             i += 1
+        result.append([newSmall, newBig])
+        result += intervals[i:]
+        return result
 
-        ans.append([insert_left, insert_right])
 
-        while i < len(intervals):
-            ans.append(intervals[i])
-            i += 1
 
-        return ans
+
+
