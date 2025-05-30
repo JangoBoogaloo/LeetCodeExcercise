@@ -1,11 +1,15 @@
 class Solution:
     def removeKdigits(self, num: str, k: int) -> str:
-        stack = []
+        remainRemoval = k
+        increaseDigits = []
         for digit in num:
-            while k and stack and stack[-1] > digit:
-                stack.pop()
-                k -= 1
-            stack.append(digit)
-        if k:
-            stack = stack[:-k]
-        return "".join(stack).lstrip('0') or '0'
+            while remainRemoval and increaseDigits and digit < increaseDigits[-1]:
+                increaseDigits.pop()
+                remainRemoval -= 1
+            increaseDigits.append(digit)
+
+        if remainRemoval > 0:
+            increaseDigits = increaseDigits[:-remainRemoval]
+
+        numStr = "".join(increaseDigits).lstrip('0')
+        return numStr if numStr else "0"
