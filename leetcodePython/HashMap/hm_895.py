@@ -18,3 +18,8 @@ class FreqStack:
         if not self._stackOf[maxFreq]:
             del self._stackOf[maxFreq]
         return value
+
+
+
+
+
