@@ -4,16 +4,26 @@ from typing import List
 class Solution:
     def sumSubarrayMins(self, arr: List[int]) -> int:
         MOD = 10 ** 9 + 7
-        smaller_element_index = []
-        dp = [0] * len(arr)
+        smallerDataIndexStack = []
+        subArrayEndAtIndexMinSum = [0] * len(arr)
         for i, data in enumerate(arr):
-            while smaller_element_index and arr[smaller_element_index[-1]] >= arr[i]:
-                smaller_element_index.pop()
+            while smallerDataIndexStack and arr[smallerDataIndexStack[-1]] >= arr[i]:
+                smallerDataIndexStack.pop()
 
-            if smaller_element_index:
-                smaller_index = smaller_element_index[-1]
-                dp[i] = dp[smaller_index] + (i-smaller_index) * arr[i]
+            if smallerDataIndexStack:
+                smaller_index = smallerDataIndexStack[-1]
+                subArrayEndAtIndexMinSum[i] = subArrayEndAtIndexMinSum[smaller_index] + (i-smaller_index) * arr[i]
             else:
-                dp[i] = (i + 1) * arr[i]
-            smaller_element_index.append(i)
-        return sum(dp) % MOD
+                subArrayEndAtIndexMinSum[i] = (i + 1) * arr[i]
+            smallerDataIndexStack.append(i)
+        return sum(subArrayEndAtIndexMinSum) % MOD
+
+
+class SolutionBruteForce:
+    def sumSubarrayMins(self, arr: List[int]) -> int:
+        subArrayMinSum = 0
+        for right in range(len(arr)):
+            for left in range(right + 1):
+                minNum = min(arr[left:right + 1])
+                subArrayMinSum += minNum
+        return subArrayMinSum
