@@ -26,3 +26,20 @@ class FreqStack:
 
 
 
+import pytest
+
+@pytest.mark.parametrize("operations",
+[
+    ([("push", 1), ("pop", 1)]),
+    ([("push", 1), ("push", 1), ("push", 2), ("pop", 1)]),
+    ([("push", 1), ("push", 1), ("push", 2), ("pop", 1), ("pop", 2)]),
+    ([("pop", None)]),
+])
+def test_FreqStack(operations):
+    freqStack = FreqStack()
+    for op in operations:
+        match op[0]:
+            case "push":
+                freqStack.push(op[1])
+            case "pop":
+                assert freqStack.pop() == op[1]
