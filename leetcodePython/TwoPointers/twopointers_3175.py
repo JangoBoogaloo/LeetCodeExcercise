@@ -15,3 +15,9 @@ class Solution:
                 break
             newIndex += 1
         return prevWinIndex
+
+
+
+
+
+
