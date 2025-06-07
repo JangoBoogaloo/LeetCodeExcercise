@@ -7,3 +7,7 @@ class Solution:
                 return i
             prevSum += i
         return -1
+
+
+
+
