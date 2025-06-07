@@ -1,6 +1,4 @@
 from typing import Optional
-
-from LinkedList.linkedlist import CircularList
 from linkedlist import Node
 
 
@@ -25,6 +23,9 @@ class Solution:
         newNode = Node(insertVal)
         current.next, newNode.next = newNode, current.next
         return head
+
+
+
 
 
 
