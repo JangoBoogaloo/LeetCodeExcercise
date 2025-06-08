@@ -9,9 +9,10 @@ class Solution:
         for i in range(len(nums) // 2):
             leftNum, rightNum = nums[i], nums[len(nums) - 1 - i]
             diff = abs(leftNum - rightNum)
-            maxDiff = max(leftNum, rightNum, k-leftNum, k-rightNum)
             changesAtDiff[diff] -= 1
             changesAtDiff[diff + 1] += 1
+
+            maxDiff = max(leftNum, rightNum, k-leftNum, k-rightNum)
             changesAtDiff[maxDiff + 1] += 1
 
         changes = 0
