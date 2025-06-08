@@ -21,3 +21,15 @@ class Solution:
 
 
 
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("skills, k, expect",
+[
+    ([3,2,1], 2, 0),
+    ([3, 2, 1, 4], 2, 0),
+    ([2, 1, 3], 2, 2),
+    ([2, 1, 3], 1000, 2),
+])
+def test_findWinningPlayer(skills, k, expect):
+    assert target.findWinningPlayer(skills, k) == expect
