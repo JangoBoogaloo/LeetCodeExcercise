@@ -20,3 +20,9 @@ class Solution:
             changes += changesAtDiff[diff]
             minChange = min(minChange, changes)
         return minChange
+
+
+
+
+
+
