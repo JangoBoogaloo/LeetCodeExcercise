@@ -15,3 +15,8 @@ class Solution:
             prevDivisibleByTwo = divisibleByTwo
         return max(oddCount, evenCount, alternateCount)
 
+
+
+
+
+
