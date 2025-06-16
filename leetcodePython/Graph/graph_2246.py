@@ -5,15 +5,15 @@ from typing import List
 class Solution:
     _maxLength = 1
     def _dfsMaxPath(self, currentIndex:int, childrenIndexOf, s: str):
-        currLength = 1
+        currMaxLength = 1
         if not childrenIndexOf[currentIndex]:
-            return currLength
+            return currMaxLength
         for childIndex in childrenIndexOf[currentIndex]:
-            childLength = self._dfsMaxPath(childIndex, childrenIndexOf, s)
+            childPathLength = self._dfsMaxPath(childIndex, childrenIndexOf, s)
             if s[childIndex] != s[currentIndex]:
-                self._maxLength = max(self._maxLength, childLength+currLength)
-                currLength = max(currLength, childLength+1)
-        return currLength
+                self._maxLength = max(self._maxLength, childPathLength+currMaxLength)
+                currMaxLength = max(currMaxLength, childPathLength+1)
+        return currMaxLength
 
     def longestPath(self, parent: List[int], s: str) -> int:
         childrenIndexOf = defaultdict(list)
