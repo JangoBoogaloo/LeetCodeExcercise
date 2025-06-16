@@ -7,6 +7,15 @@ class Solution:
         prevOps = 0
         for i in range(len(nums)):
             currentOps = target[i] - nums[i]
-            totalOps += max(currentOps - prevOps, 0)
+            extraOps = max(currentOps - prevOps, 0)
+            totalOps += extraOps
             prevOps = currentOps
         return totalOps + max(-prevOps, 0)
+
+
+
+
+
+
+
+
