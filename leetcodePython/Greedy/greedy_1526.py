@@ -15,3 +15,15 @@ class Solution:
 
 
 
+import pytest
+sol = Solution()
+
+@pytest.mark.parametrize("target, expect",
+[
+    ([1, 2, 3], 3),
+    ([1, 2, 1], 2),
+    ([3, 1, 2], 4),
+    ([1, 3, 2, 1], 3),
+])
+def test_minNumberOperations(target, expect):
+    assert sol.minNumberOperations(target) == expect
