@@ -1,11 +1,36 @@
-from typing import Optional
+from typing import Optional, List
 
+class ListNode:
+    def __init__(self, val=None, next=None):
+        self.val = val
+        self.next = next
+
+    @staticmethod
+    def buildList(nums: List[int]):
+        if not nums:
+            return None
+        dummy = ListNode()
+        curr = dummy
+        for num in nums:
+            curr.next = ListNode(num)
+            curr = curr.next
+        return dummy.next
 
 class Node:
     def __init__(self, val=None, next=None):
         self.val = val
         self.next = next
 
+    @staticmethod
+    def buildList(nums: List[int]):
+        if not nums:
+            return None
+        dummy = Node()
+        curr = dummy
+        for num in nums:
+            curr.next = Node(num)
+            curr = curr.next
+        return dummy.next
 
 class CircularList:
     @staticmethod
