@@ -22,7 +22,7 @@ class Solution:
         return True
 
     def numIslands2(self, m: int, n: int, positions: List[List[int]]) -> List[int]:
-        uf = UF(m*n)
+        uf = UF()
         islandsChange = []
         for r, c in positions:
             id = r * n + c
