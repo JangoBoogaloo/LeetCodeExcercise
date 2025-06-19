@@ -30,3 +30,9 @@ class Solution:
             self._joinNeighbours(id, (r, c), uf, m, n)
             islandsChange.append(len(uf))
         return islandsChange
+
+
+
+
+
+
