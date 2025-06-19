@@ -9,7 +9,7 @@ class UF:
         return
 
     def add(self, data) -> None:
-        if not self._parent.get(data):
+        if self._parent.get(data) is None:
             self._parent[data] = data
             self._count += 1
 
@@ -17,7 +17,7 @@ class UF:
         return self._parent.get(data) is not None
 
     def find(self, data):
-        if not self._parent.get(data):
+        if self._parent.get(data) is None:
             raise ValueError(f"data {data} is not added")
         if self._parent.get(data) != data:
             self._parent[data] = self.find(self._parent.get(data))
