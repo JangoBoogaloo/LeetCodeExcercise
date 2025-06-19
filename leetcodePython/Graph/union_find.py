@@ -1,9 +1,9 @@
-from collections import defaultdict
+from collections import defaultdict, Counter
 
 
 class UF:
-    def __init__(self, size: int):
-        self._rank = [0] * size
+    def __init__(self):
+        self._rank = Counter()
         self._parent = defaultdict()
         self._count = 0
         return
