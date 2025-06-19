@@ -2,27 +2,27 @@ from typing import List
 
 
 class Solution:
-    def _ship_days(self, weights: List[int], capacity: int) -> int:
-        i = 0
-        curr_weight = 0
-        days_need = 1  # in any situation we need at least 1 day to ship
-        while i < len(weights):
-            if curr_weight + weights[i] > capacity:
-                curr_weight = 0
-                days_need += 1
-            curr_weight += weights[i]
-            i += 1
-        return days_need
-
     def shipWithinDays(self, weights: List[int], days: int) -> int:
-        left_bound = max(weights)
-        right_bound = sum(weights)
-        ans = 0
-        while left_bound <= right_bound:
-            mid = (left_bound + right_bound) // 2
-            if self._ship_days(weights, mid) > days:
-                left_bound = mid + 1
+        minCapacity, maxCapacity = max(weights), sum(weights)
+        answerCapacity = -1
+        while minCapacity <=maxCapacity:
+            guess = (minCapacity + maxCapacity) // 2
+            if self._canShipWithinDays(weights, days, guess):
+                answerCapacity = guess
+                maxCapacity = guess - 1
             else:
-                ans = mid
-                right_bound = mid - 1
-        return ans
+                minCapacity = guess + 1
+        return answerCapacity
+
+    def _canShipWithinDays(self, weights: List[int], days: int, weightCapacity: int) -> bool:
+        currentWeight = 0
+        currentDays = 1
+        for weight in weights:
+            if currentWeight + weight <= weightCapacity:
+                currentWeight += weight
+            else:
+                currentWeight = weight
+                currentDays += 1
+                if currentDays > days:
+                    return False
+        return True
