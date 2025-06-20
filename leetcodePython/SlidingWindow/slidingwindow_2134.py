@@ -23,3 +23,15 @@ class Solution:
 
 
 
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("nums, expect",
+[
+    ([1, 0, 1, 0], 1),
+    ([1, 0, 1, 1], 0),
+    ([1, 0], 0),
+    ([0, 0, 0], 0),
+])
+def test_minSwaps(nums, expect):
+    assert target.minSwaps(nums) == expect
