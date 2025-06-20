@@ -41,4 +41,34 @@ class UF:
 
 
 
+class DirectedUF:
+    def __init__(self):
+        self._rank = Counter()
+        self._parent = defaultdict()
+        self._count = 0
+        return
 
+    def add(self, data) -> None:
+        if self._parent.get(data) is None:
+            self._parent[data] = data
+            self._count += 1
+
+    def valid(self, data) -> bool:
+        return self._parent.get(data) is not None
+
+    def find(self, data):
+        if self._parent.get(data) is None:
+            raise ValueError(f"data {data} is not added")
+        if self._parent.get(data) != data:
+            self._parent[data] = self.find(self._parent.get(data))
+        return self._parent[data]
+
+    def union(self, child, parent) -> None:
+        childRoot, parentRoot = self.find(child), self.find(parent)
+        if childRoot == parentRoot:
+            return
+        self._parent[childRoot] = parentRoot
+        self._count -= 1
+
+    def __len__(self):
+        return self._count
