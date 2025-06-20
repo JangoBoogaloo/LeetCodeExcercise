@@ -1,26 +1,19 @@
 from typing import List
-from heapq import *
 
 
 class Solution:
-    def _get_place(self, place: int) -> str:
-        match place:
-            case 1:
-                return "Gold Medal"
-            case 2:
-                return "Silver Medal"
-            case 3:
-                return "Bronze Medal"
-            case _:
-                return f"{place}"
+    _RANK = ["Gold Medal", "Silver Medal", "Bronze Medal"]
+
+    @staticmethod
+    def _getRank(rank: int) -> str:
+        if rank < len(Solution._RANK):
+            return Solution._RANK[rank]
+        return f"{rank+1}"
 
     def findRelativeRanks(self, score: List[int]) -> List[str]:
-        score_heap = [[-score, i] for i, score in enumerate(score)]
-        heapify(score_heap)
-        ans = [""] * len(score)
-        place = 1
-        while score_heap:
-            index = heappop(score_heap)[1]
-            ans[index] = self._get_place(place)
-            place += 1
-        return ans
+        score_index = [(-s, i) for i, s in enumerate(score)]
+        score_index.sort()
+        answer = [""] * len(score)
+        for rank, (_, index) in enumerate(score_index):
+            answer[index] = self._getRank(rank)
+        return answer

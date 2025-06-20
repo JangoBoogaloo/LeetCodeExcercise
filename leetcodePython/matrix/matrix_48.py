@@ -2,8 +2,7 @@ from typing import List
 
 
 class Solution:
-    @staticmethod
-    def _up_down_flip(matrix: List[List[int]], size: int) -> None:
+    def _up_down_flip(self, matrix: List[List[int]], size: int) -> None:
         """
         12  34
         34  12
@@ -15,8 +14,7 @@ class Solution:
             up += 1
             down -= 1
 
-    @staticmethod
-    def _diagonal_flip(matrix: List[List[int]], size: int) -> None:
+    def _diagonal_flip(self, matrix: List[List[int]], size: int) -> None:
         """
         123     147
         456     258
@@ -30,3 +28,8 @@ class Solution:
         size = len(matrix)
         self._up_down_flip(matrix, size)
         self._diagonal_flip(matrix, size)
+
+
+
+
+
