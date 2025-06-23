@@ -28,3 +28,15 @@ class Solution:
 
 
 
+
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("text, pairs, expect",
+[
+    ("cab", [[0, 2]], "bac"),
+    ("dcab", [[0, 3], [1, 2]], "bacd"),
+    ("dcab", [[0, 3], [1, 2], [0, 2]], "abcd"),
+])
+def test_smallestStringWithSwaps(text, pairs, expect):
+    assert target.smallestStringWithSwaps(text, pairs) == expect
