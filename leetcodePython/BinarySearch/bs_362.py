@@ -1,12 +1,15 @@
+from bisect import bisect_right
+
 class HitCounter:
     def __init__(self):
-        return
+        self._hitTime = []
 
     def hit(self, timestamp: int) -> None:
-        return
+        self._hitTime.append(timestamp)
 
     def getHits(self, timestamp: int) -> int:
-        return -1
+        indexOfTime = bisect_right(self._hitTime, timestamp - 300)
+        return len(self._hitTime) - indexOfTime
 
 
 
