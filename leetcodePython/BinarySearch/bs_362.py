@@ -7,3 +7,9 @@ class HitCounter:
 
     def getHits(self, timestamp: int) -> int:
         return -1
+
+
+
+
+
+
