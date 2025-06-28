@@ -24,3 +24,10 @@ class Solution:
             if self._canCreate(recipe, ingredientsOf, supplySet):
                 validRecipes.append(recipe)
         return validRecipes
+
+
+
+
+
+
+
