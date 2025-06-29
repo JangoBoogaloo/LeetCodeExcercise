@@ -18,3 +18,11 @@ class Solution:
                 currentMatches.append(products[left + j])
             res.append(currentMatches)
         return res
+
+
+
+
+
+
+
+
