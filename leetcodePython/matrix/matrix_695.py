@@ -29,3 +29,11 @@ class Solution:
             for col in range(len(grid[0])):
                 maxArea = max(maxArea, self._dfsGetArea(row, col, grid))
         return maxArea
+
+
+
+
+
+
+
+
