@@ -4,9 +4,9 @@
 
 Most of the solutions are implemented in Python v3.13.2. Suggest open it with [PyCharm](https://www.jetbrains.com/pycharm/?source=google&medium=cpc&campaign=AMER_en_CA_PyCharm_Branded&term=pycharm&content=698987581431&gad_source=1&gclid=Cj0KCQiA4rK8BhD7ARIsAFe5LXISzVE80TBr4oJV7w-nKm8gX2kGQZ5KqO5lWFwIpmoZQhVodAOd_eMaAlCMEALw_wcB).
 
-### [Pull Request](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged+-label%3Atestcase+)
+### [Pull Request](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged+-label%3Atestcase+-label%3Ainvalid+)
 
-* Each [pull request](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged+-label%3Atestcase+) should represent a leetcode question. It provides description/label/hint/solution.
+* Each [pull request](https://github.com/JangoBoogaloo/LeetCodeExcercise/pulls?q=is%3Apr+is%3Amerged+-label%3Atestcase+-label%3Ainvalid+) should represent a leetcode question. It provides description/label/hint/solution.
 
 ### [Issue](https://github.com/JangoBoogaloo/LeetCodeExcercise/issues)
 
