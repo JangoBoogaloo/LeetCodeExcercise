@@ -15,6 +15,8 @@ class Solution:
 
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
         directionIndex = 0
+        if not matrix or not matrix[0]:
+            return []
         result = [matrix[0][0]]
         row, col = 0, 0
         matrix[row][col] = self._INVALID
@@ -34,3 +36,40 @@ class Solution:
 
 
 
+
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("matrix, expect",
+[
+    ([
+         [1, 2],
+         [4, 3]
+     ],
+     [1,2,3,4]
+    ),
+    ([
+         [1, 2, 3],
+         [6, 5, 4]
+     ],
+     [1, 2, 3, 4, 5, 6]
+    ),
+    ([
+         [1, 2, 3],
+         [6, 5, 4]
+    ],
+    [1, 2, 3, 4, 5, 6]
+    ),
+    ([
+         [1, 2],
+         [6, 3],
+         [5, 4],
+     ],
+     [1, 2, 3, 4, 5, 6]
+    ),
+    ([[1]], [1]),
+    ([[]], []),
+    ([], [])
+])
+def test_spiralOrder(matrix, expect):
+    assert target.spiralOrder(matrix) == expect
