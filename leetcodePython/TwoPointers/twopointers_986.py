@@ -3,16 +3,20 @@ from typing import List
 
 class Solution:
     def intervalIntersection(self, firstList: List[List[int]], secondList: List[List[int]]) -> List[List[int]]:
-        first_i, second_j = 0, 0
-        ans = []
-        while first_i < len(firstList) and second_j < len(secondList):
-            max_small = max(firstList[first_i][0], secondList[second_j][0])
-            min_big = min(firstList[first_i][1], secondList[second_j][1])
-            if max_small <= min_big:
-                ans.append([max_small, min_big])
-
-            if firstList[first_i][1] < secondList[second_j][1]:
-                first_i += 1
+        i1, i2 = 0, 0
+        answer = []
+        while i1 < len(firstList) and i2 < len(secondList):
+            maxSmall = max(firstList[i1][0], secondList[i2][0])
+            minBig = min(firstList[i1][1], secondList[i2][1])
+            if maxSmall <= minBig:
+                answer.append([maxSmall, minBig])
+            if firstList[i1][1] < secondList[i2][1]:
+                i1 += 1
             else:
-                second_j += 1
-        return ans
+                i2 += 1
+        return answer
+
+
+
+
+
