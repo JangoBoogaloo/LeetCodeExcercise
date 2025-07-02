@@ -26,3 +26,16 @@ class Solution:
 
 
 
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("text, queries, expect",
+[
+    ("|*|", [[0, 2]], [1]),
+    ("|*|", [[0, 1]], [0]),
+    ("|**|", [[0, 3]], [2]),
+    ("|*||", [[0, 3]], [1]),
+    ("|*|*|", [[0, 4]], [2]),
+])
+def test_platesBetweenCandles(text, queries, expect):
+    assert target.platesBetweenCandles(text, queries) == expect
