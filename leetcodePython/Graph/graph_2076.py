@@ -4,7 +4,7 @@ from union_find import UF
 class Solution:
     def friendRequests(self, n: int, restrictions: List[List[int]], requests: List[List[int]]) -> List[bool]:
         uf = UF()
-        [uf.add(n) for i in range(n)]
+        [uf.add(i) for i in range(n)]
         answer = []
         for a, b in requests:
             componentA, componentB = uf.find(a), uf.find(b)
