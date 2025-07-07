@@ -1,8 +1,7 @@
 from typing import List
+import Backtracking.bt_131, DynamicProgramming.dp_131
 
 import pytest
-
-import Backtracking.bt_131, DynamicProgramming.dp_131
 
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
