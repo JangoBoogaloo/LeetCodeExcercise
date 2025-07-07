@@ -1,8 +1,4 @@
-from typing import List
-import Backtracking.bt_131, DynamicProgramming.dp_131
-class Solution:
-    def partition(self, s: str) -> List[List[str]]:
-        return []
+import DynamicProgramming.dp_131
 
 
 
