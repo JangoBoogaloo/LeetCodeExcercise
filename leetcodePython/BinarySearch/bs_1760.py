@@ -1,27 +1,24 @@
-import math
 from typing import List
 
 
 class Solution:
+    def _canAchievePenaltyWithinOps(self, ballBags: List[int], operations: int, penalty: int) -> bool:
+        ops = 0
+        for balls in ballBags:
+            ops += (balls - 1) // penalty
+            if ops > operations:
+                return False
+        return True
 
-    '''
-    To make all bags with balls smaller than value, how much operation do we need
-    '''
-    def _getOperations(self, nums: List[int], value: int) -> int:
-        operations = 0
-        for balls in nums:
-            # consider 6 balls with value 3, you only need 1 move
-            operations += (balls - 1) // value
-        return operations
-
-    def minimumSize(self, nums: List[int], maxOperations: int) -> int:
-        left = 1
-        right = max(nums)
-
-        while left < right:
-            guess_penalty = (left + right) // 2
-            if self._getOperations(nums, guess_penalty) > maxOperations:
-                left = guess_penalty + 1
+    def minimumSize(self, ballBags: List[int], maxOperations: int) -> int:
+        ballBags.sort(reverse=True)
+        minPenalty, maxPenalty = 1, max(ballBags)
+        answerPenalty = 1
+        while minPenalty <= maxPenalty:
+            guess = (maxPenalty + minPenalty) // 2
+            if self._canAchievePenaltyWithinOps(ballBags, maxOperations, guess):
+                answerPenalty = guess
+                maxPenalty = guess - 1
             else:
-                right = guess_penalty
-        return left
+                minPenalty = guess + 1
+        return answerPenalty

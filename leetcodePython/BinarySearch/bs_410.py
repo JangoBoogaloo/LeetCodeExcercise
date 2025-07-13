@@ -2,29 +2,26 @@ from typing import List
 
 
 class Solution:
-    @staticmethod
-    def _sub_count_with_sum(nums: List[int], max_sum: int) -> int:
-        curr_sum = 0
-        count = 1
+    def _canSplit(self, nums: List[int], splits: int, sumLimit: int) -> bool:
+        currSum = 0
+        currentSplit = 1
         for num in nums:
-            if curr_sum + num > max_sum:
-                count += 1
-                curr_sum = 0
-            curr_sum += num
-        return count
+            if currSum + num > sumLimit:
+                currSum = 0
+                currentSplit += 1
+            currSum += num
+            if currentSplit > splits:
+                return False
+        return True
 
-    def splitArray(self, nums: List[int], k: int) -> int:
-        left = max(nums)
-        right = sum(nums)
-        while left < right:
-            guess_sum = (left + right) // 2
-            if self._sub_count_with_sum(nums, guess_sum) > k:
-                left = guess_sum + 1
+    def splitArray(self, nums: List[int], splits: int) -> int:
+        minSum, maxSum = max(nums), sum(nums)
+        answerSum = -1
+        while minSum <= maxSum:
+            guessSum = (minSum + maxSum) // 2
+            if self._canSplit(nums, splits, guessSum):
+                answerSum = guessSum
+                maxSum = guessSum - 1
             else:
-                right = guess_sum
-        return left
-
-if __name__ == "__main__":
-    sol = Solution()
-    ans = sol.splitArray([1,2,3,4,5], 2)
-    print(ans)
+                minSum = guessSum + 1
+        return answerSum
