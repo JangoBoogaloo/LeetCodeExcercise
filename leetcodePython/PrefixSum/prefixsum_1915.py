@@ -38,3 +38,15 @@ class Solution:
 
 
 
+
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("word, expect",
+[
+    ("abc", 3),
+    ("aba", 4),
+    ("abb", 5),
+])
+def test_wonderfulSubstrings(word, expect):
+    assert target.wonderfulSubstrings(word) == expect
