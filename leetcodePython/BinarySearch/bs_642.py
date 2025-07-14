@@ -45,3 +45,26 @@ class AutocompleteSystem:
 
 
 
+import pytest
+
+@pytest.mark.parametrize("sentences, times, inputText, expect",
+[
+    (["aa", "ab", "ac", "ad"], [4,3,2,1],
+     "a",
+     [
+         ["aa", "ab", "ac"]
+     ]),
+
+    (["aa", "ab", "ac", "ad"], [4, 3, 2, 1],
+     "ab",
+     [
+         ["aa", "ab", "ac"],
+         ["ab"]
+     ]),
+
+])
+def test_AutocompleteSystem(sentences, times, inputText, expect):
+    target = AutocompleteSystem(sentences, times)
+    for i in range(len(expect)):
+        actual = target.input(inputText[i])
+        assert actual == expect[i]
