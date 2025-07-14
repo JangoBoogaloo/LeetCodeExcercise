@@ -23,7 +23,7 @@ class Solution:
             balanceMap[src] -= amount
             balanceMap[dst] += amount
 
-        balances = list(balanceMap.values())
+        balances = [amount for amount in balanceMap.values() if amount != 0]
         return self._transactionAt(0, balances)
 
 
