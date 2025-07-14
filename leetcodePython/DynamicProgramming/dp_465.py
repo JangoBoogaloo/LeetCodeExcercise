@@ -35,3 +35,12 @@ class Solution:
 
 
 
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("transactions, expect",
+[
+    ([[0,3,2],[1,4,3],[2,3,2],[2,4,2]], 3),
+])
+def test_minTransfers(transactions, expect):
+    assert target.minTransfers(transactions) == expect
