@@ -1,32 +1,33 @@
+from collections import Counter
 from typing import List
 
 
-class SolutionBacktrack:
+class Solution:
+    def _transactionAt(self, startIndex: int, balances: List) -> int:
+        while startIndex < len(balances) and balances[startIndex] == 0:
+            startIndex += 1
+        if startIndex == len(balances):
+            return 0
+        minCost = float("inf")
+        for nextIndex in range(startIndex+1, len(balances)):
+            if balances[startIndex] * balances[nextIndex] < 0:
+                balances[nextIndex] += balances[startIndex]
+                cost = 1 + self._transactionAt(startIndex+1, balances)
+                minCost = min(minCost, cost)
+                balances[nextIndex] -= balances[startIndex]
+        return minCost
+
     def minTransfers(self, transactions: List[List[int]]) -> int:
-        balanceMap = {}
-        for from_i, to_i, amount_i in transactions:
-            if from_i not in balanceMap:
-                balanceMap[from_i] = 0
-            balanceMap[from_i] -= amount_i
-            if to_i not in balanceMap:
-                balanceMap[to_i] = 0
-            balanceMap[to_i] += amount_i
+        balanceMap = Counter()
+        for src, dst, amount in transactions:
+            balanceMap[src] -= amount
+            balanceMap[dst] += amount
 
-        userBalances = list(balanceMap.values())
+        balances = list(balanceMap.values())
+        return self._transactionAt(0, balances)
 
-        def minOperationsAt(index: int) -> int:
-            while index < len(userBalances) and userBalances[index] == 0:
-                index += 1
-            if index == len(userBalances):
-                return 0
-            cost = float("inf")
-            for next_i in range(index+1, len(userBalances)):
-                if userBalances[next_i] * userBalances[index] >= 0:
-                    continue
-                userBalances[next_i] += userBalances[index]
-                currentCost = 1 + minOperationsAt(index+1)
-                cost = min(cost, currentCost)
-                userBalances[next_i] -= userBalances[index]
-            return cost
 
-        return minOperationsAt(0)
+
+
+
+
