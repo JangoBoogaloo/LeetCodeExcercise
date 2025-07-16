@@ -3,27 +3,28 @@ from typing import List
 
 class Solution:
     def cheapestJump(self, coins: List[int], maxJump: int) -> List[int]:
-        minCostFrom = [0] * len(coins)
-        nextJumpOf = [-1] * len(coins)
-        for start in range(len(coins)-2, -1, -1):
-            jumpRange = min(start+maxJump+1, len(coins))
+        minCostToEndFrom = [0] * len(coins)
+        INVALID = -1
+        bestJumpDstAt = [INVALID] * len(coins)
+        for src in range(len(coins)-2, -1, -1):
+            dstRange = min(src+maxJump, len(coins)-1)
             minCost = float("inf")
-            for end in range(start+1, jumpRange, 1):
-                if coins[end] >= 0:
-                    cost = coins[start] + minCostFrom[end]
+            for dst in range(src+1, dstRange+1):
+                if coins[dst] != INVALID:
+                    cost = coins[src] + minCostToEndFrom[dst]
                     if cost < minCost:
                         minCost = cost
-                        nextJumpOf[start] = end
-            minCostFrom[start] = minCost
-
+                        bestJumpDstAt[src] = dst
+            minCostToEndFrom[src] = minCost
         path = []
-        index = 0
-        while index < len(coins) and nextJumpOf[index] > 0:
-            path.append(index + 1)
-            index = nextJumpOf[index]
+        currentPos = 0
+        while currentPos < len(coins) and bestJumpDstAt[currentPos] != INVALID:
+            path.append(currentPos)
+            currentPos = bestJumpDstAt[currentPos]
 
-        if index == len(coins) - 1 and minCostFrom[index] >= 0:
-            path.append(len(coins))
-            return path
+        if currentPos == len(coins) - 1 and minCostToEndFrom[currentPos] != INVALID:
+            path.append(len(coins)-1)
+            # stupid 1-indexed requirement
+            return [index+1 for index in path]
 
         return []
