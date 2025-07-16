@@ -26,7 +26,7 @@ class Solution:
             currentPos = bestJumpDstAt[currentPos]
 
         if currentPos == len(coins) - 1 and minCostToEndFrom[currentPos] != self._INVALID:
-            path.append(len(coins)-1)
+            path.append(currentPos)
             # stupid 1-indexed requirement
             return [index+1 for index in path]
         return []
