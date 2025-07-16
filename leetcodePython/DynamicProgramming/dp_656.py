@@ -18,7 +18,7 @@ class Solution:
             minCostToEndFrom[src] = minCost
         return self._doBestJump(coins, bestJumpDstAt, minCostToEndFrom)
 
-    def _doBestJump(self,coins: List[int], bestJumpDstAt: List[int], minCostToEndFrom: List[int]):
+    def _doBestJump(self, coins: List[int], bestJumpDstAt: List[int], minCostToEndFrom: List[int]):
         path = []
         currentPos = 0
         while currentPos < len(coins) and bestJumpDstAt[currentPos] != self._INVALID:
