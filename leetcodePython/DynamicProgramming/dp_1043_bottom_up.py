@@ -10,3 +10,11 @@ class Solution:
                 currMax = max(currMax, arr[end-size])
                 maxSumEndAt[end] = max(maxSumEndAt[end], maxSumEndAt[end-size] + currMax * size)
         return maxSumEndAt[-1]
+
+
+
+
+
+
+
+
