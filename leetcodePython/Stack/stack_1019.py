@@ -16,6 +16,7 @@ class ListNode:
             curr = curr.next
         return dummy.next
 
+
 class Solution:
     def nextLargerNodes(self, head: Optional[ListNode]) -> List[int]:
         dataList = []
@@ -30,9 +31,6 @@ class Solution:
                 result[prevIndex] = dataList[i]
             decreaseStack.append(i)
         return result
-
-
-
 
 
 
