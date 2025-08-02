@@ -1,6 +1,20 @@
 from typing import Optional, List
-from LinkedList.linkedlist import ListNode
 
+class ListNode:
+    def __init__(self, val=None, next=None):
+        self.val = val
+        self.next = next
+
+    @staticmethod
+    def buildList(nums: List[int]):
+        if not nums:
+            return None
+        dummy = ListNode()
+        curr = dummy
+        for num in nums:
+            curr.next = ListNode(num)
+            curr = curr.next
+        return dummy.next
 
 class Solution:
     def nextLargerNodes(self, head: Optional[ListNode]) -> List[int]:
