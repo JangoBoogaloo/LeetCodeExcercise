@@ -16,3 +16,18 @@ class HitCounter:
 
 
 
+import pytest
+
+
+@pytest.mark.parametrize("actions, expect",
+[
+    ([("hit", 1), ("hit", 2), ("getHit", 300)], 2),
+    ([("hit", 1), ("hit", 2), ("getHit", 301)], 1),
+])
+def test_HitCounter(actions, expect):
+    ht = HitCounter()
+    for action, time in actions:
+        if action == "hit":
+            ht.hit(time)
+        else:
+            assert ht.getHits(time) == expect
