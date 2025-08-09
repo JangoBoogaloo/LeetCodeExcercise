@@ -46,3 +46,19 @@ class Solution:
 
         backtrack(0)
         return addresses
+
+
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("digitsStr, expect",
+[
+    ("1234", ["1.2.3.4"]),
+    ("01234", ["0.1.2.34", "0.1.23.4", "0.12.3.4"]),
+    ("255000", ["25.50.0.0", "255.0.0.0"]),
+    ("256000", ["25.60.0.0"]),
+    ("262626260", []),
+    ("26262626", ["26.26.26.26"]),
+])
+def test_restoreIpAddresses(digitsStr, expect):
+    assert target.restoreIpAddresses(digitsStr) == expect
