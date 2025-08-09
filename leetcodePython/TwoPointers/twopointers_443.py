@@ -34,3 +34,15 @@ class Solution:
 
 
 
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("chars, expectChars, expect",
+[
+    (['b']+['a']*10, ['b','a','1','0'], 4),
+    (['a','b','c'] , ['a','b','c'], 3),
+    ([], [], 0),
+])
+def test_checkType(chars, expectChars, expect):
+    assert target.compress(chars) == expect
+    assert chars[:expect] == expectChars[:expect]
