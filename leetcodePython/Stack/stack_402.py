@@ -13,3 +13,17 @@ class Solution:
 
         numStr = "".join(increaseDigits).lstrip('0')
         return numStr if numStr else "0"
+
+
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("num, k, expected",
+[
+    ("1234", 2, "12"),
+    ("9399", 2, "39"),
+    ("93929", 2, "329"),
+    ("93929", 3, "29")
+])
+def test_removeKdigits(num, k, expected):
+    assert target.removeKdigits(num, k) == expected
