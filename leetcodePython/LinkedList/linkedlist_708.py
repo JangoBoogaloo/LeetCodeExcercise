@@ -30,3 +30,19 @@ class Solution:
 
 
 
+from linkedlist import CircularList
+
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("dataList, insertValue, expect",
+[
+    ([3, 4, 2], 1, [3, 4, 1, 2]),
+    ([2, 3], 1, [2, 3, 1]),
+    ([5, 5], 1, [5, 5, 1]),
+    ([5, 5], 6, [5, 5, 6])
+])
+def test_insert(dataList, insertValue, expect):
+    node = CircularList.buildCircular(dataList)
+    node = target.insert(node, insertValue)
+    assert CircularList.GetList(node) == expect
