@@ -28,3 +28,11 @@ class Solution:
 
 
 
+import pytest
+target = Solution()
+@pytest.mark.parametrize("chargeTimes, runningCosts, budget, expect",
+[
+    ([1,3,2], [2,1,2], 8, 1),
+])
+def test_checkType(chargeTimes: List[int], runningCosts: List[int], budget: int, expect):
+    assert target.maximumRobots(chargeTimes, runningCosts, budget) == expect
