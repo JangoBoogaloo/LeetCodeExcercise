@@ -20,3 +20,11 @@ class Solution:
                 running_cost_sum -= runningCosts[left]
                 left += 1
         return len(chargeTimes) - left
+
+
+
+
+
+
+
+
