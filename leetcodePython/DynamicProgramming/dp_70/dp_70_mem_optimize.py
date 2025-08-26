@@ -6,3 +6,8 @@ class Solution:
             currentWays = ways1StepBefore + ways2StepsBefore
             ways1StepBefore, ways2StepsBefore = currentWays, ways1StepBefore
         return currentWays
+
+
+
+
+
