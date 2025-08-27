@@ -11,3 +11,9 @@ class Solution:
             if maxDst >= len(nums) -1:
                 return True
         return maxDst >= len(nums) -1
+
+
+
+
+
+
