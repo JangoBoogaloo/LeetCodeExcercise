@@ -15,4 +15,8 @@ class Solution:
     def rob(self, nums: List[int]) -> int:
         robGainStartAt = [-1] * len(nums)
         return self._robGainStartAt(0, robGainStartAt, nums)
-        # rob[x] = rob[x-1] or rob[x] = rob[x-2] + num[x]
+
+
+
+
+
