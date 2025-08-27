@@ -1,21 +1,26 @@
+from typing import List, Optional
+
+
 class Solution:
-    def _isPalindrome(self, start, end, txt:str, isPalindrome) -> bool:
+    def _isPalindrome(self, start:int, end:int, txt:str, isPalindrome) -> bool:
         if start >= end:
             return True
         if isPalindrome[start][end] is not None:
             return isPalindrome[start][end]
         if txt[start] != txt[end]:
-            return False
-        return self._isPalindrome(start+1, end-1, txt, isPalindrome)
+            isPalindrome[start][end] = False
+            return isPalindrome[start][end]
+        isPalindrome[start][end] = self._isPalindrome(start+1, end-1, txt, isPalindrome)
+        return isPalindrome[start][end]
 
-    def _minCutBetween(self, start, end, minCuts, txt:str, isPalindrome, cutsFor) -> int:
-        if start == end or self._isPalindrome(start, end, isPalindrome):
+    def _minCutBetween(self, start:int, end:int, minCuts, txt:str, isPalindrome: List[List[Optional[bool]]], cutsFor: List[List[Optional[int]]]) -> int:
+        if start == end or self._isPalindrome(start, end, txt, isPalindrome):
             return 0
         if cutsFor[start][end] is not None:
             return cutsFor[start][end]
         for cutEndIndex in range(start, end + 1):
-            if self._isPalindrome(start, cutEndIndex, isPalindrome):
-                minCuts = min(minCuts, 1 + self._minCutBetween(cutEndIndex+1, end, txt, minCuts, isPalindrome, cutsFor))
+            if self._isPalindrome(start, cutEndIndex, txt, isPalindrome):
+                minCuts = min(minCuts, 1 + self._minCutBetween(cutEndIndex+1, end, minCuts, txt, isPalindrome, cutsFor))
         cutsFor[start][end] = minCuts
         return cutsFor[start][end]
 
