@@ -38,3 +38,8 @@ class Solution:
                         minCut = min(minCut, cutsAt[cutStart-1]+1)
             cutsAt[end] = minCut
         return cutsAt[-1]
+
+
+
+
+
