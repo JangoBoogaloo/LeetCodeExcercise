@@ -8,3 +8,12 @@ class Solution:
             for startIndex in range(endIndex):
                 maxScoreEndAt[endIndex] = max(maxScoreEndAt[endIndex], maxScoreEndAt[startIndex] + (endIndex - startIndex) * nums[endIndex])
         return maxScoreEndAt[-1]
+
+
+
+
+
+
+
+
+

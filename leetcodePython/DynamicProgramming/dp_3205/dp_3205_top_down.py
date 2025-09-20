@@ -17,3 +17,11 @@ class Solution:
     def maxScore(self, nums: List[int]) -> int:
         maxScoreAt = [-1] * len(nums)
         return self._maxScoreStartAt(0, nums, maxScoreAt)
+
+
+
+
+
+
+
+
