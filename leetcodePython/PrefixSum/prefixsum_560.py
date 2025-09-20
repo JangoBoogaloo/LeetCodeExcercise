@@ -3,17 +3,14 @@ from collections import Counter
 
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        cumul_sum = 0
+        currSum = 0
         ans = 0
-        cumul_sum_count = Counter()
+        subArrayCountOfSum = Counter()
         for num in nums:
-            cumul_sum += num
-            if cumul_sum == k:
+            currSum += num
+            if currSum == k:
                ans += 1
-            diff = cumul_sum - k
-
-            # k = curr_sum - diff
-            # the count here shows how many cumulate sub array we can subtract to form a valid sub array
-            ans += cumul_sum_count[diff]
-            cumul_sum_count[cumul_sum] += 1
+            diff = currSum - k
+            ans += subArrayCountOfSum[diff]
+            subArrayCountOfSum[currSum] += 1
         return ans
