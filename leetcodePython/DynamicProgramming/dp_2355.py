@@ -18,11 +18,11 @@ class Solution:
                     increaseSlopeIndex.pop()
                 else:
                     break
-            if not increaseSlopeIndex:
-                takeBooksAt[right] = self._maxBooksBtw(0, right, books)
-            else:
+            if increaseSlopeIndex:
                 left = increaseSlopeIndex[-1]
                 takeBooksAt[right] = takeBooksAt[left] + self._maxBooksBtw(left + 1, right, books)
+            else:
+                takeBooksAt[right] = self._maxBooksBtw(0, right, books)
             increaseSlopeIndex.append(right)
         return max(takeBooksAt)
 
