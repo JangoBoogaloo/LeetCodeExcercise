@@ -6,3 +6,8 @@ class Solution:
         maxDamage = max(damage)
         armorHelp = min(maxDamage, armor)
         return sum(damage) + 1 - armorHelp
+
+
+
+
+
