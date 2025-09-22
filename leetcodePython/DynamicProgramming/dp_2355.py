@@ -35,3 +35,17 @@ class Solution:
 
 
 
+import pytest
+target = Solution()
+
+
+@pytest.mark.parametrize("books, expect",
+[
+    ([1, 2, 3], 1+2+3),
+    ([1, 2, 2], 0+1+2),
+    ([1, 2, 3, 5, 6], 6+11),
+    ([1, 2, 3, 1, 5, 6], 0 + 1 + 5 + 6),
+
+])
+def test_maximumBooks(books, expect):
+    assert target.maximumBooks(books) == expect
