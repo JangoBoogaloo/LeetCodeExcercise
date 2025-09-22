@@ -2,31 +2,38 @@ from typing import List
 
 
 class Solution:
-    @staticmethod
-    def _out_of_bound(rows: int, columns: int, row: int, col: int) -> bool:
-        if row < 0 or col < 0:
-            return True
-        if row >= rows or col >= columns:
-            return True
-        return False
+    _DIRECTIONS = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
-    def _dfs_get_area(self, grid: List[List[int]], row: int, col: int) -> int:
-        if self._out_of_bound(len(grid), len(grid[0]), row, col):
-            return 0
+    def _isValid(self, row, col, grid) -> bool:
+        if row < 0 or row > len(grid) - 1:
+            return False
+        if col < 0 or col > len(grid[0]) - 1:
+            return False
+        return True
+
+    def _dfsGetArea(self, row, col, grid) -> int:
         if grid[row][col] == 0:
             return 0
-        area = 1
         grid[row][col] = 0
-        area += self._dfs_get_area(grid, row - 1, col)
-        area += self._dfs_get_area(grid, row + 1, col)
-        area += self._dfs_get_area(grid, row, col - 1)
-        area += self._dfs_get_area(grid, row, col + 1)
+        area = 1
+        for dirR, dirC in self._DIRECTIONS:
+            newRow = row + dirR
+            newCol = col + dirC
+            if self._isValid(newRow, newCol, grid):
+                area += self._dfsGetArea(newRow, newCol, grid)
         return area
 
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
-        max_area = 0
+        maxArea = 0
         for row in range(len(grid)):
-            for col in range(len(grid[row])):
-                curr_area = self._dfs_get_area(grid, row, col)
-                max_area = max(max_area, curr_area)
-        return max_area
+            for col in range(len(grid[0])):
+                maxArea = max(maxArea, self._dfsGetArea(row, col, grid))
+        return maxArea
+
+
+
+
+
+
+
+
