@@ -1,11 +1,11 @@
-import collections
 from typing import List
+from collections import Counter
 
 
 class Solution:
     @staticmethod
     def _at_most(nums: List[int], max_num: int) -> int:
-        count = collections.Counter()
+        count = Counter()
         left = 0
         ans = 0
         for right in range(len(nums)):
