@@ -1,9 +1,8 @@
-import collections
-from functools import cmp_to_key
+from collections import Counter
 from typing import List
-
 
 class Solution:
     def frequencySort(self, nums: List[int]) -> List[int]:
-        frequency = collections.Counter(nums)
-        return sorted(nums, key=lambda x: (frequency[x], -x))
+        numFreq = Counter(nums)
+        nums.sort(key=lambda x: (numFreq[x], -x))
+        return nums
