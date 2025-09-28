@@ -2,7 +2,22 @@ from typing import List
 from collections import deque
 
 
-class SolutionFromRight:
+class SolutionMonotonicStack:
+    def findBuildings(self, heights: List[int]) -> List[int]:
+        n = len(heights)
+        decreaseValue_indexStack = []
+        ans = []
+        for right in reversed(range(n)):
+            while decreaseValue_indexStack and heights[decreaseValue_indexStack[-1]] < heights[right]:
+                decreaseValue_indexStack.pop()
+            if not decreaseValue_indexStack:
+                ans.append(right)
+            decreaseValue_indexStack.append(right)
+        ans.reverse()
+        return ans
+
+
+class Solution:
     def findBuildings(self, heights: List[int]) -> List[int]:
         prev_height = 0
         ans = deque()
@@ -11,18 +26,3 @@ class SolutionFromRight:
                 prev_height = heights[i]
                 ans.appendleft(i)
         return list(ans)
-
-
-class SolutionMonotonicStack:
-    def findBuildings(self, heights: List[int]) -> List[int]:
-        n = len(heights)
-        stack = []
-        ans = []
-        for right in reversed(range(n)):
-            while stack and heights[stack[-1]] < heights[right]:
-                stack.pop()
-            if not stack:
-                ans.append(right)
-            stack.append(right)
-        ans.reverse()
-        return ans
