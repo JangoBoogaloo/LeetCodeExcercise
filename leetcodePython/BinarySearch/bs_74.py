@@ -20,3 +20,24 @@ class Solution:
 
 
 
+
+import pytest
+sol = Solution()
+
+@pytest.mark.parametrize("matrix, target, expect",
+[
+    ([
+        [1,2,3],
+        [4],
+        [5,6],
+        [7,8,9,10]
+     ], 6, True),
+    ([
+         [1, 2, 3],
+         [4],
+         [5, 7],
+         [7, 8, 9, 10]
+     ], 6, False),
+])
+def test_searchMatrix(matrix, target, expect):
+    assert sol.searchMatrix(matrix, target) == expect
