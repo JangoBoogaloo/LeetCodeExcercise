@@ -12,3 +12,11 @@ class Solution:
             else:
                 right = evenMidIndex
         return nums[left]
+
+
+
+
+
+
+
+
