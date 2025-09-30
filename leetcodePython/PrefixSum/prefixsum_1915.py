@@ -1,19 +1,40 @@
+from collections import Counter
+
+
 class Solution:
     def wonderfulSubstrings(self, word: str) -> int:
-        count = [0]*1024
-        count[0] = 1
-        res = curr = 0
-        for ch in word:
-            shift_count = ord(ch)-ord('a')
-            # 100..... (shift count number of 0)
-            ch_bit = 1 << shift_count
-            curr = curr ^ ch_bit
-            res += count[curr]
-            count[curr] += 1
-            a, j = 0, 10
-            for ch_i in range(a, j):
-                ch_bit = 1 << ch_i
-                tmp = curr ^ ch_bit
-                res += count[tmp]
+        countAtMask = Counter()
+        countAtMask[0] = 1
 
-        return res
+        mask = 0
+        maxBitRange = 0
+        for ch in word:
+            chBit = 1 << (ord(ch) - ord('a'))
+            mask = mask ^ chBit
+            maxBitRange = max(maxBitRange, mask)
+            countAtMask[mask] += 1
+        maxBitRange += 1
+        result = 0
+        for msk in range(maxBitRange):
+            if not countAtMask[msk]:
+                continue
+            maskCount = countAtMask[msk]
+            subStringCount = maskCount * (maskCount - 1) // 2
+            result += subStringCount
+
+            bit = 1
+            while bit < maxBitRange:
+                if msk & bit:
+                    subStringCount = countAtMask[msk] * countAtMask[msk ^ bit]
+                    result += subStringCount
+                bit <<= 1
+        return result
+
+
+
+
+
+
+
+
+
