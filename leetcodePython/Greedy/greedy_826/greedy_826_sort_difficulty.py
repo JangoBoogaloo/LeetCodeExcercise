@@ -15,9 +15,8 @@ class Solution:
         return bestProfit
 
     def maxProfitAssignment(self, difficulties: List[int], profits: List[int], workers: List[int]) -> int:
-        jobInfo =[(difficulties[i], profits[i]) for i in range(len(difficulties))]
-        jobInfo.sort()
-        optimalProfitJobInfo = [(0, 0)] + jobInfo
+        optimalProfitJobInfo =[(difficulties[i], profits[i]) for i in range(len(difficulties))]
+        optimalProfitJobInfo.sort()
         for i in range(len(optimalProfitJobInfo) - 1):
             optimalProfitJobInfo[i + 1] = (optimalProfitJobInfo[i+1][0], max(optimalProfitJobInfo[i][1], optimalProfitJobInfo[i+1][1]))
 
