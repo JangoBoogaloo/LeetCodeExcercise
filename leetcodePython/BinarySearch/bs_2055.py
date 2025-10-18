@@ -1,26 +1,28 @@
-import bisect
 from typing import List
-
+from bisect import bisect_left, bisect_right
 
 class Solution:
     def platesBetweenCandles(self, s: str, queries: List[List[int]]) -> List[int]:
-        candle_index = []
+        candleIndexes = []
         for i in range(len(s)):
-            if s[i] == '|':
-                candle_index.append(i)
-        ans = []
+            if s[i] == "|":
+                candleIndexes.append(i)
+        answer = []
         for left, right in queries:
-            idx_idx_l = bisect.bisect_left(candle_index, left)
-            # the actual candle index within the boundary has to be 1 index smaller
-            idx_idx_r = bisect.bisect_right(candle_index, right) - 1
+            l = bisect_left(candleIndexes, left)
+            r = bisect_right(candleIndexes, right) - 1
             plates = 0
-            if idx_idx_r > idx_idx_l:
-                candles_in_range = idx_idx_r - idx_idx_l
-                plates = candle_index[idx_idx_r] - candle_index[idx_idx_l] - candles_in_range
-            ans.append(plates)
-        return ans
+            if r > l:
+                candleCount = r - l
+                plateRange = candleIndexes[r] - candleIndexes[l]
+                plates = plateRange - candleCount
+            answer.append(plates)
+        return answer
 
 
-if __name__ == '__main__':
-    sol = Solution()
-    sol.platesBetweenCandles("***|**|*****|**||**|*", [[3, 6]])
+
+
+
+
+
+

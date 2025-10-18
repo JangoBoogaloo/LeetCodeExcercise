@@ -1,17 +1,22 @@
-from bisect import bisect_left
 from typing import List
-
+from bisect import bisect_left
 
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
-        matrix_min = matrix[0][0]
-        matrix_max = matrix[-1][-1]
-        if target < matrix_min or target > matrix_max:
+        minimum, maximum = matrix[0][0], matrix[-1][-1]
+        if target < minimum or target > maximum:
             return False
+        rowIndex = bisect_left(matrix, target, key=lambda x: x[-1])
+        colIndex = bisect_left(matrix[rowIndex], target)
+        if colIndex == len(matrix[rowIndex]):
+            return False
+        return matrix[rowIndex][colIndex] == target
 
-        row_idx = bisect_left(matrix, target, key=lambda x: x[-1])
-        target_row = matrix[row_idx]
-        target_index = bisect_left(target_row, target)
-        if target_index == len(target_row):
-            return False
-        return target_row[target_index] == target
+
+
+
+
+
+
+
+
