@@ -4,23 +4,18 @@ from typing import List
 
 class Solution:
     def deckRevealedIncreasing(self, deck: List[int]) -> List[int]:
-        N = len(deck)
-        queue = deque()
-
-        # Create a queue of indexes
-        for i in range(N):
-            queue.append(i)
-
+        deckIndex = deque([i for i in range(len(deck))])
         deck.sort()
-
-        # Put cards at correct index in result
-        result = [0] * N
+        newOrder = [0] * len(deck)
         for card in deck:
+            index = deckIndex.popleft()
+            newOrder[index] = card
+            if deckIndex:
+                deckIndex.append(deckIndex.popleft())
+        return newOrder
 
-            # Reveal Card
-            result[queue.popleft()] = card
-            # Move next card to bottom
-            if queue:
-                queue.append(queue.popleft())
 
-        return result
+
+
+
+

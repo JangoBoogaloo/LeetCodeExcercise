@@ -1,28 +1,34 @@
 class Trie:
-
     def __init__(self):
-        self.root = {}
+        self._nextCharMap = {}
+        self._TERMINATE = "*"
 
     def insert(self, word: str) -> None:
-        cur = self.root
+        currentMap = self._nextCharMap
         for ch in word:
-            if ch not in cur:
-                cur[ch] = {}
-            cur = cur[ch]
-        cur['*'] = ''
+            if ch not in currentMap:
+                currentMap[ch] = {}
+            currentMap = currentMap[ch]
+        currentMap[self._TERMINATE] = {}
 
     def search(self, word: str) -> bool:
-        cur = self.root
+        currentMap = self._nextCharMap
         for ch in word:
-            if ch not in cur:
+            if ch not in currentMap:
                 return False
-            cur = cur[ch]
-        return '*' in cur
+            currentMap = currentMap[ch]
+        return self._TERMINATE in currentMap
 
     def startsWith(self, prefix: str) -> bool:
-        cur = self.root
+        currentMap = self._nextCharMap
         for ch in prefix:
-            if ch not in cur:
+            if ch not in currentMap:
                 return False
-            cur = cur[ch]
+            currentMap = currentMap[ch]
         return True
+
+
+
+
+
+

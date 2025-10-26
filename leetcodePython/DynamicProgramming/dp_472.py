@@ -1,64 +1,37 @@
-import collections
-from functools import cache
 from typing import List
 
 
-class SolutionCacheDP:
-    """
-    Calculate if a word is concat of words in seen.
-    If it's calculated, simply return the cached result
-    """
-
-    @cache
-    def _can_concat(self, word: str, seen: frozenset[str]) -> bool:
-        # [prefix] + [------suffix------]
-        for i in range(1, len(word)):
-            prefix = word[:i]
-            suffix = word[i:]
-            if prefix not in seen:
+class Solution:
+    def _canConcat(self, word: str, wordSet: frozenset[str], concatState: dict) -> bool:
+        if word in concatState:
+            return concatState[word]
+        for prefixIndex in range(self._minWordLength, len(word) - self._minWordLength+1):
+            prefix, suffix = word[:prefixIndex], word[prefixIndex:]
+            if prefix not in wordSet:
                 continue
-            if suffix in seen:
+            if suffix in wordSet:
+                concatState[word] = True
                 return True
-            # recursion [prefix_suffix] + [------suffix_suffix------] to check suffix
-            if self._can_concat(suffix, seen):
+            if self._canConcat(suffix, wordSet, concatState):
+                concatState[word] = True
                 return True
+        concatState[word] = False
         return False
 
     def findAllConcatenatedWordsInADict(self, words: List[str]) -> List[str]:
-        seen = frozenset(words)
-        ans = []
+        wordSet = frozenset(words)
+        self._minWordLength = min(map(len, words))
+        concatState = {}
+        concatWords = []
         for word in words:
-            if self._can_concat(word, seen):
-                ans.append(word)
-        return ans
+            if self._canConcat(word, wordSet, concatState):
+                concatWords.append(word)
+        return concatWords
 
 
-class SolutionDP:
-    def _can_concat(self, word: str, seen: frozenset[str], concat_state: dict) -> bool:
-        if word in concat_state:
-            return concat_state[word]
 
-        # [prefix] + [------suffix------]
-        for i in range(1, len(word)):
-            prefix = word[:i]
-            suffix = word[i:]
-            if prefix not in seen:
-                continue
-            if suffix in seen:
-                concat_state[word] = True
-                return True
-            # recursion [prefix_suffix] + [------suffix_suffix------] to check suffix
-            if self._can_concat(suffix, seen, concat_state):
-                concat_state[word] = True
-                return True
-        concat_state[word] = False
-        return False
 
-    def findAllConcatenatedWordsInADict(self, words: List[str]) -> List[str]:
-        seen = frozenset(words)
-        concat_state = {}
-        ans = []
-        for word in words:
-            if self._can_concat(word, seen, concat_state):
-                ans.append(word)
-        return ans
+
+
+
+
