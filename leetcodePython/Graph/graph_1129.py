@@ -31,3 +31,12 @@ class Solution:
                     nodesAvailable.append((nextNode, pathColor))
             level += 1
         return [d if d != float("inf") else -1 for d in answer]
+
+
+
+
+
+
+
+
+
