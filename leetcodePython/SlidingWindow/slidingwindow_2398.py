@@ -1,24 +1,30 @@
-import collections
+from collections import deque
 from typing import List
 
 
 class Solution:
     def maximumRobots(self, chargeTimes: List[int], runningCosts: List[int], budget: int) -> int:
-        robots, max_time, cost_sum = 0, 0, 0
-        size = len(chargeTimes)
+        time_decrease_index = deque()
         left = 0
-        dq_decrease = collections.deque()
-
-        for right in range(size):
-            cost_sum += runningCosts[right]
-            while dq_decrease and chargeTimes[dq_decrease[-1]] <= chargeTimes[right]:
-                dq_decrease.pop()
-            dq_decrease.append(right)
-            max_time = chargeTimes[dq_decrease[0]]
-            cost_formula = max_time + (right - left + 1) * cost_sum
-            if cost_formula > budget:
-                if dq_decrease[0] == left:
-                    dq_decrease.popleft()
-                cost_sum -= runningCosts[left]
+        running_cost_sum = 0
+        for right in range(len(chargeTimes)):
+            while time_decrease_index and chargeTimes[right] >= chargeTimes[time_decrease_index[-1]]:
+                time_decrease_index.pop()
+            time_decrease_index.append(right)
+            running_cost_sum += runningCosts[right]
+            max_charge_time = chargeTimes[time_decrease_index[0]]
+            cost = max_charge_time + (right - left + 1) * running_cost_sum
+            if cost > budget:
+                if time_decrease_index[0] == left:
+                    time_decrease_index.popleft()
+                running_cost_sum -= runningCosts[left]
                 left += 1
-        return size - left
+        return len(chargeTimes) - left
+
+
+
+
+
+
+
+
