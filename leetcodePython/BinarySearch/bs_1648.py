@@ -34,3 +34,10 @@ class Solution:
         if soldBalls < orders:
             total += (orders - soldBalls) * basePrice
         return total % 1_000_000_007
+
+
+
+
+
+
+
