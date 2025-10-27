@@ -16,3 +16,11 @@ class Solution:
             orders -= sell
             index += 1
         return ans % 1_000_000_007
+
+
+
+
+
+
+
+
