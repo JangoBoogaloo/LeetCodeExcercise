@@ -23,3 +23,10 @@ class WordDistance:
             else:
                 index2 += 1
         return minDistance
+
+
+
+
+
+
+
