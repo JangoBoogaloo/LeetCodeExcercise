@@ -36,3 +36,15 @@ class Solution:
 
 
 
+
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("beginWord, endWord, wordList, expect",
+[
+    ("ab", "ac", ["ac"], 2),
+    ("aa", "dc", ["ab", "bb", "bc", "dc"], 5),
+    ("ab", "ce", ["bb", "bc", "cc", "cb", "ce"], 3),
+])
+def test_checkType(beginWord, endWord, wordList, expect):
+    assert target.ladderLength(beginWord, endWord, wordList) == expect
