@@ -32,3 +32,10 @@ class Solution:
                         level.append((nextR, nextC))
                         grid[nextR][nextC] = 1
         return -1
+
+
+
+
+
+
+
