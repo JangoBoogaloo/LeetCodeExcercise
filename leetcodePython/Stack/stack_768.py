@@ -10,3 +10,9 @@ class Solution:
                 largest = max(largest, increaseStack.pop())
             increaseStack.append(largest)
         return len(increaseStack)
+
+
+
+
+
+
