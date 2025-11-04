@@ -22,3 +22,13 @@ class Solution:
                 travel_time += travel_prefix_sum[last_garbage_index[ch]-1]
 
         return travel_time + garbage_collection_time
+
+
+
+
+
+
+
+
+
+

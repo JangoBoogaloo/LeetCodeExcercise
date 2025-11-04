@@ -1,28 +1,16 @@
 from typing import List
 
 
-class SolutionSlidingWindow:
+class Solution:
     def maxFrequency(self, nums: List[int], k: int) -> int:
         nums.sort()
-        left, ans, curr_sum = 0, 0, 0
+        current_sum = 0
+        left = 0
         for right in range(len(nums)):
-            target = nums[right]
-            curr_sum += target
-            while (right - left + 1) * target - curr_sum > k:
-                curr_sum -= nums[left]
-                left += 1
-            ans = max(ans, right - left + 1)
-        return ans
-
-
-class SolutionSlidingWindowMaxWindow:
-    def maxFrequency(self, nums: List[int], k: int) -> int:
-        nums.sort()
-        left, curr_sum = 0, 0
-        for right in range(len(nums)):
-            target = nums[right]
-            curr_sum += target
-            if (right - left + 1) * target - curr_sum > k:
-                curr_sum -= nums[left]
+            freq_num = nums[right]
+            current_sum += freq_num
+            freq_window_sum = freq_num * (right - left + 1)
+            if freq_window_sum - current_sum > k:
+                current_sum -= nums[left]
                 left += 1
         return len(nums) - left
