@@ -2,20 +2,24 @@ from typing import List
 
 
 class Solution:
-    @staticmethod
-    def _childrenWithCandies(candy_piles: List[int], candy_per_child: int) -> int:
-        children = 0
-        for candies in candy_piles:
-            children += candies // candy_per_child
-        return children
+    def _canDistribute(self, candies:List[int], children: int, candiesEach: int) -> bool:
+        if not candiesEach:
+            return True
+        childrenHappy = 0
+        for candy in candies:
+            childrenHappy += candy // candiesEach
+            if childrenHappy >= children:
+                return True
+        return False
 
-    def maximumCandies(self, candies: List[int], k: int) -> int:
-        lower_bound = 0
-        upper_bound = max(candies)
-        while lower_bound < upper_bound:
-            mid = (lower_bound + upper_bound + 1) // 2
-            if self._childrenWithCandies(candies, mid) < k:
-                upper_bound = mid - 1
+    def maximumCandies(self, candies: List[int], children: int) -> int:
+        minCandies, maxCandies = 0, sum(candies) // children
+        answerCandies = 0
+        while minCandies <= maxCandies:
+            guessCandies = (minCandies + maxCandies) // 2
+            if self._canDistribute(candies, children, guessCandies):
+                answerCandies = guessCandies
+                minCandies = guessCandies + 1
             else:
-                lower_bound = mid
-        return lower_bound
+                maxCandies = guessCandies - 1
+        return answerCandies
