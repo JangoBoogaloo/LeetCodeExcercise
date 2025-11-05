@@ -11,3 +11,10 @@ class Solution:
                 currMax = max(currMax, nums[end])
                 answer += currMax - currMin
         return answer
+
+
+
+
+
+
+

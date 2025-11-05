@@ -36,3 +36,9 @@ class Solution:
 
     def subArrayRanges(self, nums: List[int]) -> int:
         return self._maxSum(nums) - self._minSum(nums)
+
+
+
+
+
+
