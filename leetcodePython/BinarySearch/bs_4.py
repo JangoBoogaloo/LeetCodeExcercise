@@ -1,68 +1,38 @@
 from typing import List
 
 
-class SolutionMergeSort:
-    @staticmethod
-    def _mergeCompare(nums1: List[int], nums2: List[int], index1: int, index2: int) -> tuple[int, int, int]:
-        if index1 == len(nums1):
-            ans = nums2[index2]
-            index2 += 1
-            return ans, index1, index2
-
-        if index2 == len(nums2):
-            ans = nums1[index1]
-            index1 += 1
-            return ans, index1, index2
-
-        if nums1[index1] < nums2[index2]:
-            ans = nums1[index1]
-            index1 += 1
-        else:
-            ans = nums2[index2]
-            index2 += 1
-        return ans, index1, index2
-
-    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
-        index1, index2 = 0, 0
-
-        before_middle = (len(nums1) + len(nums2)) // 2
-
-        if (len(nums1) + len(nums2)) % 2 == 0:
-            before_middle -= 1
-
-        for _ in range(before_middle):
-            _, index1, index2 = self._mergeCompare(nums1, nums2, index1, index2)
-
-        if (len(nums1) + len(nums2)) % 2 == 0:
-            smaller, index1, index2, = self._mergeCompare(nums1, nums2, index1, index2)
-            bigger, index1, index2 = self._mergeCompare(nums1, nums2, index1, index2)
-            return (smaller + bigger) / 2
-        else:
-            median, _, _ = self._mergeCompare(nums1, nums2, index1, index2)
-            return median
-
-
-class SolutionBS:
-    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
-        if len(nums1) > len(nums2):
-            return self.findMedianSortedArrays(nums2, nums1)
-
-        size_1, size_2 = len(nums1), len(nums2)
-        left, right = 0, size_1
+class Solution:
+    def _findMedian(self, smallerArray: List[int], biggerArray: List[int]) -> float:
+        size_1, size_2 = len(smallerArray), len(biggerArray)
+        left, right = 0, len(smallerArray)
 
         while left <= right:
-            mid_smaller = (left + right) // 2
-            mid_total = (size_1 + size_2 + 1) // 2
-            mid_bigger = mid_total - mid_smaller
+            # [...smallMid...][..totalMid.........]
 
-            maxLeftA = float("-inf") if mid_smaller == 0 else nums1[mid_smaller - 1]
-            minRightA = float("inf") if mid_smaller == size_1 else nums1[mid_smaller]
+            # [--------------totalHalf--------------][--------------totalHalf--------------]
+            # [smallHalf][smallHalf][--------bigHalf-----------][---------bigHalf----------]
+            smallMid = (left + right) // 2
+            totalMid = (len(smallerArray) + len(biggerArray) + 1) // 2
+            mid_bigger = totalMid - smallMid
 
-            maxLeftB = float("-inf") if mid_bigger == 0 else nums2[mid_bigger - 1]
-            minRightB = float("inf") if mid_bigger == size_2 else nums2[mid_bigger]
+            if smallMid == 0:
+                maxLeftA = float("-inf")
+            else:
+                maxLeftA = smallerArray[smallMid - 1]
 
-            # [ maxLeftA ]    [ minRightA ]
-            # [ maxLeftB ]    [ minRightB ]
+            if smallMid == len(smallerArray):
+                minRightA = float("inf")
+            else:
+                minRightA = smallerArray[smallMid]
+
+            if mid_bigger == 0:
+                maxLeftB = float("-inf")
+            else:
+                maxLeftB = biggerArray[mid_bigger - 1]
+            if mid_bigger == len(biggerArray):
+                minRightB = float("inf")
+            else:
+                minRightB = biggerArray[mid_bigger]
             if maxLeftA <= minRightB and maxLeftB <= minRightA:
                 if (size_1 + size_2) % 2 == 0:
                     maxLeft = max(maxLeftA, maxLeftB)
@@ -71,6 +41,11 @@ class SolutionBS:
                 else:
                     return max(maxLeftA, maxLeftB)
             elif maxLeftA > minRightB:
-                right = mid_smaller - 1
+                right = smallMid - 1
             else:
-                left = mid_smaller + 1
+                left = smallMid + 1
+
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        if len(nums1) > len(nums2):
+            return self._findMedian(nums2, nums1)
+        return self._findMedian(nums1, nums2)
