@@ -1,37 +1,30 @@
-import bisect
-import collections
-from typing import List
-
-
-class Data:
-    def __init__(self, time: int, value: str):
-        self.time = time
-        self.value = value
+from bisect import bisect_right
 
 class TimeMap:
-
     def __init__(self):
-        self._timemap = collections.defaultdict(List[Data])
+        self._data = {}
+        return
 
     def set(self, key: str, value: str, timestamp: int) -> None:
-        data = Data(timestamp, value)
-        if key not in self._timemap:
-            self._timemap[key] = []
-        bisect.insort_right(self._timemap[key], data, key=lambda d: d.time)
+        if key not in self._data:
+            self._data[key] = []
+        self._data[key].append((timestamp, value))
 
     def get(self, key: str, timestamp: int) -> str:
-        if not self._timemap[key]:
-            return ''
-        data = Data(timestamp, '')
-        index = bisect.bisect_right(self._timemap[key], timestamp, key=lambda d: d.time)
-        if index == 0:
-            return ''
-        return self._timemap[key][index-1].value
+        if key not in self._data:
+            return ""
+        index = bisect_right(self._data[key], timestamp, key=lambda x: x[0]) - 1
+        if index < 0:
+            return ""
+        if self._data[key][index][0] > timestamp:
+            return ""
+        return self._data[key][index][1]
 
 
-if __name__ == '__main__':
-    timeMap = TimeMap()
-    timeMap.set('foo', 'b', 1)
-    timeMap.set('foo', 'a', 1)
-    a = timeMap.get('foo', 1)
-    print(a)
+
+
+
+
+
+
+
