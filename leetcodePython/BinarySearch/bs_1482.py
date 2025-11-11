@@ -2,32 +2,33 @@ from typing import List
 
 
 class Solution:
-    @staticmethod
-    def _getBouquet(bloom_days: List[int], day: int, k: int) ->int:
-        adjacent = 0
-        bouquet = 0
-        for bloom in bloom_days:
-            if bloom > day:
-                adjacent = 0
+    def _canGetBouquets(self, bloomDay: List[int], bouquets: int, adjacentFlowers: int, days: int) -> bool:
+        actualBouquets = 0
+        adjacentCount = 0
+        for bloom in bloomDay:
+            if bloom > days:
+                adjacentCount = 0
             else:
-                adjacent += 1
-            if adjacent == k:
-                bouquet += 1
-                adjacent = 0
-        return bouquet
+                adjacentCount += 1
+            if adjacentCount == adjacentFlowers:
+                actualBouquets += 1
+                adjacentCount = 0
+            if actualBouquets >= bouquets:
+                return True
+        return False
 
-    def minDays(self, bloomDay: List[int], m: int, k: int) -> int:
-        need_flowers = m * k
+    def minDays(self, bloomDay: List[int], bouquets: int, adjacentFlowers: int) -> int:
+        need_flowers = bouquets * adjacentFlowers
         if need_flowers > len(bloomDay):
             return -1
-        left = min(bloomDay)
-        right = max(bloomDay)
 
-        while left < right:
-            mid_day = (left + right) // 2
-            if self._getBouquet(bloomDay, mid_day, k) < m:
-                left = mid_day + 1
+        minDays, maxDays = min(bloomDay), max(bloomDay)
+        answerDays = -1
+        while minDays <= maxDays:
+            guessDays = (minDays + maxDays) // 2
+            if self._canGetBouquets(bloomDay, bouquets, adjacentFlowers, guessDays):
+                answerDays = guessDays
+                maxDays = guessDays - 1
             else:
-                right = mid_day
-        return left
-
+                minDays = guessDays + 1
+        return answerDays

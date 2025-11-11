@@ -1,34 +1,40 @@
 from typing import List
 
 
-class SolutionFullDFS:
-    def _dfs_check_surround(self, board: List[List[str]], visited: List[List[bool]], region: List[tuple[int, int]],
-                            row: int, col: int) -> bool:
-        if row < 0 or col < 0:
-            return True
-        if row >= len(board) or col >= len(board[0]):
-            return True
-        if visited[row][col] or board[row][col] == "X":
-            visited[row][col] = True
-            return True
+class Solution:
+    _NOT_SURROUND_MASK = "@"
+    _DIRECTIONS = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
-        visited[row][col] = True
-        surround = True
-        region.append((row, col))
-        if row == 0 or col == 0 or row == len(board) - 1 or col == len(board[0]) - 1:
-            surround = False
-        surround &= self._dfs_check_surround(board, visited, region, row - 1, col)
-        surround &= self._dfs_check_surround(board, visited, region, row + 1, col)
-        surround &= self._dfs_check_surround(board, visited, region, row, col - 1)
-        surround &= self._dfs_check_surround(board, visited, region, row, col + 1)
-        return surround
+    @staticmethod
+    def _isValid(row, col, board: List[List[str]]) -> bool:
+        if row < 0 or row > len(board) -1:
+            return False
+        if col < 0 or col > len(board[0]) -1:
+            return False
+        return board[row][col] == "O"
+
+    def _dfsGetEdgeComponent(self, row, col, board: List[List[str]]):
+        if not self._isValid(row, col, board):
+            return
+        board[row][col] = self._NOT_SURROUND_MASK
+        for dirR, dirC in self._DIRECTIONS:
+            newRow, newCol = row+dirR, col+dirC
+            self._dfsGetEdgeComponent(newRow, newCol, board)
 
     def solve(self, board: List[List[str]]) -> None:
-        visited = [[False] * len(board[i]) for i in range(len(board))]
+        for row in range(len(board)):
+            self._dfsGetEdgeComponent(row, 0, board)
+            self._dfsGetEdgeComponent(row, len(board[0])-1, board)
+        for col in range(len(board[0])):
+            self._dfsGetEdgeComponent(0, col, board)
+            self._dfsGetEdgeComponent(len(board)-1, col, board)
 
         for row in range(len(board)):
             for col in range(len(board[0])):
-                region = []
-                if self._dfs_check_surround(board, visited, region, row, col):
-                    for r, c in region:
-                        board[r][c] = "X"
+                if board[row][col] == "O":
+                    board[row][col] = "X"
+
+        for row in range(len(board)):
+            for col in range(len(board[0])):
+                if board[row][col] == self._NOT_SURROUND_MASK:
+                    board[row][col] = "O"
