@@ -1,4 +1,3 @@
-import heapq
 from typing import List
 
 
@@ -15,22 +14,30 @@ class Solution:
 
     def maxProfit(self, inventory: List[int], orders: int) -> int:
         left, right = 0, max(inventory)
-        base_price = right
+        basePrice = right
         while left < right:
-            base_price = (left + right) // 2
-            if self._sold_balls(inventory, base_price) > orders:
-                left = base_price + 1
+            guess = (left + right) // 2
+            if self._sold_balls(inventory, guess) > orders:
+                left = guess + 1
             else:
-                right = base_price
+                right = guess
+                basePrice = guess
 
-        sold_balls = 0
+        soldBalls = 0
         total = 0
         for price in inventory:
-            if price > right:
-                sold_balls += price - right
-                bigger_price_sum = (price + right + 1) * (price - right) // 2
-                total += bigger_price_sum
+            if price > basePrice:
+                soldBalls += price - basePrice
+                biggerPriceSum = (price + basePrice + 1) * (price - basePrice) // 2
+                total += biggerPriceSum
 
-        if sold_balls < orders:
-            total += (orders - sold_balls) * right
+        if soldBalls < orders:
+            total += (orders - soldBalls) * basePrice
         return total % 1_000_000_007
+
+
+
+
+
+
+
