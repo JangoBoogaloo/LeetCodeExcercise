@@ -1,17 +1,16 @@
-import math
+from math import sqrt
 
 
 class Solution:
     def judgeSquareSum(self, c: int) -> bool:
-        right = int(math.sqrt(c))
-        left = 0
-        while left <= right:
-            curr = left * left + right * right
-            if curr < c:
-                left += 1
-            elif curr > c:
-                right -= 1
+        maxNum = int(sqrt(c))
+        minNum = 0
+        while minNum <= maxNum:
+            sqrSum = minNum * minNum + maxNum * maxNum
+            if sqrSum < c:
+                minNum += 1
+            elif sqrSum > c:
+                maxNum -= 1
             else:
                 return True
-
         return False
