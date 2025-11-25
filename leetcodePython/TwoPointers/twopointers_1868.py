@@ -39,3 +39,12 @@ class Solution:
 
 
 
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("encode1, encode2, expect",
+[
+    ([[1, 2], [2, 1], [3, 2]], [[6, 2], [3, 2], [2, 1]], [[6, 3], [9, 1], [6, 1]]),
+])
+def test_findRLEArray(encode1, encode2, expect):
+    assert target.findRLEArray(encode1, encode2) == expect
