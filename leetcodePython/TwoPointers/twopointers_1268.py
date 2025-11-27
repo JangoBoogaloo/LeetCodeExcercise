@@ -26,3 +26,17 @@ class Solution:
 
 
 
+
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("products, searchWord, expect",
+[
+    (["a", "ab", "ac"], "a", [["a", "ab", "ac"]]),
+    (["aa", "ab", "ac"], "aa", [["aa", "ab", "ac"], ["aa"]]),
+    (["ad", "aa", "ab", "ac"], "aa", [["aa", "ab", "ac"], ["aa"]]),
+    (["aad", "aa", "aaa", "aab", "aac"], "aaa", [["aa", "aaa", "aab"], ["aa", "aaa", "aab"], ["aaa"]]),
+    (["aad", "aa", "aaa", "aab", "aaac"], "aaa", [["aa", "aaa", "aaac"], ["aa", "aaa", "aaac"], ["aaa", "aaac"]]),
+])
+def test_suggestedProducts(products, searchWord, expect):
+    assert target.suggestedProducts(products, searchWord) == expect
