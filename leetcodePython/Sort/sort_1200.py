@@ -1,18 +1,17 @@
 from typing import List
-
+from math import inf
 
 class Solution:
     def minimumAbsDifference(self, arr: List[int]) -> List[List[int]]:
         arr.sort()
-        minDiff = float('inf')
-        result = []
-
-        for i in range(len(arr) - 1):
-            diff = arr[i + 1] - arr[i]
-
-            if diff < minDiff:
-                minDiff = diff
-                result = [[arr[i], arr[i + 1]]]
-            elif diff == minDiff:
-                result.append([arr[i], arr[i + 1]])
-        return result
+        minDiff = inf
+        answer = []
+        for i in range(1, len(arr)):
+            currDiff = arr[i] - arr[i-1]
+            if currDiff > minDiff:
+                continue
+            if currDiff < minDiff:
+                minDiff = currDiff
+                answer = []
+            answer.append([arr[i-1], arr[i]])
+        return answer
