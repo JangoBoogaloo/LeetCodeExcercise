@@ -19,7 +19,7 @@ class Solution:
         uf = UF(sidePoints * sidePoints)
         self._registerBorderPoints(sidePoints, uf)
         uf.registerParent(0, -1)
-        components = 1
+        regions = 1
         for row in range(len(grid)):
             for col in range(len(grid)):
                 if grid[row][col] == '/':
@@ -31,8 +31,8 @@ class Solution:
                 else:
                     continue
                 if not uf.union(firstPoint, secondPoint):
-                    components += 1
-        return components
+                    regions += 1
+        return regions
 
 class UF:
     def __init__(self, size: int):
