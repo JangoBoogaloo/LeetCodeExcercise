@@ -25,3 +25,14 @@ class Solution:
 
 
 
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("n, restrictions, requests, expect",
+[
+    (3, [[0, 1]], [[0, 1], [1, 2]], [False, True]),
+    (3, [[0, 1]], [[0, 2], [1, 2]], [True, False]),
+    (4, [[2, 3]], [[0, 1], [1, 2], [0, 3]], [True, True, False]),
+])
+def test_friendRequests(n, restrictions, requests, expect):
+    assert target.friendRequests(n, restrictions, requests) == expect
