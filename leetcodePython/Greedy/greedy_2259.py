@@ -9,3 +9,17 @@ class Solution:
                     break
         digits[digitIndex] = ""
         return "".join(digits)
+
+
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("number, digit, expect",
+[
+    ("557", "5", "57"),
+    ("56565", "5", "6565"),
+    ("54565", "5", "5465"),
+    ("54545", "5", "5454")
+])
+def test_removeDigit(number, digit, expect):
+    assert target.removeDigit(number, digit) == expect
