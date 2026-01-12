@@ -19,3 +19,15 @@ class Solution:
 
 
 
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("nums, expects",
+[
+    ([1, 2], [1]),
+    ([1, 2, 1], [1]),
+    ([1, 2, 1, 2, 3, 2], [1, 4]),
+])
+def test_findPeakElement(nums, expects):
+    result = target.findPeakElement(nums)
+    assert result in expects
