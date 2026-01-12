@@ -24,3 +24,15 @@ class Solution:
 
 
 
+
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("nums, queries, expect",
+[
+    ([1, 2], [1], [1]),
+    ([1, 2], [2], [1]),
+    ([1, 2, 3], [2], [2]),
+])
+def test_minOperations(nums, queries, expect):
+    assert target.minOperations(nums, queries) == expect
