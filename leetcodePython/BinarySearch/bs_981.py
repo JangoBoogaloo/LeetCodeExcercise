@@ -28,3 +28,27 @@ class TimeMap:
 
 
 
+import pytest
+
+@pytest.mark.parametrize("setData, getData, expect",
+[
+    ([("KeyA", "ValueA", 10),
+      ("KeyA", "ValueB", 20),
+      ("KeyA", "ValueC", 30)], ("KeyA", 19), "ValueA"),
+    ([("KeyA", "ValueA", 10),
+      ("KeyA", "ValueB", 20),
+      ("KeyA", "ValueC", 30)], ("KeyA", 20), "ValueB"),
+    ([("KeyA", "ValueA", 10),
+      ("KeyA", "ValueB", 20),
+      ("KeyA", "ValueC", 30)], ("KeyA", 9), ""),
+    ([("KeyA", "ValueA", 10),
+      ("KeyA", "ValueB", 20),
+      ("KeyA", "ValueC", 30)], ("KeyB", 30), "")
+
+])
+def test_checkType(setData, getData, expect):
+    tm = TimeMap()
+    for key, value, time in setData:
+        tm.set(key, value, time)
+    getKey, getTime = getData
+    assert tm.get(getKey, getTime) == expect
