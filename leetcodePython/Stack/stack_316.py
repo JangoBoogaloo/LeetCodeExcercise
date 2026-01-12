@@ -14,3 +14,14 @@ class Solution:
 
 
 
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("s, expect",
+[
+    ("ba", "ba"),
+    ("bab", "ab"),
+    ("defda", "defa"),
+])
+def test_removeDuplicateLetters(s, expect):
+    assert target.removeDuplicateLetters(s) == expect
