@@ -20,3 +20,15 @@ class Solution:
 
 
 
+
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("gas, cost, expect",
+[
+    ([2, 1], [1, 2], 0),
+    ([1, 2],[2, 1], 1),
+    ([2, 1, 1], [1, 2, 2], -1),
+])
+def test_canCompleteCircuit(gas, cost, expect):
+    assert target.canCompleteCircuit(gas, cost) == expect
