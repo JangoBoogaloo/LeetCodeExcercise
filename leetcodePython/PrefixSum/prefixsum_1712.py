@@ -28,3 +28,17 @@ class Solution:
 
 
 
+
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("nums, expect",
+[
+    ([10, 1, 2], 0),
+    ([1, 1, 1], 1),
+    ([1, 1, 1, 3], 2),
+    ([2, 1, 2, 3], 1), #2 | 1, 2 | 3
+
+])
+def test_checkType(nums, expect):
+    assert target.waysToSplit(nums) == expect
