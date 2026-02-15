@@ -37,3 +37,16 @@ class Solution:
 
 
 
+import pytest
+
+target = Solution()
+
+@pytest.mark.parametrize("nums, distance, expect",
+[
+    ([1, 2, 3, None, 4], 3, 1),
+    ([1, 2, 3, 4, 5, 6, 7], 3, 2),
+    ([7, 1, 4, 6, None, 5, 3, None, None, None, None, None, 2], 3, 1)
+])
+def test_countPairs(nums, distance, expect):
+    tree = TreeNode.deserialize(nums)
+    assert target.countPairs(tree, distance) == expect
