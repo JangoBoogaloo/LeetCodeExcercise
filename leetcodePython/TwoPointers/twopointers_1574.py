@@ -24,3 +24,17 @@ class Solution:
 
 
 
+
+import pytest
+target = Solution()
+
+@pytest.mark.parametrize("arr, expect",
+[
+    ([1, 2], 0), ([1, 1], 0),
+    ([2, 1], 1),
+    ([1, 2, 1, 1], 1),
+    ([1, 2, 3, 2, 2, 1, 1, 1], 4),
+    ([1, 2, 3, 2, 2, 1, 2, 3], 4)
+])
+def test_findLengthOfShortestSubarray(arr, expect):
+    assert target.findLengthOfShortestSubarray(arr) == expect
